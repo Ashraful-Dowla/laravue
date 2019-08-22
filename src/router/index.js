@@ -1,0 +1,138 @@
+import Vue from 'vue'
+import Router from 'vue-router'
+//import HelloWorld from '@/components/HelloWorld'
+import App from '@/App'
+/*===============Admin===============*/
+import Sidebar from '@/Sidebar'
+import Dashboard from '@/components/Pages/Admin/Dashboard'
+import Doctors from '@/components/Pages/Admin/Doctors/Doctors'
+import AddDoctor from '@/components/Pages/Admin/Doctors/Add_doctors'
+import EditDoctor from '@/components/Pages/Admin/Doctors/Edit_doctors'
+import Schedule from '@/components/Pages/Admin/Doctors/Schedule'
+import AddSchedule from '@/components/Pages/Admin/Doctors/Add_schedule'
+import EditSchedule from '@/components/Pages/Admin/Doctors/Edit_schedule'
+import DoctorProfile from '@/components/Pages/Admin/Doctors/Profile'
+import EditProfile from '@/components/Pages/Admin/Doctors/Edit_profile'
+import Patients from '@/components/Pages/Admin/Patients/Patients'
+import AddPatients from '@/components/Pages/Admin/Patients/Add_patients'
+import EditPatients from '@/components/Pages/Admin/Patients/Edit_patients'
+import Appointments from '@/components/Pages/Admin/Appointments/Appointments'
+import AddAppointments from '@/components/Pages/Admin/Appointments/Add_appointment'
+import EditAppointments from '@/components/Pages/Admin/Appointments/Edit_appointments'
+import Departments from '@/components/Pages/Admin/Departments/Departments'
+import AddDepartments from '@/components/Pages/Admin/Departments/Add_departments'
+import EditDepartments from '@/components/Pages/Admin/Departments/Edit_departments'
+import Employees from '@/components/Pages/Admin/Employee/Employees'
+import AddEmployees from '@/components/Pages/Admin/Employee/Add_employee'
+import EditEmployees from '@/components/Pages/Admin/Employee/Edit_employees'
+import Attendance from '@/components/Pages/Admin/Employee/Attendance'
+import Leaves from '@/components/Pages/Admin/Employee/Leave'
+import EditLeaves from '@/components/Pages/Admin/Employee/Edit_leaves'
+import Holidays from '@/components/Pages/Admin/Employee/Holidays'
+import Settings from '@/components/Pages/Admin/Others/Settings'
+import AdminProfile from '@/components/Pages/Admin/Profile/Admin_Profile'
+import EditAdminProfile from '@/components/Pages/Admin/Profile/Edit_Admin_Profile'
+
+/*===============Doctor===============*/
+import Doctor from '@/components/Pages/Doctors/SidebarDoctor'
+import DashboardDoctor from '@/components/Pages/Doctors/Dashboard'
+import TodayPatientList from '@/components/Pages/Doctors/Patient_list/TodayPatientList'
+import PatientPreviousRecords from '@/components/Pages/Doctors/Patient_previous_records/PreviousRecords'
+import SeeDoctorList from '@/components/Pages/Doctors/See_Doctors_List/See_Doctor_List'
+import SeeAllPatientList from '@/components/Pages/Doctors/Patient_list/See_All_Patient_List'
+import Prescription from '@/components/Pages/Doctors/Prescription/Prescription'
+import NextAppointment from '@/components/Pages/Doctors/NextAppointment/Next_Appointment'
+import DocDoctorProfile from '@/components/Pages/Doctors/Profile/Doctor_Profile'
+import EditDocDoctorProfile from '@/components/Pages/Doctors/Profile/Edit_Doctor_Profile'
+
+Vue.use(Router)
+
+export default new Router({
+  routes: [
+    {
+    	path: '/',
+    	component: App,
+    	name: 'Home'
+    },
+    {
+    	path: '/admin', //sidebar
+    	component: Sidebar,
+    	name: 'admin',
+    	children: [
+
+    		{path: '', component: Dashboard,name: 'dashboard'},
+
+            /*=============Admin Profile==============*/
+            {path: '/admin/admin_profile', component: AdminProfile,name: 'admin_profile'},
+            {path: '/admin/edit_admin_profile', component: EditAdminProfile,name: 'edit_admin_profile'},
+
+            /*==============Doctors============*/
+            {path: '/admin/doctors', component: Doctors, name: 'doctors'},
+            {path: '/admin/doctors/adddoctor', component: AddDoctor, name: 'adddoctor'},
+            {path: '/admin/doctors/editdoctor', component: EditDoctor, name: 'editdoctor'},
+            {path: '/admin/doctors/profile', component: DoctorProfile, name: 'doctorProfile'},
+            {path: '/admin/doctors/edit_profile', component: EditProfile, name: 'editProfile'},
+
+            /*==============Schedule============*/
+            {path: '/admin/doctors_schedule', component: Schedule, name: 'schedule'},
+            {path: '/admin/doctors_schedule/addschedule', component: AddSchedule, name: 'addschedule'},
+            {path: '/admin/doctors_schedule/editschedule', component: EditSchedule, name: 'editschedule'},
+
+            /*==============Patients============*/
+            {path: '/admin/patients', component: Patients, name: 'patients'},
+            {path: '/admin/patients/add_patients', component: AddPatients, name: 'addPatients'},
+            {path: '/admin/patients/edit_patients', component: EditPatients, name: 'editPatients'},
+
+            /*==============Appointments============*/
+            {path: '/admin/appointments', component: Appointments, name: 'appointments'},
+            {path: '/admin/appointments/add_appointments', component: AddAppointments, name: 'addAppointments'},
+            {path: '/admin/appointments/edit_appointments', component: EditAppointments, name: 'editAppointments'},
+
+            /*==============Departments============*/
+            {path: '/admin/departments', component: Departments, name: 'departments'},  
+            {path: '/admin/departments/add_departments', component: AddDepartments, name: 'addDepartments'},
+            {path: '/admin/departments/edit_departments', component: EditDepartments, name: 'editDepartments'},
+
+            /*==============Employee============*/
+            {path: '/admin/employees', component: Employees, name: 'employees'}, 
+            {path: '/admin/employees/add_employees', component: AddEmployees, name: 'addAmployees'}, 
+            {path: '/admin/employees/edit_employees', component: EditEmployees, name: 'editAmployees'}, 
+            {path: '/admin/employees/attendance', component: Attendance, name: 'attendance'}, 
+            {path: '/admin/employees/leaves', component: Leaves, name: 'leaves'}, 
+            {path: '/admin/employees/edit_leaves', component: EditLeaves, name: 'editLeaves'}, 
+            {path: '/admin/holidays', component: Holidays, name: 'holidays'}, 
+
+            /*==============Others============*/    
+            {path: '/admin/settings', component: Settings, name: 'settings'},
+    	]
+    },
+    {
+        path: '/doctor',
+        component: Doctor,
+        children: [
+            {path: '', component: DashboardDoctor,name: 'dashboardDoctor'},
+
+            /*=============Doctor Profile===============*/
+            {path: '/doctor/doctor_profile', component: DocDoctorProfile,name: 'doctor_profile'},
+            {path: '/doctor/edit_doctor_profile', component: EditDocDoctorProfile,name: 'edit_doctor_profile'},
+
+            /*=============Today Patient List============*/
+            {path: '/doctor/today_patients_list', component: TodayPatientList,name: 'today_patients_list'},
+            {path: '/doctor/see_all_patient_list', component: SeeAllPatientList,name: 'see_all_patient_list'},
+
+            /*=============Patient Previous Records============*/
+            {path: '/doctor/patient_previous_records', component: PatientPreviousRecords,name: 'patient_previous_records'},
+
+            /*=============See all doctor list============*/
+            {path: '/doctor/see_all_doctors_list', component: SeeDoctorList,name: 'see_all_doctors_list'},
+
+            /*=============Prescription============*/
+            {path: '/doctor/prescription', component: Prescription,name: 'prescription'},
+
+            /*=============Next Appointment============*/
+            {path: '/doctor/next_appointment', component: NextAppointment,name: 'next_appointment'},            
+        ]
+    }
+  ],
+  mode: 'history'
+})
