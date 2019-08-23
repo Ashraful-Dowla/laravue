@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 //import HelloWorld from '@/components/HelloWorld'
 import App from '@/App'
+
 /*===============Admin===============*/
 import Sidebar from '@/Sidebar'
 import Dashboard from '@/components/Pages/Admin/Dashboard'
@@ -44,6 +45,19 @@ import Prescription from '@/components/Pages/Doctors/Prescription/Prescription'
 import NextAppointment from '@/components/Pages/Doctors/NextAppointment/Next_Appointment'
 import DocDoctorProfile from '@/components/Pages/Doctors/Profile/Doctor_Profile'
 import EditDocDoctorProfile from '@/components/Pages/Doctors/Profile/Edit_Doctor_Profile'
+
+
+/*===============Patient=================*/
+
+import Dash from '@/components/Pages/patient/leftSideBar'
+import DashboardPatient from '@/components/Pages/patient/Dashboard'
+import Appointment from '@/components/Pages/patient/appointment'
+import TestIssued from '@/components/Pages/patient/test_issued'
+import LastVisit from '@/components/Pages/patient/last_visit'
+import PrescriptionView from '@/components/Pages/patient/prescription_view'
+import ReportOverview from '@/components/Pages/patient/report_overview'
+import BillIssued from '@/components/Pages/patient/bill_issued'
+import EmergencyStop from '@/components/Pages/patient/emergency_stop'
 
 Vue.use(Router)
 
@@ -131,6 +145,53 @@ export default new Router({
 
             /*=============Next Appointment============*/
             {path: '/doctor/next_appointment', component: NextAppointment,name: 'next_appointment'},            
+        ]
+    },
+    {
+        path: '/patient',
+        name: 'Dash',
+        component: Dash,
+        children: [
+            {
+                path: '',
+                name: 'DashboardPatient',
+                component: DashboardPatient
+            },
+            {
+                path:'appointment',
+                name: 'Appointment',
+                component: Appointment
+            },
+            {
+                path: 'test_issued',
+                name: 'TestIssued',
+                component: TestIssued
+            },
+            {
+                path:'last_visit',
+                name: 'LastVisit',
+                component: LastVisit
+            },
+            {
+                path: 'prescription_view',
+                name: 'PrescriptionView',
+                component: PrescriptionView
+            },
+            {
+                path: 'report_overview',
+                name: 'ReportOverview',
+                component: ReportOverview
+            },
+            {
+                path: 'bill_issued',
+                name: 'BillIssued',
+                component: BillIssued
+            },
+            {
+                path: 'emergency_stop',
+                name: 'EmergencyStop',
+                component: EmergencyStop
+            }
         ]
     }
   ],
