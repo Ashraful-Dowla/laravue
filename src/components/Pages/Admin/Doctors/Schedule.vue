@@ -7,7 +7,7 @@
 						<h4 class="page-title">Schedule</h4>
 					</div>
 					<div class="col-sm-8 col-9 text-right m-b-20">
-						<a class="btn btn btn-primary btn-rounded float-right fa fa-plus"><router-link to="/admin/doctors_schedule/addschedule" style="color: #fff">Add Schedule</router-link></a>
+						<router-link class="btn  btn-raised bg-blue-grey waves-effect fa fa-plus" to="/admin/doctors_schedule/addschedule"><strong>Add Schedule</strong></router-link>
 					</div>
 				</div>
 				<div class="row">

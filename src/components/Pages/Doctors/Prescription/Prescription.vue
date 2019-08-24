@@ -1,6 +1,6 @@
 <template>
 	<div class="page-wrapper">
-		<div class="container" style="margin-top: 50px;margin-left: 50px;">
+		<div class="container" style="margin-top: 25px;margin-left: 50px;">
 			<div class="row">
 				<div class="col-md-10">
 					<h3>Prescription</h3>
@@ -8,24 +8,32 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-5">
-					<h4>Patient ID</h4>
-					<input type="text" class="form-control" placeholder="PT-XXXXXXXXX"><br>
-				</div>
-				<div class="col-md-5">
-					<h4>Testes</h4>
-					<select class="form-control">
-						<option>X-RAY</option>
-						<option>ECG</option>
-						<option>OMR</option>
-						<option>ALTASONOGRAPH</option>
-					</select>
-				</div>
+				<div class="col-sm-5">
+                    <div class="form-group">
+                    	<p><b>Patient ID</b></p>
+                        <div class="borderBottom">
+                            <input type="text" class="form-control" placeholder="PT-XXXXXXXX" />
+                        </div>
+                    </div>
+                </div>
+				<div class="col-sm-5">
+					<div class="form-group">
+	                    <p><b>Testes</b></p>
+	                    <div class="borderBottom">
+		                    <select class="form-control show-tick">
+		                        <option>X-RAY</option>
+								<option>ECG</option>
+								<option>OMR</option>
+								<option>ALTASONOGRAPH</option>
+		                    </select>
+		                </div>
+	                </div>
+            	</div>
 			</div>
 			<div class="row">
 				<div class="col-md-10">
 					<ckeditor :config="editorConfig" type="classic" v-model="editorText">CKEDITOR</ckeditor><br>
-					<button class="btn btn-secondary" style="float: right;">Prescribe</button>
+					<button style="float: right;" type="button" class="btn  btn-raised bg-blue-grey waves-effect"><strong>PRESCRIVE</strong></button>
 				</div>
 			</div>
 		</div>
@@ -40,3 +48,8 @@
 		}
 	}
 </script>
+<style scoped>
+	.borderBottom{
+		border-bottom: 2px solid #607D8B;
+	}
+</style>

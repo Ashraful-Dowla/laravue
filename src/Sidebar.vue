@@ -40,7 +40,7 @@
 						<ul>
 							<li class="menu-title">Main</li>
 							<li>
-								<a class="fa fa-dashboard"><router-link to=""><span>Dashboard</span></router-link></a>
+								<a class="fa fa-dashboard"><router-link to="/admin"><span>Dashboard</span></router-link></a>
 							</li>
 							<li>
 								<a class="fa fa-user-md"><router-link to="/admin/doctors"><span>Doctors</span></router-link></a>

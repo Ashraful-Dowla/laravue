@@ -1,22 +1,26 @@
 <template>
 	<div class="page-wrapper">
-		<div class="container" style="margin-top: 50px;margin-left: 50px;">
+		<div class="container body" style="margin-top: 25px;margin-left: 50px;">
 			<div class="row">
-				<div class="col-md-5">
-					<form>
-						<div class="form-group">
-						    <h3>Department</h3>
-						    <select class="form-control">
-						    	<option>Cardiology</option>
-						    	<option>Neurology</option>
-						    	<option>Pathodology</option>
-						    	<option>Sergiology</option>
-						    	<option>Somthinglogy</option>
-						    </select><br>
-						    <button style="float: right;" type="button" class="btn btn-secondary btn-sm">View Doctors</button>
-			   		    </div>
-			   		</form>
+				<div class="col-md-10">
+					<h3>See All Department's Doctors</h3>
+					<hr>
 				</div>
+			</div>
+			<div class="row clearfix">
+                <div class="col-sm-5">
+					<div class="form-group">
+	                    <p><b>Select Department</b></p>
+	                    <div class="borderBottom">
+		                    <select class="form-control show-tick">
+		                        <option>Sergiology</option>
+		                        <option>Nurology</option>
+		                        <option>Cardiology</option>
+		                        <option>Pathodology</option>
+		                    </select>
+		                </div>
+	                </div>
+            	</div>
 			</div><br>
 			<div class="row">
 				<div class="col-md-10 border">
@@ -76,9 +80,12 @@
 		</div>
 	</div>
 </template>
-<style>
+<style scoped>
 	.border{
 		border: 1px solid black;
 		border-radius: 3px;
+	}
+	.borderBottom{
+		border-bottom: 2px solid #607D8B;
 	}
 </style>

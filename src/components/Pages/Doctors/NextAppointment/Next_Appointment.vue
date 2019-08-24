@@ -1,6 +1,6 @@
 <template>
 	<div class="page-wrapper">
-		<div class="container" style="margin-top: 50px;margin-left: 50px;">
+		<div class="container" style="margin-top: 25px;margin-left: 50px;">
 			<div class="row">
 				<div class="col-md-10">
 					<h3>Next Appointment</h3>
@@ -8,21 +8,29 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-4">
-					<h3>Enter Duration</h3>
-					<input type="text" class="form-control" v-model="textBox" placeholder="Eneter Time Duration..."><br>
-					<h4 class="dangerr">{{ spliting }}</h4>
-				</div>
-				<div class="col-md-4">
-					<h3>Patient ID</h3>
-					<select class="form-control">
-						<option>PT-001</option>
-						<option>PT-002</option>
-						<option>PT-003</option>
-						<option>PT-004</option>
-						<option>PT-005</option>
-					</select>
-				</div>
+				<div class="col-sm-5">
+                    <div class="form-group">
+                    	<p><b>Enter Duration</b></p>
+                        <div class="borderBottom">
+                            <input type="text" class="form-control" v-model="textBox" placeholder="Ex: 20 Days/2 Months..." />
+                        </div>
+                        <h4 class="dangerr">{{ spliting }}</h4>
+                    </div>
+                </div>
+				<div class="col-sm-5">
+					<div class="form-group">
+	                    <p><b>Patient ID</b></p>
+	                    <div class="borderBottom">
+		                    <select class="form-control show-tick">
+		                        <option>PT-001</option>
+								<option>PT-002</option>
+								<option>PT-003</option>
+								<option>PT-004</option>
+								<option>PT-005</option>
+		                    </select>
+		                </div>
+	                </div>
+            	</div>
 			</div>
 			<div class="row">
 				<div class="col-md-10">
@@ -135,7 +143,7 @@
 			</div><br>
 			<div class="row">
 				<div v-if="tableInfoDay || tableInfoMonth" class="col-md-10">
-					<button class="btn btn-secondary" style="float: right">Submit</button>
+					<button style="float: right;" type="button" class="btn  btn-raised bg-blue-grey waves-effect"><strong>SUBMIT</strong></button>
 				</div>
 			</div>
 		</div>
@@ -194,5 +202,8 @@
 		border-radius: 3px;
 		min-height:250px;
 		background-color: #E8EAED;
+	}
+	.borderBottom{
+		border-bottom: 2px solid #607D8B;
 	}
 </style>

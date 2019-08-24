@@ -1,16 +1,14 @@
 <template>
 	<div class="page-wrapper">
-		<div class="content">
+		<div class="container" style="margin-top: 25px;margin-left: 50px;">
 			<div class="row">
-				<div class="col-sm-4 col-3">
-					<h4 class="page-title">All Patients</h4>
+				<div class="col-md-10">
+					<h3> See All Patients</h3>
+					<hr>
 				</div>
-				<!--<div class="col-sm-8 col-9 text-right m-b-20">
-					<a class="btn btn-primary float-right btn-rounded fa fa-plus"><router-link to="/admin/employees/add_employees" style="color:white;">Add Employee</router-link></a>
-				</div>-->
 			</div>
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-10">
 					<table class="table table-striped table-dark">
 						<thead style="color: white;">
 							<tr>

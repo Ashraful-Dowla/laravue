@@ -71,7 +71,6 @@ export default new Router({
     {
     	path: '/admin', //sidebar
     	component: Sidebar,
-    	name: 'admin',
     	children: [
 
     		{path: '', component: Dashboard,name: 'dashboard'},
@@ -149,7 +148,6 @@ export default new Router({
     },
     {
         path: '/patient',
-        name: 'Dash',
         component: Dash,
         children: [
             {

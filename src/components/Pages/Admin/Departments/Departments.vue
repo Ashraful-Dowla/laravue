@@ -7,7 +7,7 @@
 						<h4 class="page-title">Departments</h4>
 					</div>
 					<div class="col-sm-7 col-7 text-right m-b-30">
-						<a class="btn btn-primary btn-rounded fa fa-plus"><router-link to="/admin/departments/add_departments" style="color: #fff">Add Department</router-link></a>
+						<router-link class="btn  btn-raised bg-blue-grey waves-effect fa fa-plus" to="/admin/departments/add_departments"><strong>Add Department</strong></router-link>
 					</div>
 				</div>
 				<div class="row">

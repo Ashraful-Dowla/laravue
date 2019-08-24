@@ -1,188 +1,210 @@
 <template>
 	<div class="page-wrapper">
-		<div class="content">
-			<div class="row">
-				<div class="col-sm-12">
-					<h4 class="page-title">Edit Profile</h4>
-				</div>
-			</div>
-			<form>
-				<div class="card-box">
-					<h3 class="card-title">Basic Informations</h3>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="profile-img-wrap">
-								<img class="inline-block" src="assets/img/user.jpg" alt="user">
-								<div class="fileupload btn">
-									<span class="btn-text">edit</span>
-									<input class="upload" type="file">
-								</div>
-							</div>
-							<div class="profile-basic">
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group form-focus">
-											<label class="focus-label">First Name</label>
-											<input type="text" class="form-control floating" value="John">
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group form-focus">
-											<label class="focus-label">Last Name</label>
-											<input type="text" class="form-control floating" value="Doe">
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group form-focus">
-											<label class="focus-label">Birth Date</label>
-											<div class="cal-icon">
-												<input class="form-control floating datetimepicker" type="text" value="05/06/1985">
-											</div>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group form-focus select-focus">
-											<label class="focus-label">Gendar</label>
-											<select class="select form-control floating">
-												<option value="male selected">Male</option>
-												<option value="female">Female</option>
-											</select>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="card-box">
-					<h3 class="card-title">Contact Informations</h3>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group form-focus">
-								<label class="focus-label">Address</label>
-								<input type="text" class="form-control floating" value="4487 Snowbird Lane">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group form-focus">
-								<label class="focus-label">State</label>
-								<input type="text" class="form-control floating" value="New York">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group form-focus">
-								<label class="focus-label">Country</label>
-								<input type="text" class="form-control floating" value="United States">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group form-focus">
-								<label class="focus-label">Pin Code</label>
-								<input type="text" class="form-control floating" value="10523">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group form-focus">
-								<label class="focus-label">Phone Number</label>
-								<input type="text" class="form-control floating" value="631-889-3206">
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="card-box">
-					<h3 class="card-title">Education Informations</h3>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group form-focus">
-								<label class="focus-label">Institution</label>
-								<input type="text" class="form-control floating" value="Oxford University">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group form-focus">
-								<label class="focus-label">Subject</label>
-								<input type="text" class="form-control floating" value="Computer Science">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group form-focus">
-								<label class="focus-label">Starting Date</label>
-								<div class="cal-icon">
-									<input type="text" class="form-control floating datetimepicker" value="01/06/2002">
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group form-focus">
-								<label class="focus-label">Complete Date</label>
-								<div class="cal-icon">
-									<input type="text" class="form-control floating datetimepicker" value="31/05/2006">
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group form-focus">
-								<label class="focus-label">Degree</label>
-								<input type="text" class="form-control floating" value="BE Computer Science">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group form-focus">
-								<label class="focus-label">Grade</label>
-								<input type="text" class="form-control floating" value="Grade A">
-							</div>
-						</div>
-					</div>
-					<div class="add-more">
-						<a href="#" class="btn btn-primary"><i class="fa fa-plus"></i> Add More Institute</a>
-					</div>
-				</div>
-				<div class="card-box">
-					<h3 class="card-title">Experience Informations</h3>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group form-focus">
-								<label class="focus-label">Company Name</label>
-								<input type="text" class="form-control floating" value="Digital Devlopment Inc">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group form-focus">
-								<label class="focus-label">Location</label>
-								<input type="text" class="form-control floating" value="United States">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group form-focus">
-								<label class="focus-label">Job Position</label>
-								<input type="text" class="form-control floating" value="Web Developer">
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group form-focus">
-								<label class="focus-label">Period From</label>
-								<div class="cal-icon">
-									<input type="text" class="form-control floating datetimepicker" value="01/07/2007">
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group form-focus">
-								<label class="focus-label">Period To</label>
-								<div class="cal-icon">
-									<input type="text" class="form-control floating datetimepicker" value="08/06/2018">
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="add-more">
-						<a href="#" class="btn btn-primary"><i class="fa fa-plus"></i> Add More Experience</a>
-					</div>
-				</div>
-				<div class="text-center m-t-20">
-					<button class="btn btn-primary submit-btn" type="button">Save</button>
-				</div>
-			</form>
-		</div>
-	</div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h4 class="page-title">Edit Profile</h4>
+                    </div>
+                </div>
+                <form>
+                    <div class="card-box">
+                        <h3 class="card-title">Basic Informations</h3>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="profile-img-wrap">
+                                    <img class="inline-block" src="assets/img/user.jpg" alt="user">
+                                    <div class="fileupload btn">
+                                        <span class="btn-text">edit</span>
+                                        <input class="upload" type="file">
+                                    </div>
+                                </div>
+                                <div class="profile-basic">
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <div class="borderBottom">
+                                                    <input type="text" class="form-control" placeholder="FIRST NAME" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <div class="borderBottom">
+                                                    <input type="text" class="form-control" placeholder="LAST NAME" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <div class="borderBottom">
+                                                    <date-picker :bootstrap-styling="true" placeholder="BIRTHDAY" class="datepicker form-control"></date-picker>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>Select Gender</p>
+                                            <div class="demo-radio-button form-group">
+                                                <input name="group1" type="radio" id="radio_4" class="with-gap" />
+                                                <label for="radio_4">MALE</label>
+                                                <input name="group1" type="radio" id="radio_5" class="with-gap" />
+                                                <label for="radio_5">FEMALE</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-box">
+                        <h3 class="card-title">Contact Informations</h3>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="borderBottom">
+                                        <input type="text" class="form-control" placeholder="ADDRESS" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="borderBottom">
+                                        <input type="text" class="form-control" placeholder="DISTRICT" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="borderBottom">
+                                        <input type="text" class="form-control" placeholder="VILLAGE" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="borderBottom">
+                                        <input type="text" class="form-control" placeholder="POSTAL CODE" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="borderBottom">
+                                        <input type="text" class="form-control" placeholder="PHONE NUMBER" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-box">
+                        <h3 class="card-title">Education Informations</h3>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="borderBottom">
+                                        <input type="text" class="form-control" placeholder="INSTITUTION" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="borderBottom">
+                                        <input type="text" class="form-control" placeholder="SUBJECT" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="borderBottom">
+                                        <input type="text" class="form-control" placeholder="STARTING DATE" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="borderBottom">
+                                        <input type="text" class="form-control" placeholder="COMPLETE DATE" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="borderBottom">
+                                        <input type="text" class="form-control" placeholder="DEGREE" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="borderBottom">
+                                        <input type="text" class="form-control" placeholder="GRADE" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="add-more">
+                            <button class="btn  btn-raised bg-blue-grey waves-effect"><strong>ADD MORE INSTITUTION</strong></button>
+                        </div>
+                    </div>
+                    <div class="card-box">
+                        <h3 class="card-title">Experience Informations</h3>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <div class="borderBottom">
+                                        <input type="text" class="form-control" placeholder="COMPANY NAME" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="borderBottom">
+                                        <input type="text" class="form-control" placeholder="LOCATION" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="borderBottom">
+                                        <input type="text" class="form-control" placeholder="POSITION" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="borderBottom">
+                                        <input type="text" class="form-control" placeholder="PERIOD FROM" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <div class="borderBottom">
+                                        <input type="text" class="form-control" placeholder="PERIOD TO" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="add-more">
+                            <button class="btn  btn-raised bg-blue-grey waves-effect"><strong>ADD MORE EXPERIANCE</strong></button>
+                        </div>
+                    </div>
+                    <div class="text-center m-t-20">
+                    <button type="button" class="btn  btn-raised btn-success waves-effect">SAVE THE CHANGES</button>
+                </div>
+                </form>
+            </div>
+        </div>
 </template>
+<script>
+    import Datepicker from 'vuejs-datepicker';
+    export default {
+        components: {
+            'date-picker': Datepicker
+        }
+    }
+</script>
+<style scoped>
+    .borderBottom{
+        border-bottom: 2px solid #607D8B;
+    }
+</style>

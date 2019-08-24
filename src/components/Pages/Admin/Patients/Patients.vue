@@ -6,7 +6,7 @@
                         <h4 class="page-title">Patients</h4>
                     </div>
                     <div class="col-sm-8 col-9 text-right m-b-20">
-                        <button class="btn btn btn-primary btn-rounded float-right fa fa-plus"><router-link to="/admin/patients/add_patients" style="color: #ffffff">Add Patient</router-link></button>
+                        <router-link class="btn  btn-raised bg-blue-grey waves-effect fa fa-plus" to="/admin/patients/add_patients"><strong>Add Patient</strong></router-link>
                     </div>
                 </div>
 				<div class="row">

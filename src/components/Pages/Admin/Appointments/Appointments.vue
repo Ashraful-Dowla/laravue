@@ -6,7 +6,7 @@
 					<h4 class="page-title">Appointments</h4>
 				</div>
 				<div class="col-sm-8 col-9 text-right m-b-20">
-					<a class="btn btn btn-primary btn-rounded float-right fa fa-plus "><router-link to="/admin/appointments/add_appointments" style="color: #fff">Add Appointment</router-link></a>
+					<router-link class="btn  btn-raised bg-blue-grey waves-effect fa fa-plus" to="/admin/appointments/add_appointments"><strong>Add Appointment</strong></router-link>
 				</div>
 			</div>
 			<div class="row">

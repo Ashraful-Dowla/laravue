@@ -7,7 +7,7 @@
 				</div>
 
 				<div class="col-sm-5 col-6 text-right m-b-30">
-					<router-link class="btn btn-primary btn-rounded fa fa-plus" to="/admin/edit_admin_profile"><span style="color: white;">Edit Profile</span></router-link>
+					<router-link class="btn  btn-raised bg-blue-grey waves-effect fa fa-plus" to="/admin/edit_admin_profile"><strong>Edit Profile</strong></router-link>
 				</div>
 			</div>
 			<div class="card-box profile-header">

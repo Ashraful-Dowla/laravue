@@ -6,7 +6,7 @@
 					<h4 class="page-title">Employee</h4>
 				</div>
 				<div class="col-sm-8 col-9 text-right m-b-20">
-					<a class="btn btn-primary float-right btn-rounded fa fa-plus"><router-link to="/admin/employees/add_employees" style="color:white;">Add Employee</router-link></a>
+					<router-link class="btn  btn-raised bg-blue-grey waves-effect fa fa-plus" to="/admin/employees/add_employees"><strong>Add Employee</strong></router-link>
 				</div>
 			</div>
 			<div class="row filter-row">
