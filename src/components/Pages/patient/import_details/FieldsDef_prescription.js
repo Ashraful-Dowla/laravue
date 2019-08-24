@@ -31,5 +31,9 @@ export const FieldsDef_prescription= [
 			title: '<i class="fa fa-tag"></i> Prescription',
 			sortField: 'name'
 		},
-		'actions'
+		{
+            name: '__slot:actions',
+            title: 'Actions',
+            dataClass: 'center aligned'
+        }
 ] 

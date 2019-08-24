@@ -31,5 +31,9 @@ export const FieldsDef_report= [
 			title: '<i class="fa fa-tag"></i> Report Link',
 			sortField: 'name'
 		},
-		'actions'
+		{
+            name: '__slot:actions',
+            title: 'Actions',
+            dataClass: 'center aligned'
+        }
 ] 

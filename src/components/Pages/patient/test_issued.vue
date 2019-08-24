@@ -18,15 +18,15 @@
         >
           <template slot="actions" slot-scope="props">
             <div class="custom-actions">
-              <button class="ui basic button"
+              <button class="ui button positive"
                 @click="onAction('view-item', props.rowData, props.rowIndex)">
                 <i class="zoom icon"></i>
               </button>
-              <button class="ui basic button"
+              <button class="ui button yellow"
                 @click="onAction('edit-item', props.rowData, props.rowIndex)">
                 <i class="edit icon"></i>
               </button>
-              <button class="ui basic button"
+              <button class="ui button red"
                 @click="onAction('delete-item', props.rowData, props.rowIndex)">
                 <i class="delete icon"></i>
               </button>
@@ -66,6 +66,12 @@ export default {
     Vuetable,
     VuetablePagination,
     VuetablePaginationInfo
+  },
+  props: {
+    authenticated: {
+        type: Boolean,
+        required: true
+    }
   },
   data () {
     return {

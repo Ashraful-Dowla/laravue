@@ -26,5 +26,9 @@ export const FieldsDef_test_issued= [
 			title: '<i class="fa fa-tag"></i> Test Invoice',
 			sortField: 'name'
 		},
-		'actions'
+		{
+            name: '__slot:actions',
+            title:'Actions',
+            dataClass: 'center aligned'
+        }
 ] 

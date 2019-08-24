@@ -26,5 +26,9 @@ export const FieldsDef_bill_issued = [
 			title: '<i class="fa fa-tag"></i> Status ',
 			sortField: 'name'
 		},
-		'actions'
+		{
+            name: '__slot:actions',
+            title: 'Actions',
+            dataClass: 'center aligned'
+        }
 ] 

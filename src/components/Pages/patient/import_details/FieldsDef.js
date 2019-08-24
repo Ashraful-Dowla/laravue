@@ -33,5 +33,9 @@ export const FieldsDef= [
 		    titleClass: 'center aligned',
 		    dataClass: 'center aligned',
 		},
-		'actions'
+		{
+            name: '__slot:actions',
+            title: 'Actions',
+            dataClass: 'center aligned'
+        }
 ] 
