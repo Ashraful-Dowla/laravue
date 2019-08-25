@@ -1,101 +1,126 @@
 <template>
-	<div class="page-wrapper">
-		<div class="content" style="margin-top: 25px;margin-left: 50px;">
-			<div class="row">
-				<div class="col-md-10">
-					<h3 class="page-title">Today's Patients</h3>
-					<hr>
-				</div>
-				<!--<div class="col-sm-8 col-9 text-right m-b-20">
-					<a class="btn btn-primary float-right btn-rounded fa fa-plus"><router-link to="/admin/employees/add_employees" style="color:white;">Add Employee</router-link></a>
-				</div>-->
-			</div>
-			<div class="row">
-				<div class="col-md-10">
-					<table class="table table-striped table-dark">
-						<thead style="color: white;">
-							<tr>
-								<th scope="col">Name</th>
-								<th scope="col">Patient ID</th>
-								<th scope="col">Mobile</th>
-								<th class="text-right">Action</th>
-							</tr>
-						</thead>
-						<tbody style="color: white;">
-							<tr>
-								<td>Albina Simonis</td>
-								<td>PT-0001</td>
-								<td>828-634-2744</td>
-								<td class="text-right">
-									<div class="dropdown dropdown-action">
-										<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item fa fa-pencil m-r-5"><router-link to="/admin/employees/edit_employees"><span>Edit</span></router-link></a>
-											<a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-										</div>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>Albina Simonis</td>
-								<td>PT-0001</td>
-								<td>828-634-2744</td>
-								<td class="text-right">
-									<div class="dropdown dropdown-action">
-										<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item fa fa-pencil m-r-5"><router-link to="/admin/employees/edit_employees"><span>Edit</span></router-link></a>
-											<a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-										</div>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>Albina Simonis</td>
-								<td>PT-0001</td>
-								<td>828-634-2744</td>
-								<td class="text-right">
-									<div class="dropdown dropdown-action">
-										<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item fa fa-pencil m-r-5"><router-link to="/admin/employees/edit_employees"><span>Edit</span></router-link></a>
-											<a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-										</div>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>Albina Simonis</td>
-								<td>PT-0001</td>
-								<td>828-634-2744</td>
-								<td class="text-right">
-									<div class="dropdown dropdown-action">
-										<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item fa fa-pencil m-r-5"><router-link to="/admin/employees/edit_employees"><span>Edit</span></router-link></a>
-											<a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-										</div>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>Albina Simonis</td>
-								<td>PT-0001</td>
-								<td>828-634-2744</td>
-								<td class="text-right">
-									<div class="dropdown dropdown-action">
-										<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item fa fa-pencil m-r-5"><router-link to="/admin/employees/edit_employees"><span>Edit</span></router-link></a>
-											<a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-										</div>
-									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
+<div class="page-wrapper">
+    <div class="content">
+  <div class="ui container">
+    <h1>Today Patient List</h1>
+    <filter-bar></filter-bar>
+    <vuetable ref="vuetable"
+      api-url="https://vuetable.ratiw.net/api/users"
+      :fields="fields"
+      pagination-path=""
+      :per-page="5"
+      :multi-sort="true"
+      :sort-order="sortOrder"
+      :append-params="moreParams"
+      @vuetable:pagination-data="onPaginationData"
+    >
+      <template slot="actions" slot-scope="props">
+        <div class="custom-actions">
+          <button class="ui button positive"
+            @click="onAction('view-item', props.rowData, props.rowIndex)">
+            <i class="zoom icon"></i>
+          </button>
+          <button class="ui button yellow"
+            @click="onAction('edit-item', props.rowData, props.rowIndex)">
+            <i class="edit icon"></i>
+          </button>
+          <button class="ui button red"
+            @click="onAction('delete-item', props.rowData, props.rowIndex)">
+            <i class="delete icon"></i>
+          </button>
+        </div>
+      </template>
+    </vuetable>
+    <div class="vuetable-pagination ui basic segment grid">
+      <vuetable-pagination-info ref="paginationInfo"
+      ></vuetable-pagination-info>
+      <vuetable-pagination ref="pagination"
+        @vuetable-pagination:change-page="onChangePage"
+      ></vuetable-pagination>
+    </div>
+  </div>
+  </div>
+  </div>
 </template>
+
+<script>
+import Vue from 'vue'
+import VueEvents from 'vue-events'
+import Vuetable from 'vuetable-2/src/components/Vuetable'
+import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
+import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
+//import CustomActions from './CustomActions'
+//import DetailRow from './DetailRow'
+import FilterBar from '@/components/Pages/Doctors/import_details/FilterBar'
+import { FieldsDef_today_patient_list } from '@/components/Pages/Doctors/import_details/FieldsDef_today_patient_list'
+
+Vue.use(VueEvents)
+//Vue.component('custom-actions', CustomActions)
+//Vue.component('my-detail-row', DetailRow)
+Vue.component('filter-bar', FilterBar)
+
+export default {
+  components: {
+    Vuetable,
+    VuetablePagination,
+    VuetablePaginationInfo
+  },
+  data () {
+    return {
+      fields: FieldsDef_today_patient_list,
+      sortOrder: [
+        {
+          field: 'id',
+          sortField: 'id',
+          direction: 'asc'
+        }
+      ],
+      moreParams: {}
+    }
+  },
+  mounted () {
+    this.$events.$on('filter-set', eventData => this.onFilterSet(eventData))
+    this.$events.$on('filter-reset', e => this.onFilterReset())
+  },
+  methods: {
+    // allcap (value) {
+    //   return value.toUpperCase()
+    // },
+    // genderLabel (value) {
+    //   return value === 'M'
+    //     ? '<span class="ui teal label"><i class="large man icon"></i>Male</span>'
+    //     : '<span class="ui pink label"><i class="large woman icon"></i>Female</span>'
+    // },
+    // formatNumber (value) {
+    //   return accounting.formatNumber(value, 2)
+    // },
+    // formatDate (value, fmt = 'D MMM YYYY') {
+    //   return (value == null)
+    //     ? ''
+    //     : moment(value, 'YYYY-MM-DD').format(fmt)
+    // },
+    onPaginationData (paginationData) {
+      this.$refs.pagination.setPaginationData(paginationData)
+      this.$refs.paginationInfo.setPaginationData(paginationData)
+    },
+    onChangePage (page) {
+      this.$refs.vuetable.changePage(page)
+    },
+    onAction (action, data, index) {
+      console.log('slot action: ' + action, data.name, index)
+    },
+    // onCellClicked (data, field, event) {
+    //   console.log('cellClicked: ', field.name)
+    //   this.$refs.vuetable.toggleDetailRow(data.id)
+    // },
+    onFilterSet (filterText) {
+      this.moreParams.filter = filterText
+      Vue.nextTick( () => this.$refs.vuetable.refresh() )
+    },
+    onFilterReset () {
+      delete this.moreParams.filter
+      Vue.nextTick( () => this.$refs.vuetable.refresh() )
+    }
+  }
+}
+</script>

@@ -12,8 +12,6 @@
       :multi-sort="true"
       :sort-order="sortOrder"
       :append-params="moreParams"
-      detail-row-component="my-detail-row"
-      @vuetable:cell-clicked="onCellClicked"
       @vuetable:pagination-data="onPaginationData"
     >
       <template slot="actions" slot-scope="props">
@@ -66,12 +64,6 @@ export default {
     Vuetable,
     VuetablePagination,
     VuetablePaginationInfo
-  },
-  props: {
-    authenticated: {
-        type: Boolean,
-        required: true
-    }
   },
   data () {
     return {

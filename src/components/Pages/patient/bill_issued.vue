@@ -12,8 +12,6 @@
       :multi-sort="true"
       :sort-order="sortOrder"
       :append-params="moreParams"
-      detail-row-component="my-detail-row"
-      @vuetable:cell-clicked="onCellClicked"
       @vuetable:pagination-data="onPaginationData"
     >
       <template slot="actions" slot-scope="props">
@@ -67,12 +65,6 @@ export default {
     VuetablePagination,
     VuetablePaginationInfo
   },
-  props: {
-    authenticated: {
-        type: Boolean,
-        required: true
-    }
-  },
   data () {
     return {
       fields: FieldsDef_bill_issued,
@@ -122,11 +114,14 @@ export default {
     //   this.$refs.vuetable.toggleDetailRow(data.id)
     // },
     onFilterSet (filterText) {
-      this.moreParams.filter = filterText
+      console.log(this.filterText)
+      this.moreParams = {
+            'filter': filterText.trim()
+      }
       Vue.nextTick( () => this.$refs.vuetable.refresh() )
     },
     onFilterReset () {
-      delete this.moreParams.filter
+      this.moreParams = {}
       Vue.nextTick( () => this.$refs.vuetable.refresh() )
     }
   }

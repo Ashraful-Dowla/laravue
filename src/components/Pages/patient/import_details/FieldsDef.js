@@ -36,6 +36,7 @@ export const FieldsDef= [
 		{
             name: '__slot:actions',
             title: 'Actions',
-            dataClass: 'center aligned'
+            dataClass: 'center aligned',
+            visible: this.authenticated
         }
 ] 
