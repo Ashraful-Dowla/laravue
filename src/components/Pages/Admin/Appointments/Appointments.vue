@@ -1,88 +1,136 @@
 <template>
 	<div class="page-wrapper">
-		<div class="content">
+		<div class="container" style="margin-top: 25px;margin-left: 50px;">
 			<div class="row">
-				<div class="col-sm-4 col-3">
+				<div class="col-md-11">
+					<hr>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-7">
 					<h4 class="page-title">Appointments</h4>
 				</div>
-				<div class="col-sm-8 col-9 text-right m-b-20">
+				<div class="col-md-4 text-right m-b-20">
 					<router-link class="btn  btn-raised bg-blue-grey waves-effect fa fa-plus" to="/admin/appointments/add_appointments"><strong>Add Appointment</strong></router-link>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-12">
-					<div class="table-responsive">
-						<table class="table table-striped custom-table">
-							<thead>
-								<tr>
-									<th>Appointment ID</th>
-									<th>Patient Name</th>
-									<th>Age</th>
-									<th>Doctor Name</th>
-									<th>Department</th>
-									<th>Appointment Date</th>
-									<th>Appointment Time</th>
-									<th>Status</th>
-									<th class="text-right">Action</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>APT0001</td>
-									<td><img width="28" height="28" src="assets/img/user.jpg" class="rounded-circle m-r-5" alt=""> Denise Stevens</td>
-									<td>35</td>
-									<td>Henry Daniels</td>
-									<td>Cardiology</td>
-									<td>30 Dec 2018</td>
-									<td>10:00am - 11:00am</td>
-									<td><span class="custom-badge status-red">Inactive</span></td>
-									<td class="text-right">
-										<div class="dropdown dropdown-action">
-											<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-											<div class="dropdown-menu dropdown-menu-right">
-												<a class="dropdown-item fa fa-pencil m-r-5"><router-link to="/admin/appointments/edit_appointments">Edit</router-link></a>
-												<a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_appointment"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-											</div>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>APT0002</td>
-									<td><img width="28" height="28" src="assets/img/user.jpg" class="rounded-circle m-r-5" alt=""> Denise Stevens</td>
-									<td>35</td>
-									<td>Henry Daniels</td>
-									<td>Cardiology</td>
-									<td>30 Dec 2018</td>
-									<td>10:00am - 11:00am</td>
-									<td><span class="custom-badge status-green">Active</span></td>
-									<td class="text-right">
-										<div class="dropdown dropdown-action">
-											<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-											<div class="dropdown-menu dropdown-menu-right">
-												<a class="dropdown-item" href="edit-appointment.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-												<a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_appointment"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-											</div>
-										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+				<div class="col-md-11">
+					<hr>
 				</div>
 			</div>
-		</div>
-		<div id="delete_appointment" class="modal fade delete-modal" role="dialog">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="modal-body text-center">
-						<img src="assets/img/sent.png" alt="" width="50" height="46">
-						<h3>Are you sure want to delete this Appointment?</h3>
-						<div class="m-t-20"> <a href="#" class="btn btn-white" data-dismiss="modal">Close</a>
-							<button type="submit" class="btn btn-danger">Delete</button>
-						</div>
-					</div>
+			<div class="row">
+				<div class="col-md-11 border">
+					<div class="ui container">
+				        <filter-bar></filter-bar>
+				        <vuetable ref="vuetable"
+				        api-url="https://vuetable.ratiw.net/api/users"
+				        :fields="fields"
+				        pagination-path=""
+				        :per-page="5"
+				        :multi-sort="true"
+				        :sort-order="sortOrder"
+				        :append-params="moreParams"
+				        @vuetable:pagination-data="onPaginationData"
+				        >
+				        <template slot="actions" slot-scope="props">
+				          <div class="custom-actions">
+				          <button class="ui button yellow"
+				          @click="onAction('edit-item', props.rowData, props.rowIndex)">
+				          <i class="edit icon"></i>
+				        </button>
+				        <button class="ui button red"
+				        @click="onAction('delete-item', props.rowData, props.rowIndex)">
+				        <i class="delete icon"></i>
+				      </button>
+				    </div>
+				  </template>
+				</vuetable>
+				<div class="vuetable-pagination ui basic segment grid">
+				  <vuetable-pagination-info ref="paginationInfo"
+				  ></vuetable-pagination-info>
+				  <vuetable-pagination ref="pagination"
+				  @vuetable-pagination:change-page="onChangePage"
+				  ></vuetable-pagination>
+				</div>
+				</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </template>
+<script>
+	import Vue from 'vue'
+	import VueEvents from 'vue-events'
+	import Vuetable from 'vuetable-2/src/components/Vuetable'
+	import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
+	import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
+	//import CustomActions from './CustomActions'
+	//import DetailRow from './DetailRow'
+	import FilterBar from '@/components/Pages/Admin/import_details/FilterBar'
+	import { FieldsDef_appointments } from '@/components/Pages/Admin/import_details/FieldsDef_appointments'
+
+	Vue.use(VueEvents)
+	//Vue.component('custom-actions', CustomActions)
+	//Vue.component('my-detail-row', DetailRow)
+	Vue.component('filter-bar', FilterBar)
+
+	export default {
+		  components: {
+		    Vuetable,
+		    VuetablePagination,
+		    VuetablePaginationInfo
+		  },
+		  data () {
+		    return {
+		      fields: FieldsDef_appointments,
+		      sortOrder: [],
+		      moreParams: {}
+		    }
+		  },
+		  mounted () {
+		    this.$events.$on('filter-set', eventData => this.onFilterSet(eventData))
+		    this.$events.$on('filter-reset', e => this.onFilterReset())
+		  },
+		  methods: {
+		    // allcap (value) {
+		    //   return value.toUpperCase()
+		    // },
+		    // genderLabel (value) {
+		    //   return value === 'M'
+		    //     ? '<span class="ui teal label"><i class="large man icon"></i>Male</span>'
+		    //     : '<span class="ui pink label"><i class="large woman icon"></i>Female</span>'
+		    // },
+		    // formatNumber (value) {
+		    //   return accounting.formatNumber(value, 2)
+		    // },
+		    // formatDate (value, fmt = 'D MMM YYYY') {
+		    //   return (value == null)
+		    //     ? ''
+		    //     : moment(value, 'YYYY-MM-DD').format(fmt)
+		    // },
+		    onPaginationData (paginationData) {
+		      this.$refs.pagination.setPaginationData(paginationData)
+		      this.$refs.paginationInfo.setPaginationData(paginationData)
+		    },
+		    onChangePage (page) {
+		      this.$refs.vuetable.changePage(page)
+		    },
+		    onAction (action, data, index) {
+		      console.log('slot action: ' + action, data.name, index)
+		    },
+		    // onCellClicked (data, field, event) {
+		    //   console.log('cellClicked: ', field.name)
+		    //   this.$refs.vuetable.toggleDetailRow(data.id)
+		    // },
+		    onFilterSet (filterText) {
+		      this.moreParams.filter = filterText
+		      Vue.nextTick( () => this.$refs.vuetable.refresh() )
+		    },
+		    onFilterReset () {
+		      delete this.moreParams.filter
+		      Vue.nextTick( () => this.$refs.vuetable.refresh() )
+		    }
+		  }
+		}
+</script>

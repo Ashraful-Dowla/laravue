@@ -12,9 +12,8 @@
                     <div class="form-group">
                     	<p><b>Enter Duration</b></p>
                         <div class="borderBottom">
-                            <input type="text" class="form-control" v-model="textBox" placeholder="Ex: 20 Days/2 Months..." />
+                            <input type="text" class="form-control" placeholder="Ex: 20 Days/2 Months..." />
                         </div>
-                        <h4 class="dangerr">{{ spliting }}</h4>
                     </div>
                 </div>
 				<div class="col-sm-5">
@@ -38,111 +37,40 @@
 				</div>
 			</div>
 			<div class="row">
-				<div v-if="tableInfoDay" class="col-md-7">
-					<table class="table table-striped table-dark">
-						<thead style="color: white;">
-							<tr>
-								<th scope="col">Date</th>
-								<th scope="col">Time</th>
-								<th class="text-right">Action</th>
-							</tr>
-						</thead>
-						<tbody style="color: white;">
-							<tr>
-								<td>26-03-2020</td>
-								<td>02:30pm</td>
-								<td class="text-right">
-									<div class="dropdown dropdown-action">
-										<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item fa fa-pencil m-r-5"><router-link to=""><span>Pick</span></router-link></a>
-										</div>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>26-03-2020</td>
-								<td>02:30pm</td>
-								<td class="text-right">
-									<div class="dropdown dropdown-action">
-										<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item fa fa-pencil m-r-5"><router-link to=""><span>Pick</span></router-link></a>
-										</div>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>26-03-2020</td>
-								<td>02:30pm</td>
-								<td class="text-right">
-									<div class="dropdown dropdown-action">
-										<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item fa fa-pencil m-r-5"><router-link to=""><span>Pick</span></router-link></a>
-										</div>
-									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
+				<div class="col-md-10 border">
+					<div class="ui container">
+				        <h3 style="text-align: center;">Avoilable Dates</h3>
+				        <vuetable ref="vuetable"
+				        api-url="https://vuetable.ratiw.net/api/users"
+				        :fields="fields"
+				        pagination-path=""
+				        :per-page="5"
+				        :multi-sort="true"
+				        :sort-order="sortOrder"
+				        :append-params="moreParams"
+				        @vuetable:pagination-data="onPaginationData"
+				        >
+				        <template slot="actions" slot-scope="props">
+				          <div class="custom-actions">
+				            <button class="ui button positive"
+				            @click="onAction('view-item', props.rowData, props.rowIndex)">
+				            <i class="hand pointer icon"></i>
+				          Pick</button>
+				    </div>
+				  </template>
+				</vuetable>
+				<div class="vuetable-pagination ui basic segment grid">
+				  <vuetable-pagination-info ref="paginationInfo"
+				  ></vuetable-pagination-info>
+				  <vuetable-pagination ref="pagination"
+				  @vuetable-pagination:change-page="onChangePage"
+				  ></vuetable-pagination>
 				</div>
-
-				<div v-if="tableInfoMonth" class="col-md-7">
-					<table class="table table-striped table-dark">
-						<thead style="color: white;">
-							<tr>
-								<th scope="col">Date</th>
-								<th scope="col">Time</th>
-								<th class="text-right">Action</th>
-							</tr>
-						</thead>
-						<tbody style="color: white;">
-							<tr>
-								<td>26-03-2020</td>
-								<td>02:30pm</td>
-								<td class="text-right">
-									<div class="dropdown dropdown-action">
-										<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item fa fa-pencil m-r-5"><router-link to=""><span>Pick</span></router-link></a>
-										</div>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>26-03-2020</td>
-								<td>02:30pm</td>
-								<td class="text-right">
-									<div class="dropdown dropdown-action">
-										<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item fa fa-pencil m-r-5"><router-link to=""><span>Pick</span></router-link></a>
-										</div>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>26-03-2020</td>
-								<td>02:30pm</td>
-								<td class="text-right">
-									<div class="dropdown dropdown-action">
-										<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item fa fa-pencil m-r-5"><router-link to=""><span>Pick</span></router-link></a>
-										</div>
-									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
 				</div>
-				<div v-if="tableInfoDay || tableInfoMonth" class="col-md-3 rightSideBar">
-					<h3>Something Will Grow Here</h3>
 				</div>
 			</div><br>
 			<div class="row">
-				<div v-if="tableInfoDay || tableInfoMonth" class="col-md-10">
+				<div class="col-md-10">
 					<button style="float: right;" type="button" class="btn  btn-raised bg-blue-grey waves-effect"><strong>SUBMIT</strong></button>
 				</div>
 			</div>
@@ -150,40 +78,79 @@
 	</div>
 </template>
 <script>
-	export default{
-		data () {
-			return {
-				textBox: '',
-				collections: '',
-				day: false,
-				month: false
-			}
-		},
-		computed: {
-			spliting: function () {
-				this.collections = this.textBox.split(" ");
-				if(this.collections.length > 2){
-					return 'Not more than two words'
-				}
-				else if(!Number(this.collections[0]) && this.collections[0] != ""){
-					return "Invalid formate. First Enter a Number then Day/Month"
-				}
-				/*if(this.collections[1] != 'Day' || this.collections[1] != 'Days' || this.collections[1] != 'day' || this.collections[1] != 'days' || this.collections[1] != 'Month' || this.collections[1] != 'Months' || this.collections[1] != 'month' || this.collections[1] != 'months'){
-					return "Next words must be Day or Days/Month or Months"
-				}*/
-			},
-			tableInfoDay: function () {
-				if(this.collections[1] === 'Day' && this.collections.length < 3){
-					return true				
-				}
-			},
-			tableInfoMonth: function () {
-				if(this.collections[1] === 'Month' && this.collections.length < 3){
-					return true				
-				}
-			}
+	import Vue from 'vue'
+	import VueEvents from 'vue-events'
+	import Vuetable from 'vuetable-2/src/components/Vuetable'
+	import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
+	import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
+	//import CustomActions from './CustomActions'
+	//import DetailRow from './DetailRow'
+	import FilterBar from '@/components/Pages/Doctors/import_details/FilterBar'
+	import { FieldsDef_next_appointment } from '@/components/Pages/Doctors/import_details/FieldsDef_next_appointment'
+
+	Vue.use(VueEvents)
+	//Vue.component('custom-actions', CustomActions)
+	//Vue.component('my-detail-row', DetailRow)
+	Vue.component('filter-bar', FilterBar)
+
+	export default {
+		  components: {
+		    Vuetable,
+		    VuetablePagination,
+		    VuetablePaginationInfo
+		  },
+		  data () {
+		    return {
+		      fields: FieldsDef_next_appointment,
+		      sortOrder: [],
+		      moreParams: {}
+		    }
+		  },
+		  mounted () {
+		    this.$events.$on('filter-set', eventData => this.onFilterSet(eventData))
+		    this.$events.$on('filter-reset', e => this.onFilterReset())
+		  },
+		  methods: {
+		    // allcap (value) {
+		    //   return value.toUpperCase()
+		    // },
+		    // genderLabel (value) {
+		    //   return value === 'M'
+		    //     ? '<span class="ui teal label"><i class="large man icon"></i>Male</span>'
+		    //     : '<span class="ui pink label"><i class="large woman icon"></i>Female</span>'
+		    // },
+		    // formatNumber (value) {
+		    //   return accounting.formatNumber(value, 2)
+		    // },
+		    // formatDate (value, fmt = 'D MMM YYYY') {
+		    //   return (value == null)
+		    //     ? ''
+		    //     : moment(value, 'YYYY-MM-DD').format(fmt)
+		    // },
+		    onPaginationData (paginationData) {
+		      this.$refs.pagination.setPaginationData(paginationData)
+		      this.$refs.paginationInfo.setPaginationData(paginationData)
+		    },
+		    onChangePage (page) {
+		      this.$refs.vuetable.changePage(page)
+		    },
+		    onAction (action, data, index) {
+		      console.log('slot action: ' + action, data.name, index)
+		    },
+		    // onCellClicked (data, field, event) {
+		    //   console.log('cellClicked: ', field.name)
+		    //   this.$refs.vuetable.toggleDetailRow(data.id)
+		    // },
+		    onFilterSet (filterText) {
+		      this.moreParams.filter = filterText
+		      Vue.nextTick( () => this.$refs.vuetable.refresh() )
+		    },
+		    onFilterReset () {
+		      delete this.moreParams.filter
+		      Vue.nextTick( () => this.$refs.vuetable.refresh() )
+		    }
+		  }
 		}
-	}
 </script>
 <style scoped>
 	.back{

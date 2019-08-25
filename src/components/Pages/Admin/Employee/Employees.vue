@@ -1,170 +1,136 @@
 <template>
 	<div class="page-wrapper">
-		<div class="content">
+		<div class="container" style="margin-top: 25px;margin-left: 50px;">
 			<div class="row">
-				<div class="col-sm-4 col-3">
+				<div class="col-md-11">
+					<hr>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-7">
 					<h4 class="page-title">Employee</h4>
 				</div>
-				<div class="col-sm-8 col-9 text-right m-b-20">
+				<div class="col-md-4 text-right m-b-20">
 					<router-link class="btn  btn-raised bg-blue-grey waves-effect fa fa-plus" to="/admin/employees/add_employees"><strong>Add Employee</strong></router-link>
 				</div>
 			</div>
-			<div class="row filter-row">
-				<div class="col-sm-6 col-md-3">
-					<div class="form-group form-focus">
-						<label class="focus-label">Employee ID</label>
-						<input type="text" class="form-control floating">
-					</div>
-				</div>
-				<div class="col-sm-6 col-md-3">
-					<div class="form-group form-focus">
-						<label class="focus-label">Employee Name</label>
-						<input type="text" class="form-control floating">
-					</div>
-				</div>
-				<div class="col-sm-6 col-md-3">
-					<div class="form-group form-focus select-focus">
-						<label class="focus-label">Role</label>
-						<select class="select floating">
-							<option>Select Role</option>
-							<option>Nurse</option>
-							<option>Pharmacist</option>
-							<option>Laboratorist</option>
-							<option>Accountant</option>
-							<option>Receptionist</option>
-						</select>
-					</div>
-				</div>
-				<div class="col-sm-6 col-md-3">
-					<a href="#" class="btn btn-success btn-block"> Search </a>
+			<div class="row">
+				<div class="col-md-11">
+					<hr>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-12">
-					<div class="table-responsive">
-						<table class="table table-striped custom-table">
-							<thead>
-								<tr>
-									<th style="min-width:200px;">Name</th>
-									<th>Employee ID</th>
-									<th>Email</th>
-									<th>Mobile</th>
-									<th style="min-width: 110px;">Join Date</th>
-									<th>Role</th>
-									<th class="text-right">Action</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>
-										<img width="28" height="28" src="assets/img/user.jpg" class="rounded-circle" alt=""> <h2>Albina Simonis</h2>
-									</td>
-									<td>NS-0001</td>
-									<td>albinasimonis@example.com</td>
-									<td>828-634-2744</td>
-									<td>7 May 2015</td>
-									<td>
-										<span class="custom-badge status-green">Nurse</span>
-									</td>
-									<td class="text-right">
-										<div class="dropdown dropdown-action">
-											<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-											<div class="dropdown-menu dropdown-menu-right">
-												<a class="dropdown-item fa fa-pencil m-r-5"><router-link to="/admin/employees/edit_employees"><span>Edit</span></router-link></a>
-												<a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-											</div>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<img width="28" height="28" src="assets/img/user.jpg" class="rounded-circle" alt=""> <h2>Cristina Groves</h2>
-									</td>
-									<td>DR-0001</td>
-									<td>cristinagroves@example.com</td>
-									<td>928-344-5176</td>
-									<td>1 Jan 2013</td>
-									<td>
-										<span class="custom-badge status-blue">Doctor</span>
-									</td>
-									<td class="text-right">
-										<div class="dropdown dropdown-action">
-											<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-											<div class="dropdown-menu dropdown-menu-right">
-												<a class="dropdown-item" href="edit-employee.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-												<a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-											</div>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<img width="28" height="28" src="assets/img/user.jpg" class="rounded-circle" alt=""> <h2>Mary Mericle</h2>
-									</td>
-									<td>SF-0003</td>
-									<td>marymericle@example.com</td>
-									<td>603-831-4983</td>
-									<td>27 Dec 2017</td>
-									<td>
-										<span class="custom-badge status-grey">Accountant</span>
-									</td>
-									<td class="text-right">
-										<div class="dropdown dropdown-action">
-											<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-											<div class="dropdown-menu dropdown-menu-right">
-												<a class="dropdown-item" href="edit-employee.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-												<a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-											</div>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<img width="28" height="28" src="assets/img/user.jpg" class="rounded-circle" alt=""> <h2>Haylie Feeney</h2>
-									</td>
-									<td>SF-0002</td>
-									<td>hayliefeeney@example.com</td>
-									<td>616-774-4962</td>
-									<td>21 Apr 2017</td>
-									<td>
-										<span class="custom-badge status-grey">Laboratorist</span>
-									</td>
-									<td class="text-right">
-										<div class="dropdown dropdown-action">
-											<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-											<div class="dropdown-menu dropdown-menu-right">
-												<a class="dropdown-item" href="edit-employee.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-												<a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-											</div>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<img width="28" height="28" src="assets/img/user.jpg" class="rounded-circle" alt=""> <h2>Zoe Butler</h2>
-									</td>
-									<td>SF-0001</td>
-									<td>zoebutler@example.com</td>
-									<td>444-555-9999</td>
-									<td>19 May 2012</td>
-									<td>
-										<span class="custom-badge status-grey">Pharmacist</span>
-									</td>
-									<td class="text-right">
-										<div class="dropdown dropdown-action">
-											<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-											<div class="dropdown-menu dropdown-menu-right">
-												<a class="dropdown-item" href="edit-employee.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-												<a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-											</div>
-										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+				<div class="col-md-11 border">
+					<div class="ui container">
+				        <filter-bar></filter-bar>
+				        <vuetable ref="vuetable"
+				        api-url="https://vuetable.ratiw.net/api/users"
+				        :fields="fields"
+				        pagination-path=""
+				        :per-page="5"
+				        :multi-sort="true"
+				        :sort-order="sortOrder"
+				        :append-params="moreParams"
+				        @vuetable:pagination-data="onPaginationData"
+				        >
+				        <template slot="actions" slot-scope="props">
+				          <div class="custom-actions">
+				          <button class="ui button yellow"
+				          @click="onAction('edit-item', props.rowData, props.rowIndex)">
+				          <i class="edit icon"></i>
+				        </button>
+				        <button class="ui button red"
+				        @click="onAction('delete-item', props.rowData, props.rowIndex)">
+				        <i class="delete icon"></i>
+				      </button>
+				    </div>
+				  </template>
+				</vuetable>
+				<div class="vuetable-pagination ui basic segment grid">
+				  <vuetable-pagination-info ref="paginationInfo"
+				  ></vuetable-pagination-info>
+				  <vuetable-pagination ref="pagination"
+				  @vuetable-pagination:change-page="onChangePage"
+				  ></vuetable-pagination>
+				</div>
+				</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </template>
+<script>
+	import Vue from 'vue'
+	import VueEvents from 'vue-events'
+	import Vuetable from 'vuetable-2/src/components/Vuetable'
+	import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
+	import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
+	//import CustomActions from './CustomActions'
+	//import DetailRow from './DetailRow'
+	import FilterBar from '@/components/Pages/Admin/import_details/FilterBar'
+	import { FieldsDef_employee } from '@/components/Pages/Admin/import_details/FieldsDef_employee'
+
+	Vue.use(VueEvents)
+	//Vue.component('custom-actions', CustomActions)
+	//Vue.component('my-detail-row', DetailRow)
+	Vue.component('filter-bar', FilterBar)
+
+	export default {
+		  components: {
+		    Vuetable,
+		    VuetablePagination,
+		    VuetablePaginationInfo
+		  },
+		  data () {
+		    return {
+		      fields: FieldsDef_employee,
+		      sortOrder: [],
+		      moreParams: {}
+		    }
+		  },
+		  mounted () {
+		    this.$events.$on('filter-set', eventData => this.onFilterSet(eventData))
+		    this.$events.$on('filter-reset', e => this.onFilterReset())
+		  },
+		  methods: {
+		    // allcap (value) {
+		    //   return value.toUpperCase()
+		    // },
+		    // genderLabel (value) {
+		    //   return value === 'M'
+		    //     ? '<span class="ui teal label"><i class="large man icon"></i>Male</span>'
+		    //     : '<span class="ui pink label"><i class="large woman icon"></i>Female</span>'
+		    // },
+		    // formatNumber (value) {
+		    //   return accounting.formatNumber(value, 2)
+		    // },
+		    // formatDate (value, fmt = 'D MMM YYYY') {
+		    //   return (value == null)
+		    //     ? ''
+		    //     : moment(value, 'YYYY-MM-DD').format(fmt)
+		    // },
+		    onPaginationData (paginationData) {
+		      this.$refs.pagination.setPaginationData(paginationData)
+		      this.$refs.paginationInfo.setPaginationData(paginationData)
+		    },
+		    onChangePage (page) {
+		      this.$refs.vuetable.changePage(page)
+		    },
+		    onAction (action, data, index) {
+		      console.log('slot action: ' + action, data.name, index)
+		    },
+		    // onCellClicked (data, field, event) {
+		    //   console.log('cellClicked: ', field.name)
+		    //   this.$refs.vuetable.toggleDetailRow(data.id)
+		    // },
+		    onFilterSet (filterText) {
+		      this.moreParams.filter = filterText
+		      Vue.nextTick( () => this.$refs.vuetable.refresh() )
+		    },
+		    onFilterReset () {
+		      delete this.moreParams.filter
+		      Vue.nextTick( () => this.$refs.vuetable.refresh() )
+		    }
+		  }
+		}
+</script>

@@ -32,7 +32,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-10">
-					<ckeditor :config="editorConfig" type="classic" v-model="editorText">CKEDITOR</ckeditor><br>
+					<ckeditor type="classic" v-model="editorText">CKEDITOR</ckeditor><br>
 					<button style="float: right;" type="button" class="btn  btn-raised bg-blue-grey waves-effect"><strong>PRESCRIVE</strong></button>
 				</div>
 			</div>
