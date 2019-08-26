@@ -10,9 +10,6 @@
 				<div class="col-md-7">
 					<h4 class="page-title">Leave Request</h4>
 				</div>
-				<div class="col-md-4 text-right m-b-30">
-					<router-link class="btn  btn-raised bg-blue-grey waves-effect fa fa-plus" to=""><strong>Add Leave</strong></router-link>
-				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-11">
@@ -35,13 +32,13 @@
 				        >
 				        <template slot="actions" slot-scope="props">
 				          <div class="custom-actions">
-				          <button class="ui button yellow"
-				          @click="onAction('edit-item', props.rowData, props.rowIndex)">
-				          <i class="edit icon"></i>
-				        </button>
+				          <button class="ui button positive"
+							@click="onAction('view-item', props.rowData, props.rowIndex)">
+							<i class="check circle icon"></i>
+						</button>
 				        <button class="ui button red"
 				        @click="onAction('delete-item', props.rowData, props.rowIndex)">
-				        <i class="delete icon"></i>
+				        <i class="trash alternate icon"></i>
 				      </button>
 				    </div>
 				  </template>

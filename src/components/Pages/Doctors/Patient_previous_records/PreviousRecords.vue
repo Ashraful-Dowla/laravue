@@ -16,7 +16,6 @@
 				<div class="col-md-10 border">
 					<div class="ui container">
 				        <h3 style="text-align: center;">View Previous Records</h3>
-				        <filter-bar></filter-bar>
 				        <vuetable ref="vuetable"
 				        api-url="https://vuetable.ratiw.net/api/users"
 				        :fields="fields"
@@ -39,7 +38,7 @@
 				        </button>
 				        <button class="ui button red"
 				        @click="onAction('delete-item', props.rowData, props.rowIndex)">
-				        <i class="delete icon"></i>
+				        <i class="trash alternate icon"></i>
 				      </button>
 				    </div>
 				  </template>

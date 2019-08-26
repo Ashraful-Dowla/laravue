@@ -41,7 +41,7 @@
 				        </button>
 				        <button class="ui button red"
 				        @click="onAction('delete-item', props.rowData, props.rowIndex)">
-				        <i class="delete icon"></i>
+				        <i class="trash alternate icon"></i>
 				      </button>
 				    </div>
 				  </template>

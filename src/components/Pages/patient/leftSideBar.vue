@@ -28,19 +28,22 @@
 			<div class="sidebar" id="sidebar">
 				<div class="sidebar-inner slimscroll">
 					<div id="sidebar-menu" class="sidebar-menu">
-						<ul>
-							<li class="menu-title">Main</li>
-							<!-- <li>
-								<a class="fa fa-dashboard"><router-link to=""><span>Dashboard</span></router-link></a>
-							</li> -->
+						<ul style="padding-top: 10px;">
 							<li>
-								<a class="fa fa-user-md"><router-link to="/patient/appointment"><span>Appointment</span></router-link></a>
+								<a class="active fa fa-dashboard"><router-link to=""><span>Dashboard</span></router-link></a>
+							</li>
+							<li class="submenu">
+								<a href="#"><i class="fa fa-user"></i> <span> Appointment </span> <span class="menu-arrow"></span></a>
+								<ul style="display: none;">
+									<li><router-link to="/appointment">Book Appointment</router-link></li>
+									<li><router-link to="">Previous Appointment</router-link></li>
+								</ul>
 							</li>
 							<li>
 								<a class="fa fa-wheelchair"><router-link to="/patient/test_issued"><span>Test Issued</span></router-link></a>
 							</li>
 							<li>
-								<a class="fa fa-calendar"><router-link to="/patient/last_visit"><span>last Visit</span></router-link></a>
+								<a class="fa fa-calendar"><router-link to="/patient/last_visit"><span>Visit History</span></router-link></a>
 							</li>
 							<li>
 								<a class="fa fa-calendar-check-o"><router-link to="/patient/prescription_view"><span>Prescription View</span></router-link></a>
@@ -49,16 +52,18 @@
 								<a class="fa fa-hospital-o"><router-link to="/patient/report_overview"><span>Report Overview</span></router-link></a>
 							</li>
 							<li>
-								<a class="fa fa-hospital-o"><router-link to="/patient/emergency_stop"><span>Emergency Stop</span></router-link></a>
-							</li>
-							<li>
 								<a class="fa fa-hospital-o"><router-link to="/patient/bill_issued"><span>Bill Issued</span></router-link></a>
 							</li>
 						</ul>
 					</div>
 				</div>
 			</div>
-			<router-view/>
+			<router-view></router-view>
 		</div>
 	</div>
 </template>
+<style>
+	#sidebar-menu ul li:hover{
+		background: #282923;
+	}
+</style>

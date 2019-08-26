@@ -28,10 +28,9 @@
 			<div class="sidebar" id="sidebar">
 				<div class="sidebar-inner slimscroll">
 					<div id="sidebar-menu" class="sidebar-menu">
-						<ul>
-							<li class="menu-title">Main</li>
-							<li>
-								<a class="fa fa-dashboard"><router-link to=""><span>Dashboard</span></router-link></a>
+						<ul style="padding-top: 10px;">
+							<li class="active">
+								<a class=" fa fa-dashboard"><router-link to="/doctor/doctor_profile"><span>Dashboard</span></router-link></a>
 							</li>
 							<li>
 								<a class="fa fa-user-md"><router-link to="/doctor/today_patients_list"><span>Today Patients List</span></router-link></a>
@@ -51,6 +50,13 @@
 							<li>
 								<a class="fa fa-hospital-o"><router-link to="/doctor/next_appointment"><span>Next Appointment</span></router-link></a>
 							</li>
+							<li class="submenu">
+								<a href="#"><i class="fa fa-user"></i> <span> Leave Request </span> <span class="menu-arrow"></span></a>
+								<ul style="display: none;">
+									<li><router-link to="/doctor/make_leave_request">Make Leave Request</router-link></li>
+									<li><router-link to="/doctor/leave_request_approval">Leave Request Approval</router-link></li>
+								</ul>
+							</li>
 						</ul>
 					</div>
 				</div>
@@ -59,3 +65,5 @@
 		</div>
 	</div>
 </template>
+<script>
+</script>

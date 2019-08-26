@@ -1,26 +1,39 @@
 <template>
 	<div class="page-wrapper">
 		<div class="container" style="margin-top: 25px;margin-left: 50px;">
+			<h3>Test Management</h3>
 			<div class="row">
-				<div class="col-md-11">
+				<div class="col-md-10">
 					<hr>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-7">
-					<h4 class="page-title">Employee</h4>
+				<div class="col-sm-5">
+					<div class="form-group">
+						<p><b>Title</b></p>
+						<div class="borderBottom">
+							<input type="text" class="form-control" placeholder="Enter a title..." />
+						</div>
+					</div>
 				</div>
-				<div class="col-md-4 text-right m-b-20">
-					<router-link class="btn  btn-raised bg-blue-grey waves-effect fa fa-plus" to="/admin/employees/add_employees"><strong>Add Employee</strong></router-link>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<p><b>Price</b></p>
+						<div class="borderBottom">
+							<input type="text" class="form-control" placeholder="Enter Price..." />
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="form-group">
+						<div>
+							<button type="button" class="btn  btn-raised btn-success waves-effect">Create Test</button>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-11">
-					<hr>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-11 border">
+				<div class="col-md-10 border">
 					<div class="ui container">
 				        <filter-bar></filter-bar>
 				        <vuetable ref="vuetable"
@@ -68,7 +81,7 @@
 	//import CustomActions from './CustomActions'
 	//import DetailRow from './DetailRow'
 	import FilterBar from '@/components/Pages/Admin/import_details/FilterBar'
-	import { FieldsDef_employee } from '@/components/Pages/Admin/import_details/FieldsDef_employee'
+	import { FieldsDef_test_management } from '@/components/Pages/Admin/import_details/FieldsDef_test_management'
 
 	Vue.use(VueEvents)
 	//Vue.component('custom-actions', CustomActions)
@@ -83,7 +96,7 @@
 		  },
 		  data () {
 		    return {
-		      fields: FieldsDef_employee,
+		      fields: FieldsDef_test_management,
 		      sortOrder: [],
 		      moreParams: {}
 		    }
@@ -134,3 +147,8 @@
 		  }
 		}
 </script>
+<style scoped>
+	.borderBottom{
+		border-bottom: 2px solid #607D8B;
+	}
+</style>

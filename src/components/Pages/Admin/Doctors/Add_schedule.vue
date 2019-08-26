@@ -10,7 +10,21 @@
 				<div class="col-lg-8 offset-lg-2">
 					<form>
 						<div class="row">
-							<div class="col-sm-6">
+							<div class="col-sm-4">
+								<div class="form-group">
+				                    <p><b>Department name</b></p>
+				                    <div class="borderBottom">
+					                    <select class="form-control show-tick">
+					                        <option>Select</option>
+											<option>Cardiology</option>
+											<option>Sergiology</option>
+											<option>Pathodology</option>
+											<option>Neurology</option>
+					                    </select>
+					                </div>
+				                </div>
+			            	</div>
+							<div class="col-sm-4">
 								<div class="form-group">
 				                    <p><b>Doctor Name</b></p>
 				                    <div class="borderBottom">
@@ -28,7 +42,7 @@
 					                </div>
 				                </div>
 			            	</div>
-			            	<div class="col-sm-6">
+			            	<div class="col-sm-4">
 								<div class="form-group">
 				                    <p><b>Select Date</b></p>
 				                    <div class="borderBottom">
@@ -47,19 +61,39 @@
 			            	</div>
 						</div>
 						<div class="row">
+							<div class="col-md-10">
+								<hr>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-10">
+								<input name="group1" type="radio" id="radio_6" class="with-gap" />
+                    			<label for="radio_6">
+                    				Select if the doctor is available for multiple time in a weekday.
+                    			</label>
+							</div>
+						</div>
+						<div class="row">
 							<div class="col-sm-6">
 								<div class="form-group">
-									<div class="borderBottom">
-										<input type="text" class="form-control" placeholder="START TIME" />
+									<div>
+										<label><strong>Start Time</strong></label>
+										<vue-timepicker format="hh:mm A"></vue-timepicker>
 									</div>
 								</div>
 							</div>
 							<div class="col-sm-6">
 								<div class="form-group">
-									<div class="borderBottom">
-										<input type="text" class="form-control" placeholder="END TIME" />
+									<div>
+										<label><strong>End Time</strong></label>
+										<vue-timepicker format="hh:mm A"></vue-timepicker>
 									</div>
 								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-10">
+								<hr>
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -85,9 +119,12 @@
 	</div>
 </template>
 <script>
-	
+	import VueTimepicker from 'vue2-timepicker'
+	import 'vue2-timepicker/dist/VueTimepicker.css'
 	export default {
-		
+		components: {
+			'vue-timepicker': VueTimepicker
+		}
 	}
 </script>
 <style scoped>

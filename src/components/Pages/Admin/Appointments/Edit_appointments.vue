@@ -77,9 +77,9 @@
                         	</div>
 							<div class="col-sm-6">
                         		<div class="form-group">
-                        			<p><b>Time</b></p>
-                        			<div class="borderBottom">
-                        				<input type="text" class="form-control" />
+                        			<div>
+                        				<label><strong>Time</strong></label>
+										<vue-timepicker format="hh:mm A"></vue-timepicker>
                         			</div>
                         		</div>
                         	</div>
@@ -127,10 +127,13 @@
 	</div>
 </template>
 <script>
-	import Datepicker from 'vuejs-datepicker';
+	import Datepicker from 'vuejs-datepicker'
+	import VueTimepicker from 'vue2-timepicker'
+	import 'vue2-timepicker/dist/VueTimepicker.css'
 	export default {
 		components: {
-			'date-picker': Datepicker
+			'date-picker': Datepicker,
+			'vue-timepicker': VueTimepicker
 		}
 	}
 </script>

@@ -49,15 +49,17 @@
 						<div class="row">
 							<div class="col-sm-6">
 								<div class="form-group">
-									<div class="borderBottom">
-										<input type="text" class="form-control" placeholder="START TIME" />
+									<div>
+										<label><strong>Start Time</strong></label>
+										<vue-timepicker format="hh:mm A"></vue-timepicker>
 									</div>
 								</div>
 							</div>
 							<div class="col-sm-6">
 								<div class="form-group">
-									<div class="borderBottom">
-										<input type="text" class="form-control" placeholder="END TIME" />
+									<div>
+										<label><strong>End Time</strong></label>
+										<vue-timepicker format="hh:mm A"></vue-timepicker>
 									</div>
 								</div>
 							</div>
@@ -85,9 +87,12 @@
 	</div>
 </template>
 <script>
-	
+	import VueTimepicker from 'vue2-timepicker'
+	import 'vue2-timepicker/dist/VueTimepicker.css'
 	export default {
-		
+		components: {
+			'vue-timepicker': VueTimepicker
+		}
 	}
 </script>
 <style scoped>

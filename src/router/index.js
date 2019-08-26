@@ -26,11 +26,13 @@ import EditDepartments from '@/components/Pages/Admin/Departments/Edit_departmen
 import Employees from '@/components/Pages/Admin/Employee/Employees'
 import AddEmployees from '@/components/Pages/Admin/Employee/Add_employee'
 import EditEmployees from '@/components/Pages/Admin/Employee/Edit_employees'
-import Attendance from '@/components/Pages/Admin/Employee/Attendance'
 import Leaves from '@/components/Pages/Admin/Employee/Leave'
 import EditLeaves from '@/components/Pages/Admin/Employee/Edit_leaves'
-import Holidays from '@/components/Pages/Admin/Employee/Holidays'
+import AddLeave from '@/components/Pages/Admin/Employee/Add_leave'
 import Settings from '@/components/Pages/Admin/Others/Settings'
+import TestManagement from '@/components/Pages/Admin/Others/test_management'
+import SeePrascriptions from '@/components/Pages/Admin/Others/See_prescriptions'
+import SeeReports from '@/components/Pages/Admin/Others/See_Reports'
 import AdminProfile from '@/components/Pages/Admin/Profile/Admin_Profile'
 import EditAdminProfile from '@/components/Pages/Admin/Profile/Edit_Admin_Profile'
 
@@ -45,6 +47,8 @@ import Prescription from '@/components/Pages/Doctors/Prescription/Prescription'
 import NextAppointment from '@/components/Pages/Doctors/NextAppointment/Next_Appointment'
 import DocDoctorProfile from '@/components/Pages/Doctors/Profile/Doctor_Profile'
 import EditDocDoctorProfile from '@/components/Pages/Doctors/Profile/Edit_Doctor_Profile'
+import MakeLeaveRequest from '@/components/Pages/Doctors/Leave/make_leave_request'
+import LeaveRequestApproval from '@/components/Pages/Doctors/Leave/Leave_request_approval'
 
 
 /*===============Patient=================*/
@@ -110,13 +114,15 @@ export default new Router({
             {path: '/admin/employees', component: Employees, name: 'employees'}, 
             {path: '/admin/employees/add_employees', component: AddEmployees, name: 'addAmployees'}, 
             {path: '/admin/employees/edit_employees', component: EditEmployees, name: 'editAmployees'}, 
-            {path: '/admin/employees/attendance', component: Attendance, name: 'attendance'}, 
             {path: '/admin/employees/leaves', component: Leaves, name: 'leaves'}, 
             {path: '/admin/employees/edit_leaves', component: EditLeaves, name: 'editLeaves'}, 
-            {path: '/admin/holidays', component: Holidays, name: 'holidays'}, 
+            {path: '/admin/add_leave', component: AddLeave, name: 'add_leave'}, 
 
             /*==============Others============*/    
             {path: '/admin/settings', component: Settings, name: 'settings'},
+            {path: '/admin/test_management', component: TestManagement, name: 'test_management'},
+            {path: '/admin/see_prascriptions', component: SeePrascriptions, name: 'see_prascriptions'},
+            {path: '/admin/see_reports', component: SeeReports, name: 'see_reports'},
     	]
     },
     {
@@ -143,7 +149,11 @@ export default new Router({
             {path: '/doctor/prescription', component: Prescription,name: 'prescription'},
 
             /*=============Next Appointment============*/
-            {path: '/doctor/next_appointment', component: NextAppointment,name: 'next_appointment'},            
+            {path: '/doctor/next_appointment', component: NextAppointment,name: 'next_appointment'},
+
+            /*=============Leave============*/
+            {path: '/doctor/make_leave_request', component: MakeLeaveRequest,name: 'make_leave_request'},           
+            {path: '/doctor/leave_request_approval', component: LeaveRequestApproval,name: 'leave_request_approval'},           
         ]
     },
     {
@@ -156,7 +166,7 @@ export default new Router({
                 component: DashboardPatient
             },
             {
-                path:'appointment',
+                path:'/appointment',
                 name: 'Appointment',
                 component: Appointment
             },

@@ -26,7 +26,6 @@
 				<div class="col-md-10 border">
 					<div class="ui container">
 				        <h3 style="text-align: center;">Doctors Details</h3>
-				        <filter-bar></filter-bar>
 				        <vuetable ref="vuetable"
 				        api-url="https://vuetable.ratiw.net/api/users"
 				        :fields="fields"

@@ -14,7 +14,7 @@
 					<div class="col-md-4 col-sm-4  col-lg-3">
 						<div class="profile-widget">
 							<div class="doctor-img">
-								<a class="avatar"><rputer-link to="/admin/doctors/profile"></rputer-link><img alt="" src="static/assets_admin/img/doctor-thumb-03.jpg"></a>
+								<a class="avatar"><router-link to="/admin/doctors/profile"><img alt="" src="static/assets_admin/img/doctor-thumb-03.jpg"></router-link></a>
 							</div>
 							<div class="dropdown profile-action">
 								<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>

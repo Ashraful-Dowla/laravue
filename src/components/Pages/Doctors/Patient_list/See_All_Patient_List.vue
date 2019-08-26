@@ -26,7 +26,7 @@
           </button>
           <button class="ui button red"
             @click="onAction('delete-item', props.rowData, props.rowIndex)">
-            <i class="delete icon"></i>
+            <i class="trash alternate icon"></i>
           </button>
         </div>
       </template>
@@ -52,7 +52,7 @@ import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePagination
 //import CustomActions from './CustomActions'
 //import DetailRow from './DetailRow'
 import FilterBar from '@/components/Pages/Doctors/import_details/FilterBar'
-import { FieldsDef_today_patient_list } from '@/components/Pages/Doctors/import_details/FieldsDef_today_patient_list'
+import { FielfsDef_see_all_patient_list } from '@/components/Pages/Doctors/import_details/FielfsDef_see_all_patient_list'
 
 Vue.use(VueEvents)
 //Vue.component('custom-actions', CustomActions)
@@ -67,7 +67,7 @@ export default {
   },
   data () {
     return {
-      fields: FieldsDef_today_patient_list,
+      fields: FielfsDef_see_all_patient_list,
       sortOrder: [
         {
           field: 'id',

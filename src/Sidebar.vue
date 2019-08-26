@@ -37,9 +37,8 @@
 			<div class="sidebar" id="sidebar">
 				<div class="sidebar-inner slimscroll">
 					<div id="sidebar-menu" class="sidebar-menu">
-						<ul>
-							<li class="menu-title">Main</li>
-							<li>
+						<ul style="padding-top: 10px;">
+							<li class="active">
 								<a class="fa fa-dashboard"><router-link to="/admin"><span>Dashboard</span></router-link></a>
 							</li>
 							<li>
@@ -57,17 +56,27 @@
 							<li>
 								<a class="fa fa-hospital-o"><router-link to="/admin/departments"><span>Departments</span></router-link></a>
 							</li>
+							<li>
+								<a class="fa fa-hospital-o"><router-link to="/admin/test_management"><span>Test Management</span></router-link></a>
+							</li>
+							<li>
+								<a class="fa fa-hospital-o"><router-link to="/admin/see_prascriptions"><span>Prescriptions</span></router-link></a>
+							</li>
+							<li>
+								<a class="fa fa-hospital-o"><router-link to="/admin/see_reports"><span>Reports</span></router-link></a>
+							</li>
 							<li class="submenu">
 								<a href="#"><i class="fa fa-user"></i> <span> Employees </span> <span class="menu-arrow"></span></a>
 								<ul style="display: none;">
 									<li><router-link to="/admin/employees">Employees List</router-link></li>
-									<li><router-link to="/admin/employees/leaves">Leaves</router-link></li>
-									<li><router-link to="/admin/holidays">Holidays</router-link></li>
-									<li><router-link to="/admin/employees/attendance">Attendance</router-link></li>
+									<li class="submenu">
+										<a href="#"><i class="fa fa-user"></i> <span> Leave Management </span> <span class="menu-arrow"></span></a>
+										<ul style="display: none;">
+											<li><router-link to="/admin/employees/leaves">Leave Requests</router-link></li>
+											<li><router-link to="/admin/add_leave">Add Leave manually</router-link></li>
+										</ul>
+									</li>
 								</ul>
-							</li>
-							<li>
-								<a class="fa fa-cog"><router-link to="/admin/settings"><span>Settings</span></router-link></a>
 							</li>
 						</ul>
 					</div>

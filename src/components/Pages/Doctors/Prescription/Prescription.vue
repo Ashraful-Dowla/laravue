@@ -16,17 +16,17 @@
                         </div>
                     </div>
                 </div>
+			</div>
+			<div class="row">
 				<div class="col-sm-5">
-					<div class="form-group">
-	                    <p><b>Testes</b></p>
-	                    <div class="borderBottom">
-		                    <select class="form-control show-tick">
-		                        <option>X-RAY</option>
-								<option>ECG</option>
-								<option>OMR</option>
-								<option>ALTASONOGRAPH</option>
-		                    </select>
-		                </div>
+					<div class="form-group ">
+						<p><b>Test</b></p>
+	                    <vue-bootstrap-typeahead 
+	                      placeholder="Search for a Test"
+						  v-model="query"
+						  :data="['Canada', 'USA', 'Mexico']"
+						  class="borderBottom"
+						></vue-bootstrap-typeahead>
 	                </div>
             	</div>
 			</div>

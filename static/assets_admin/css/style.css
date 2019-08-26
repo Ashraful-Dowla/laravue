@@ -847,18 +847,25 @@ textarea.form-control {
 	padding: 0;
 }
 .sidebar-menu li a {
-	color: #888;
+	color: #262723;
 	display: block;
-	font-size: 15px;
+	font-size: 17px;
 	height: auto;
 	padding: 0 20px;
 }
-.sidebar-menu li a:hover {
-	color: #009efb;
+
+.sidebar-menu li:hover {
+	color: white;
 }
+
+.sidebar-menu li a:hover {
+	background: #009EFB;
+	color: white;
+}
+
 .sidebar-menu li.active a {
-	color: #009efb;
-	background-color: #f3f3f3;
+	color: #ffffff;
+	background-color: #7A92A3;
 }
 .menu-title {
 	color: #333;

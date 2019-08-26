@@ -8,25 +8,30 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-sm-5">
+				<div class="col-sm-3">
                     <div class="form-group">
-                    	<p><b>Enter Duration</b></p>
                         <div class="borderBottom">
-                            <input type="text" class="form-control" placeholder="Ex: 20 Days/2 Months..." />
+                            <input type="text" class="form-control" placeholder="Enter a Number" />
                         </div>
                     </div>
                 </div>
-				<div class="col-sm-5">
-					<div class="form-group">
-	                    <p><b>Patient ID</b></p>
-	                    <div class="borderBottom">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                    	<div class="borderBottom">
 		                    <select class="form-control show-tick">
-		                        <option>PT-001</option>
-								<option>PT-002</option>
-								<option>PT-003</option>
-								<option>PT-004</option>
-								<option>PT-005</option>
+		                        <option>Select</option>
+		                        <option>Days</option>
+								<option>Weeks</option>
+								<option>Months</option>
+								<option>Years</option>
 		                    </select>
+		                </div>
+                    </div>
+                </div>
+				<div class="col-sm-3">
+					<div class="form-group">
+	                    <div class="borderBottom">
+		                    <input type="text" class="form-control" placeholder="Patient ID: PT-XXXXXXXX" />
 		                </div>
 	                </div>
             	</div>
@@ -39,7 +44,7 @@
 			<div class="row">
 				<div class="col-md-10 border">
 					<div class="ui container">
-				        <h3 style="text-align: center;">Avoilable Dates</h3>
+				        <h3 style="text-align: center;">Available Dates</h3>
 				        <vuetable ref="vuetable"
 				        api-url="https://vuetable.ratiw.net/api/users"
 				        :fields="fields"

@@ -15,6 +15,11 @@ export const FieldsDef_today_patient_list= [
 			sortField: 'name'
 		},
 		{
+			name:'name',
+			title: '<i class="fa fa-tag"></i> Status',
+			sortField: 'name'
+		},
+		{
             name: '__slot:actions',
             title: 'Actions',
             dataClass: 'center aligned'

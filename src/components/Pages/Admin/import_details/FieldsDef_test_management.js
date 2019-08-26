@@ -1,12 +1,12 @@
-export const FieldsDef_next_appointment = [
+export const FieldsDef_test_management = [
 		{
 			name:'name',
-			title: 'Date',
+			title: '<i class="fa fa-tag"></i> Title',
 			sortField: 'name'
 		},
 		{
-			name:'name',
-			title: 'Time',
+			name:'age',
+			title: '<i class="fa fa-tag"></i> Price',
 			sortField: 'name'
 		},
 		{
