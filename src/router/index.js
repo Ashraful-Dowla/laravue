@@ -51,7 +51,7 @@ import MakeLeaveRequest from '@/components/Pages/Doctors/Leave/make_leave_reques
 import LeaveRequestApproval from '@/components/Pages/Doctors/Leave/Leave_request_approval'
 
 
-/*===============Patient=================*/
+/*==================Patient===========================*/
 
 import Dash from '@/components/Pages/patient/leftSideBar'
 import DashboardPatient from '@/components/Pages/patient/Dashboard'
@@ -62,6 +62,14 @@ import PrescriptionView from '@/components/Pages/patient/prescription_view'
 import ReportOverview from '@/components/Pages/patient/report_overview'
 import BillIssued from '@/components/Pages/patient/bill_issued'
 import EmergencyStop from '@/components/Pages/patient/emergency_stop'
+import PreviousAppointment from '@/components/Pages/patient/previous_appointment'
+
+
+/*================Receptionist======================*/
+
+import DashReceptionist from '@/components/Pages/receptionist/leftSideBar'
+import DashboardReceptionist from '@/components/Pages/receptionist/Dashboard'
+
 
 Vue.use(Router)
 
@@ -166,7 +174,7 @@ export default new Router({
                 component: DashboardPatient
             },
             {
-                path:'/appointment',
+                path: 'appointment',
                 name: 'Appointment',
                 component: Appointment
             },
@@ -199,6 +207,23 @@ export default new Router({
                 path: 'emergency_stop',
                 name: 'EmergencyStop',
                 component: EmergencyStop
+            },
+            {
+                path: 'previous_appointment',
+                name: 'PreviousAppointment',
+                component: PreviousAppointment
+            }
+        ]
+    },
+    {
+        path:'/receptionist',
+        name: 'DashReceptionist',
+        component: DashReceptionist,
+        children: [
+            {
+                path:'',
+                name:'DashboardReceptionist',
+                component: DashboardReceptionist
             }
         ]
     }

@@ -2,7 +2,7 @@
   <div class="page-wrapper">
     <div class="content">
   <div class="ui container">
-    <h1>Visit History</h1>
+    <h1>Previous Appointment</h1>
     <filter-bar></filter-bar>
     <vuetable ref="vuetable"
       api-url="https://vuetable.ratiw.net/api/users"
@@ -26,7 +26,7 @@
           </button>
           <button class="ui button red"
             @click="onAction('delete-item', props.rowData, props.rowIndex)">
-            <i class="trash alternate icon"></i>
+            <i class="delete icon"></i>
           </button>
         </div>
       </template>
@@ -52,7 +52,7 @@ import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePagination
 //import CustomActions from './CustomActions'
 //import DetailRow from './DetailRow'
 import FilterBar from '@/components/Pages/patient/import_details/FilterBar'
-import { FieldsDef } from '@/components/Pages/patient/import_details/FieldsDef'
+import { FieldsDef_previous_appointment } from '@/components/Pages/patient/import_details/FieldsDef_previous_appointment'
 
 Vue.use(VueEvents)
 //Vue.component('custom-actions', CustomActions)
@@ -67,7 +67,7 @@ export default {
   },
   data () {
     return {
-      fields: FieldsDef,
+      fields: FieldsDef_previous_appointment,
       sortOrder: [
         {
           field: 'id',

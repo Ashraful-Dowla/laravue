@@ -4,7 +4,7 @@
 			<div class="header">
 				<div class="header-left">
 					<a href="/dashboard" class="logo">
-						<img src="static/assets_admin/img/logo.png" width="35" height="35" alt=""><span>Patient</span>
+						<img src="static/assets_admin/img/logo.png" width="35" height="35" alt=""><span>Receptionist</span>
 					</a>
 				</div>
 				<a id="toggle_btn" href="#"><i class="fa fa-bars"></i></a>
@@ -32,38 +32,29 @@
 							<li>
 								<a class="active fa fa-dashboard"><router-link to=""><span>Dashboard</span></router-link></a>
 							</li>
+							<li>
+								<a class="fa fa-wheelchair"><router-link to=""><span>Test Issue</span></router-link></a>
+							</li>
+							<li>
+								<a class="fa fa-money"><router-link to=""><span>Cash Payment</span></router-link></a>
+							</li>
 							<li class="submenu">
-								<a href="#"><i class="fa fa-user"></i> <span> Appointment </span> <span class="menu-arrow"></span></a>
+								<a href="#"><i class="fa fa-user"></i> <span> Admission </span> <span class="menu-arrow"></span></a>
 								<ul style="display: none;">
-									<li><router-link to="/patient/appointment">Book Appointment</router-link></li>
-									<li><router-link to="/patient/previous_appointment">Previous Appointment</router-link></li>
+									<li><router-link to="">Patient Hospital Admission</router-link></li>
+									<li><router-link to="">Outpatient Hospital Admission</router-link></li>
 								</ul>
-							</li>
-							<li>
-								<a class="fa fa-wheelchair"><router-link to="/patient/test_issued"><span>Test Issued</span></router-link></a>
-							</li>
-							<li>
-								<a class="fa fa-calendar"><router-link to="/patient/last_visit"><span>Visit History</span></router-link></a>
-							</li>
-							<li>
-								<a class="fa fa-calendar-check-o"><router-link to="/patient/prescription_view"><span>Prescription View</span></router-link></a>
-							</li>
-							<li>
-								<a class="fa fa-hospital-o"><router-link to="/patient/report_overview"><span>Report Overview</span></router-link></a>
-							</li>
-							<li>
-								<a class="fa fa-hospital-o"><router-link to="/patient/bill_issued"><span>Bill Issued</span></router-link></a>
 							</li>
 						</ul>
 					</div>
 				</div>
 			</div>
-			<router-view/>
+			<router-view></router-view>
 		</div>
 	</div>
 </template>
 <style>
 	#sidebar-menu ul li:hover{
-		background: #282923;
+		background: #FCFAFA;
 	}
 </style>
