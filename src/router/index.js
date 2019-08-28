@@ -69,7 +69,10 @@ import PreviousAppointment from '@/components/Pages/patient/previous_appointment
 
 import DashReceptionist from '@/components/Pages/receptionist/leftSideBar'
 import DashboardReceptionist from '@/components/Pages/receptionist/Dashboard'
-
+import TestIssue from '@/components/Pages/receptionist/test_issue'
+import CashPayment from '@/components/Pages/receptionist/cash_payment'
+import OldPatient from '@/components/Pages/receptionist/old_patient'
+import NewPatient from '@/components/Pages/receptionist/new_patient'
 
 Vue.use(Router)
 
@@ -224,6 +227,26 @@ export default new Router({
                 path:'',
                 name:'DashboardReceptionist',
                 component: DashboardReceptionist
+            },
+            {
+                path:'test_issue',
+                name: 'TestIssue',
+                component: TestIssue
+            },
+            {
+                path: 'cash_payment',
+                name: 'CashPayment',
+                component: CashPayment
+            },
+            {
+                path: 'old_patient',
+                name: 'OldPatient',
+                component: OldPatient
+            },
+            {
+                path: 'new_patient',
+                name: 'NewPatient',
+                component: NewPatient
             }
         ]
     }

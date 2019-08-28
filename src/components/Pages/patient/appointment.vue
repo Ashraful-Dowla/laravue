@@ -5,7 +5,7 @@
                 <div class="row clearfix">
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="card">
-                                <h2> Appointment </h2>
+                            <h2> Appointment </h2>
                             <div class="body">
                                 <form>
                                     <div class="row clearfix">

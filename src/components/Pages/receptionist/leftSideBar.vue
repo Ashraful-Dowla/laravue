@@ -33,16 +33,16 @@
 								<a class="active fa fa-dashboard"><router-link to=""><span>Dashboard</span></router-link></a>
 							</li>
 							<li>
-								<a class="fa fa-wheelchair"><router-link to=""><span>Test Issue</span></router-link></a>
+								<a class="fa fa-wheelchair"><router-link to="/receptionist/test_issue"><span>Test Issue</span></router-link></a>
 							</li>
 							<li>
-								<a class="fa fa-money"><router-link to=""><span>Cash Payment</span></router-link></a>
+								<a class="fa fa-money"><router-link to="/receptionist/cash_payment"><span>Cash Payment</span></router-link></a>
 							</li>
 							<li class="submenu">
 								<a href="#"><i class="fa fa-user"></i> <span> Admission </span> <span class="menu-arrow"></span></a>
 								<ul style="display: none;">
-									<li><router-link to="">Patient Hospital Admission</router-link></li>
-									<li><router-link to="">Outpatient Hospital Admission</router-link></li>
+									<li><router-link to="/receptionist/new_patient">New Patient</router-link></li>
+									<li><router-link to="/receptionist/old_patient">Old Patient</router-link></li>
 								</ul>
 							</li>
 						</ul>
