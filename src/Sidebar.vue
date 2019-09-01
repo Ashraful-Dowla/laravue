@@ -65,6 +65,16 @@
 							<li>
 								<a class="fa fa-hospital-o"><router-link to="/admin/see_reports"><span>Reports</span></router-link></a>
 							</li>
+							<li>
+								<a class="fa fa-hospital-o"><router-link to="/admin/payments"><span>Payments</span></router-link></a>
+							</li>
+							<li class="submenu">
+								<a href="#"><i class="fa fa-user"></i> <span> Ptn's Acnt Summary </span> <span class="menu-arrow"></span></a>
+								<ul style="display: none;">
+									<li><router-link to="/admin/refill_account">Refill Account</router-link></li>
+									<li><router-link to="/admin/expenditure_details">Expenditure History</router-link></li>
+								</ul>
+							</li>
 							<li class="submenu">
 								<a href="#"><i class="fa fa-user"></i> <span> Employees </span> <span class="menu-arrow"></span></a>
 								<ul style="display: none;">

@@ -33,6 +33,9 @@ import Settings from '@/components/Pages/Admin/Others/Settings'
 import TestManagement from '@/components/Pages/Admin/Others/test_management'
 import SeePrascriptions from '@/components/Pages/Admin/Others/See_prescriptions'
 import SeeReports from '@/components/Pages/Admin/Others/See_Reports'
+import RefillAccount from '@/components/Pages/Admin/Others/Refill_Account'
+import ExpenditureDetails from '@/components/Pages/Admin/Others/Expenditure_details'
+import Payments from '@/components/Pages/Admin/Others/Payments'
 import AdminProfile from '@/components/Pages/Admin/Profile/Admin_Profile'
 import EditAdminProfile from '@/components/Pages/Admin/Profile/Edit_Admin_Profile'
 
@@ -63,6 +66,7 @@ import ReportOverview from '@/components/Pages/patient/report_overview'
 import BillIssued from '@/components/Pages/patient/bill_issued'
 import EmergencyStop from '@/components/Pages/patient/emergency_stop'
 import PreviousAppointment from '@/components/Pages/patient/previous_appointment'
+import PatientAccountSumary from '@/components/Pages/patient/Patient_Account_Summary'
 
 
 /*================Receptionist======================*/
@@ -134,6 +138,9 @@ export default new Router({
             {path: '/admin/test_management', component: TestManagement, name: 'test_management'},
             {path: '/admin/see_prascriptions', component: SeePrascriptions, name: 'see_prascriptions'},
             {path: '/admin/see_reports', component: SeeReports, name: 'see_reports'},
+            {path: '/admin/refill_account', component: RefillAccount, name: 'refill_account'},
+            {path: '/admin/expenditure_details', component: ExpenditureDetails, name: 'expenditure_details'},
+            {path: '/admin/payments', component: Payments, name: 'payments'},
     	]
     },
     {
@@ -215,6 +222,11 @@ export default new Router({
                 path: 'previous_appointment',
                 name: 'PreviousAppointment',
                 component: PreviousAppointment
+            },
+            {
+                path: 'patient_account_summary',
+                component: PatientAccountSumary,
+                name: 'patient_account_summary'
             }
         ]
     },

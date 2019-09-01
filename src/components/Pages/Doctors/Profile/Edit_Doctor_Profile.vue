@@ -1,9 +1,14 @@
 <template>
 	<div class="page-wrapper">
-		<div class="content">
+		<div class="container" style="margin-top: 25px;margin-left: 50px;">
 			<div class="row">
 				<div class="col-sm-12">
 					<h4 class="page-title">Edit Profile</h4>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-10">
+					<hr>
 				</div>
 			</div>
 			<form>

@@ -29,7 +29,7 @@
 				<div class="sidebar-inner slimscroll">
 					<div id="sidebar-menu" class="sidebar-menu">
 						<ul style="padding-top: 10px;">
-							<li>
+							<li class="active">
 								<a class="active fa fa-dashboard"><router-link to=""><span>Dashboard</span></router-link></a>
 							</li>
 							<li>

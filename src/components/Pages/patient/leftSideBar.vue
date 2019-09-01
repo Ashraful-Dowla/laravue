@@ -29,8 +29,8 @@
 				<div class="sidebar-inner slimscroll">
 					<div id="sidebar-menu" class="sidebar-menu">
 						<ul style="padding-top: 10px;">
-							<li>
-								<a class="active fa fa-dashboard"><router-link to=""><span>Dashboard</span></router-link></a>
+							<li class="active">
+								<a class="fa fa-dashboard"><router-link to=""><span>Dashboard</span></router-link></a>
 							</li>
 							<li class="submenu">
 								<a href="#"><i class="fa fa-user"></i> <span> Appointment </span> <span class="menu-arrow"></span></a>
@@ -53,6 +53,9 @@
 							</li>
 							<li>
 								<a class="fa fa-hospital-o"><router-link to="/patient/bill_issued"><span>Bill Issued</span></router-link></a>
+							</li>
+							<li>
+								<a class="fa fa-hospital-o"><router-link to="/patient/patient_account_summary"><span>Account Details</span></router-link></a>
 							</li>
 						</ul>
 					</div>
