@@ -33,7 +33,7 @@
 			<div class="row">
 				<div class="col-md-10">
 					<ckeditor type="classic" v-model="editorText">CKEDITOR</ckeditor><br>
-					<button style="float: right;" type="button" class="btn  btn-raised bg-blue-grey waves-effect"><strong>PRESCRIVE</strong></button>
+					<button style="float: right;" type="button" class="btn  btn-raised bg-blue-grey waves-effect"><strong>PRESCRIBE</strong></button>
 				</div>
 			</div>
 		</div>

@@ -2,11 +2,6 @@
 	<div class="page-wrapper">
 		<div class="container" style="margin-top: 25px;margin-left: 50px;">
 			<div class="row">
-				<div class="col-md-11">
-					<hr>
-				</div>
-			</div>
-			<div class="row">
 				<div class="col-md-7">
 					<h4 class="page-title">Leave Request</h4>
 				</div>

@@ -2,11 +2,6 @@
 	<div class="page-wrapper">
             <div class="container" style="margin-top: 25px;margin-left: 50px;">
             	<div class="row">
-            		<div class="col-md-11">
-            			<hr>
-            		</div>
-            	</div>
-            	<div class="row">
             		<div class="col-md-6">
             			<h4 class="page-title">Patients</h4>
             		</div>
@@ -35,10 +30,7 @@
 					        >
 					        <template slot="actions" slot-scope="props">
 					          <div class="custom-actions">
-					          <button class="ui button yellow"
-					          @click="onAction('edit-item', props.rowData, props.rowIndex)">
-					          <i class="edit icon"></i>
-					        </button>
+					        <router-link to="/admin/patients/edit_patients" class="ui button yellow"><i class="edit icon"></i></router-link>
 					        <button class="ui button red"
 					        @click="onAction('delete-item', props.rowData, props.rowIndex)">
 					        <i class="trash alternate icon"></i>

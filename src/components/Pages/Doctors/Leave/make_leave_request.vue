@@ -3,7 +3,12 @@
 		<div class="content">
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2">
-					<h4 class="page-title">Edit Leave</h4>
+					<h4 class="page-title">Make Leave Request</h4>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2">
+					<hr>
 				</div>
 			</div>
 			<div class="row">
@@ -20,6 +25,29 @@
 					                </div>
 				                </div>
 			            	</div>
+						</div>
+						<div class="row">
+							<div class="col-md-5">
+								<div class="form-group">
+				                    <div class="borderBottom">
+					                    <select class="form-control show-tick">
+					                        <option>Select Department</option>
+											<option>Department 1</option>
+											<option>Department 2</option>
+											<option>Department 3</option>
+											<option>Department 4</option>
+											<option>Department 5</option>
+					                    </select>
+					                </div>
+				                </div>
+							</div>
+							<div class="col-md-5">
+								<div class="form-group">
+				                    <div class="borderBottom">
+				                    	<input type="text" class="form-control"  placeholder="Your ID: DR-XXXXXXXXXX" />
+				                    </div>
+				                </div>
+				            </div>
 						</div>
 						<div class="row">
 							<div class="col-md-6">
@@ -63,7 +91,7 @@
 			<div class="row">
 				<div class="col-md-10">
 					<div class="m-t-20 text-center">
-						<button type="button" class="btn  btn-raised btn-success waves-effect">Save Changes</button>
+						<button type="button" class="btn  btn-raised btn-success waves-effect">Make Leave Request</button>
 					</div>
 				</div>
 			</div>

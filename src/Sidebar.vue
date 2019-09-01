@@ -76,16 +76,10 @@
 								</ul>
 							</li>
 							<li class="submenu">
-								<a href="#"><i class="fa fa-user"></i> <span> Employees </span> <span class="menu-arrow"></span></a>
+								<a href="#"><i class="fa fa-user"></i> <span> Leave Management </span> <span class="menu-arrow"></span></a>
 								<ul style="display: none;">
-									<li><router-link to="/admin/employees">Employees List</router-link></li>
-									<li class="submenu">
-										<a href="#"><i class="fa fa-user"></i> <span> Leave Management </span> <span class="menu-arrow"></span></a>
-										<ul style="display: none;">
-											<li><router-link to="/admin/employees/leaves">Leave Requests</router-link></li>
-											<li><router-link to="/admin/add_leave">Add Leave manually</router-link></li>
-										</ul>
-									</li>
+									<li><router-link to="/admin/employees/leaves">Leave Requests</router-link></li>
+									<li><router-link to="/admin/add_leave">Add Leave manually</router-link></li>
 								</ul>
 							</li>
 						</ul>

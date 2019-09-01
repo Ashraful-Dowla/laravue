@@ -38,12 +38,8 @@
 							<li>
 								<a class="fa fa-money"><router-link to="/receptionist/cash_payment"><span>Cash Payment</span></router-link></a>
 							</li>
-							<li class="submenu">
-								<a href="#"><i class="fa fa-user"></i> <span> Admission </span> <span class="menu-arrow"></span></a>
-								<ul style="display: none;">
-									<li><router-link to="/receptionist/new_patient">New Patient</router-link></li>
-									<li><router-link to="/receptionist/old_patient">Old Patient</router-link></li>
-								</ul>
+							<li>
+								<a class="fa fa-money"><router-link to="/receptionist/new_patient"><span>Admit New Patient</span></router-link></a>
 							</li>
 						</ul>
 					</div>

@@ -189,7 +189,7 @@
                         </div>
                     </div>
                     <div class="text-center m-t-20">
-                    <button type="button" class="btn  btn-raised btn-success waves-effect">SAVE THE CHANGES</button>
+                    <button type="button" class="btn  btn-raised btn-success waves-effect">SAVE CHANGES</button>
                 </div>
                 </form>
             </div>

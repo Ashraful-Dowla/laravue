@@ -79,6 +79,11 @@
 					<button style="float: right;" type="button" class="btn  btn-raised bg-blue-grey waves-effect"><strong>SUBMIT</strong></button>
 				</div>
 			</div>
+			<div class="row">
+				<div class="col-md-10">
+					<hr>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>

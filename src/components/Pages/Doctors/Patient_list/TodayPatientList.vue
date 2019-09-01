@@ -1,44 +1,57 @@
 <template>
   <div class="page-wrapper">
-    <div class="content">
-      <div class="ui container">
-        <h1>Today Patient List</h1>
-        <filter-bar></filter-bar>
-        <vuetable ref="vuetable"
-        api-url="https://vuetable.ratiw.net/api/users"
-        :fields="fields"
-        pagination-path=""
-        :per-page="5"
-        :multi-sort="true"
-        :sort-order="sortOrder"
-        :append-params="moreParams"
-        @vuetable:pagination-data="onPaginationData"
-        >
-        <template slot="actions" slot-scope="props">
-          <div class="custom-actions">
-            <button class="ui button positive"
-            @click="onAction('view-item', props.rowData, props.rowIndex)">
-            <i class="zoom icon"></i>
-          </button>
-          <button class="ui button yellow"
-          @click="onAction('edit-item', props.rowData, props.rowIndex)">
-          <i class="edit icon"></i>
-        </button>
-        <button class="ui button red"
-        @click="onAction('delete-item', props.rowData, props.rowIndex)">
-        <i class="trash alternate icon"></i>
-      </button>
-    </div>
-  </template>
-</vuetable>
-<div class="vuetable-pagination ui basic segment grid">
-  <vuetable-pagination-info ref="paginationInfo"
-  ></vuetable-pagination-info>
-  <vuetable-pagination ref="pagination"
-  @vuetable-pagination:change-page="onChangePage"
-  ></vuetable-pagination>
-</div>
-</div>
+    <div class="container" style="margin-top: 25px;margin-left: 50px;">
+        <div class="row">
+            <div class="col-md-10">
+                <h4 class="page-title">Today's Patients</h4>
+            </div>
+        </div>
+        <div class="row">
+                <div class="col-md-10">
+                    <hr>
+                </div>
+            </div>
+      <div class="row">
+        <div class="col-md-10 border">
+            <div class="ui container">
+                <filter-bar></filter-bar>
+                <vuetable ref="vuetable"
+                api-url="https://vuetable.ratiw.net/api/users"
+                :fields="fields"
+                pagination-path=""
+                :per-page="5"
+                :multi-sort="true"
+                :sort-order="sortOrder"
+                :append-params="moreParams"
+                @vuetable:pagination-data="onPaginationData"
+                >
+                <template slot="actions" slot-scope="props">
+                  <div class="custom-actions">
+                    <button class="ui button positive"
+                    @click="onAction('view-item', props.rowData, props.rowIndex)">
+                    <i class="zoom icon"></i>
+                  </button>
+                  <button class="ui button yellow"
+                  @click="onAction('edit-item', props.rowData, props.rowIndex)">
+                  <i class="edit icon"></i>
+                </button>
+                <button class="ui button red"
+                @click="onAction('delete-item', props.rowData, props.rowIndex)">
+                <i class="trash alternate icon"></i>
+              </button>
+            </div>
+          </template>
+        </vuetable>
+        <div class="vuetable-pagination ui basic segment grid">
+          <vuetable-pagination-info ref="paginationInfo"
+          ></vuetable-pagination-info>
+          <vuetable-pagination ref="pagination"
+          @vuetable-pagination:change-page="onChangePage"
+          ></vuetable-pagination>
+        </div>
+        </div>
+        </div>
+      </div>
 </div>
 </div>
 </template>

@@ -22,40 +22,37 @@
 			<div class="row">
 				<div class="col-md-11 border">
 					<div class="ui container">
-				        <filter-bar></filter-bar>
-				        <vuetable ref="vuetable"
-				        api-url="https://vuetable.ratiw.net/api/users"
-				        :fields="fields"
-				        pagination-path=""
-				        :per-page="5"
-				        :multi-sort="true"
-				        :sort-order="sortOrder"
-				        :append-params="moreParams"
-				        @vuetable:pagination-data="onPaginationData"
-				        >
-				        <template slot="actions" slot-scope="props">
-				          <div class="custom-actions">
-				          <button class="ui button yellow"
-				          @click="onAction('edit-item', props.rowData, props.rowIndex)">
-				          <i class="edit icon"></i>
-				        </button>
-				        <button class="ui button red"
-				        @click="onAction('delete-item', props.rowData, props.rowIndex)">
-				        <i class="trash alternate icon"></i>
-				      </button>
-				    </div>
-				  </template>
+						<filter-bar></filter-bar>
+						<vuetable ref="vuetable"
+						api-url="https://vuetable.ratiw.net/api/users"
+						:fields="fields"
+						pagination-path=""
+						:per-page="5"
+						:multi-sort="true"
+						:sort-order="sortOrder"
+						:append-params="moreParams"
+						@vuetable:pagination-data="onPaginationData"
+						>
+						<template slot="actions" slot-scope="props">
+							<div class="custom-actions">
+								<router-link to="/admin/appointments/edit_appointments" class="ui button yellow"><i class="edit icon"></i></router-link>
+								<button class="ui button red"
+								@click="onAction('delete-item', props.rowData, props.rowIndex)">
+								<i class="trash alternate icon"></i>
+							</button>
+						</div>
+					</template>
 				</vuetable>
 				<div class="vuetable-pagination ui basic segment grid">
-				  <vuetable-pagination-info ref="paginationInfo"
-				  ></vuetable-pagination-info>
-				  <vuetable-pagination ref="pagination"
-				  @vuetable-pagination:change-page="onChangePage"
-				  ></vuetable-pagination>
-				</div>
-				</div>
+					<vuetable-pagination-info ref="paginationInfo"
+					></vuetable-pagination-info>
+					<vuetable-pagination ref="pagination"
+					@vuetable-pagination:change-page="onChangePage"
+					></vuetable-pagination>
 				</div>
 			</div>
+		</div>
+	</div>
 		</div>
 	</div>
 </template>

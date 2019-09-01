@@ -2,9 +2,19 @@
 	<div class="page-wrapper">
 		<div class="container" style="margin-top: 25px;margin-left: 50px;">
 			<div class="row">
+				<div class="col-md-8">
+					<h4 class="page-title">Leave Request Approvals</h4>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-10">
+					<hr>
+				</div>
+			</div>
+			<div class="row">
 				<div class="col-md-10 border">
+					<br>
 					<div class="ui container">
-				        <h3 style="text-align: center;">Leave Request Approvals</h3>
 				        <vuetable ref="vuetable"
 				        api-url="https://vuetable.ratiw.net/api/users"
 				        :fields="fields"

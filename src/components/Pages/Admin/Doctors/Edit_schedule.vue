@@ -1,79 +1,115 @@
 <template>
 	<div class="page-wrapper">
-		<div class="content">
+		<div class="container" style="margin-top: 25px;margin-left: 50px;">
 			<div class="row">
-				<div class="col-lg-8 offset-lg-2">
+				<div class="col-md-8">
 					<h4 class="page-title">Edit Schedule</h4>
+				</div>
+				<div class="col-md-2 text-right m-b-30">
+					<router-link class="btn  btn-raised bg-grey waves-effect fa fa-chevron-circle-left" to="/admin/doctors_schedule"><strong>BACK</strong></router-link>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-lg-8 offset-lg-2">
-					<form>
-						<div class="row">
-							<div class="col-sm-6">
-								<div class="form-group">
-				                    <p><b>Doctor Name</b></p>
-				                    <div class="borderBottom">
-					                    <select class="form-control show-tick">
-					                        <option>Select</option>
-											<option>Doctor Name 1</option>
-											<option>Doctor Name 2</option>
-											<option>Doctor Name 2</option>
-											<option>Doctor Name 2</option>
-											<option>Doctor Name 2</option>
-											<option>Doctor Name 2</option>
-											<option>Doctor Name 2</option>
-											<option>Doctor Name 2</option>
-					                    </select>
-					                </div>
-				                </div>
-			            	</div>
-			            	<div class="col-sm-6">
-								<div class="form-group">
-				                    <p><b>Select Date</b></p>
-				                    <div class="borderBottom">
-					                    <select class="form-control show-tick">
-					                        <option>Select Days</option>
-											<option>Sunday</option>
-											<option>Monday</option>
-											<option>Tuesday</option>
-											<option>Wednesday</option>
-											<option>Thursday</option>
-											<option>Friday</option>
-											<option>Saturday</option>
-					                    </select>
-					                </div>
-				                </div>
-			            	</div>
+				<div class="col-md-10">
+					<hr>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="form-group">
+						<p><b>Department name</b></p>
+						<div class="borderBottom">
+							<select class="form-control show-tick">
+								<option>Select</option>
+								<option>Cardiology</option>
+								<option>Sergiology</option>
+								<option>Pathodology</option>
+								<option>Neurology</option>
+							</select>
 						</div>
-						<div class="row">
-							<div class="col-sm-6">
-								<div class="form-group">
-									<div>
-										<label><strong>Start Time</strong></label>
-										<vue-timepicker format="hh:mm A"></vue-timepicker>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-6">
-								<div class="form-group">
-									<div>
-										<label><strong>End Time</strong></label>
-										<vue-timepicker format="hh:mm A"></vue-timepicker>
-									</div>
-								</div>
-							</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<p><b>Doctor Name</b></p>
+						<div class="borderBottom">
+							<select class="form-control show-tick">
+								<option>Select</option>
+								<option>Doctor Name 1</option>
+								<option>Doctor Name 2</option>
+								<option>Doctor Name 2</option>
+								<option>Doctor Name 2</option>
+								<option>Doctor Name 2</option>
+								<option>Doctor Name 2</option>
+								<option>Doctor Name 2</option>
+								<option>Doctor Name 2</option>
+							</select>
 						</div>
-						<div class="col-md-6">
-							<p>Schedule Status</p>
-							<div class="demo-radio-button form-group">
-								<input name="group1" type="radio" id="radio_6" class="with-gap" />
-                				<label for="radio_6">ACTIVE</label>
-								<input name="group1" type="radio" id="radio_7" class="with-gap" />
-                				<label for="radio_7">INACTIVE</label>
-							</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<p><b>Select Date</b></p>
+						<div class="borderBottom">
+							<select class="form-control show-tick">
+								<option>Select Days</option>
+								<option>Sunday</option>
+								<option>Monday</option>
+								<option>Tuesday</option>
+								<option>Wednesday</option>
+								<option>Thursday</option>
+								<option>Friday</option>
+								<option>Saturday</option>
+							</select>
 						</div>
-					</form>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-10">
+					<hr>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-10">
+					<input name="group1" type="radio" id="radio_6" class="with-gap" />
+					<label for="radio_6">
+						Select if the doctor is available for multiple time in a weekday.
+					</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-5">
+					<div class="form-group">
+						<div>
+							<label><strong>Start Time</strong></label>
+							<vue-timepicker format="hh:mm A"></vue-timepicker>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-5">
+					<div class="form-group">
+						<div>
+							<label><strong>End Time</strong></label>
+							<vue-timepicker format="hh:mm A"></vue-timepicker>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-10">
+					<hr>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-5">
+					<p>Schedule Status</p>
+					<div class="demo-radio-button form-group">
+						<input name="group1" type="radio" id="radio_6" class="with-gap" />
+						<label for="radio_6">ACTIVE</label>
+						<input name="group1" type="radio" id="radio_7" class="with-gap" />
+						<label for="radio_7">INACTIVE</label>
+					</div>
 				</div>
 			</div>
 			<div class="row">
@@ -83,20 +119,25 @@
 					</div>
 				</div>
 			</div>
+			<div class="row">
+				<div class="col-md-10">
+					<hr>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
 <script>
-	import VueTimepicker from 'vue2-timepicker'
-	import 'vue2-timepicker/dist/VueTimepicker.css'
-	export default {
-		components: {
-			'vue-timepicker': VueTimepicker
-		}
+import VueTimepicker from 'vue2-timepicker'
+import 'vue2-timepicker/dist/VueTimepicker.css'
+export default {
+	components: {
+		'vue-timepicker': VueTimepicker
 	}
+}
 </script>
 <style scoped>
-	.borderBottom{
-		border-bottom: 2px solid #607D8B;
-	}
+.borderBottom{
+	border-bottom: 2px solid #607D8B;
+}
 </style>

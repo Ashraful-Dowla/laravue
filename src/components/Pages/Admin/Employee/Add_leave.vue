@@ -91,7 +91,7 @@
 			<div class="row">
 				<div class="col-md-10">
 					<div class="m-t-20 text-center">
-						<button type="button" class="btn  btn-raised btn-success waves-effect">Save Leave</button>
+						<button type="button" class="btn  btn-raised btn-success waves-effect">Add Leave</button>
 					</div>
 				</div>
 			</div>
