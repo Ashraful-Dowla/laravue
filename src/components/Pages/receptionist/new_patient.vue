@@ -57,14 +57,14 @@
                 <div class="col-md-5">
                     <div class="form-group">
                         <div class="borderBottom">
-                            <input type="text" class="form-control" placeholder="Employee ID" />
+                            <input type="text" class="form-control" placeholder="patient ID" />
                         </div>
                     </div>
                 </div>
                 <div class="col-md-5">
                     <div class="form-group">
                         <div class="borderBottom">
-                            <date-picker :bootstrap-styling="true" class="datepicker form-control" placeholder="Joining Date"></date-picker>
+                            <date-picker :bootstrap-styling="true" class="datepicker form-control" placeholder="Admission Date"></date-picker>
                         </div>
                     </div>
                 </div>

@@ -38,6 +38,9 @@ import ExpenditureDetails from '@/components/Pages/Admin/Others/Expenditure_deta
 import Payments from '@/components/Pages/Admin/Others/Payments'
 import AdminProfile from '@/components/Pages/Admin/Profile/Admin_Profile'
 import EditAdminProfile from '@/components/Pages/Admin/Profile/Edit_Admin_Profile'
+import Receptionist from '@/components/Pages/Admin/Receptionist/Receptionist'
+import AddReceptionist from '@/components/Pages/Admin/Receptionist/Add_Receptionist'
+import EditReceptionist from '@/components/Pages/Admin/Receptionist/Edit_Receptionist'
 
 /*===============Doctor===============*/
 import Doctor from '@/components/Pages/Doctors/SidebarDoctor'
@@ -141,6 +144,11 @@ export default new Router({
             {path: '/admin/refill_account', component: RefillAccount, name: 'refill_account'},
             {path: '/admin/expenditure_details', component: ExpenditureDetails, name: 'expenditure_details'},
             {path: '/admin/payments', component: Payments, name: 'payments'},
+
+            /*==============RECEPTIONIST============*/
+            {path: '/admin/receptionist', component: Receptionist, name: 'receptionist'},
+            {path: '/admin/receptionist/add_receptionist', component: AddReceptionist, name: 'add_receptionist'},
+            {path: '/admin/receptionist/edit_receptionist', component: EditReceptionist, name: 'edit_receptionist'},
     	]
     },
     {

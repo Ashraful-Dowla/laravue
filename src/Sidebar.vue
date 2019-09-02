@@ -48,6 +48,9 @@
 								<a class="fa fa-wheelchair"><router-link to="/admin/patients"><span>Patients</span></router-link></a>
 							</li>
 							<li>
+								<a class="fa fa-wheelchair"><router-link to="/admin/receptionist"><span>Receptionist</span></router-link></a>
+							</li>
+							<li>
 								<a class="fa fa-calendar"><router-link to="/admin/appointments"><span>Appointments</span></router-link></a>
 							</li>
 							<li>

@@ -18,7 +18,7 @@
 				<div class="col-md-5">
 					<div class="form-group">
 						<div class="borderBottom">
-							<input type="text" class="form-control" placeholder="Ammount" />
+							<input type="text" class="form-control" placeholder="Refill Amount" />
 						</div>
 					</div>
 				</div>
