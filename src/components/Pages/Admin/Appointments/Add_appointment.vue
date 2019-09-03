@@ -17,25 +17,9 @@
 			<div class="row">
 				<div class="col-md-5">
 					<div class="form-group">
-						<p><b>Appointment ID</b></p>
-						<div class="borderBottom">
-							<input type="text" class="form-control" placeholder="APT-xxxxxxxxx" />
-						</div>
-					</div>
-				</div>
-				<div class="col-md-5">
-					<div class="form-group">
-						<p><b>Patient Name</b></p>
+						<p><b>Patient ID</b></p>
 	                    <div class="borderBottom">
-		                    <select class="form-control show-tick">
-		                        <option>Select</option>
-								<option>Jennifer Robinson</option>
-								<option>Terry Baker</option>
-								<option>Terry Baker</option>
-								<option>Terry Baker</option>
-								<option>Terry Baker</option>
-								<option>Terry Baker</option>
-		                    </select>
+		                    <input type="text" class="form-control" placeholder="PT-XXXXXXXXX" />
 		                </div>
 	                </div>
             	</div>
@@ -81,30 +65,16 @@
             		</div>
             	</div>
 				<div class="col-md-5">
-            		<div class="form-group">
-            			<div>
-            				<label><strong>Time</strong></label>
-							<vue-timepicker format="hh:mm A"></vue-timepicker>
-            			</div>
-            		</div>
-            	</div>
-			</div>
-			<div class="row">
-				<div class="col-md-5">
-            		<div class="form-group">
-            			<p><b>Patient Email</b></p>
-            			<div class="borderBottom">
-            				<input type="email" class="form-control" placeholder="example@example.com" />
-            			</div>
-            		</div>
-            	</div>
-				<div class="col-md-5">
-            		<div class="form-group">
-            			<p><b>Patient Phone Number</b></p>
-            			<div class="borderBottom">
-            				<input type="text" class="form-control" placeholder="01XXX-XXXXXX" />
-            			</div>
-            		</div>
+					<div class="form-group">
+	                    <p><b>Time</b></p>
+	                    <div class="borderBottom">
+		                    <select class="form-control show-tick">
+		                        <option>8:30pm</option>
+								<option>9:10am</option>
+								<option>11:30am</option>
+		                    </select>
+		                </div>
+	                </div>
             	</div>
 			</div>
 			<div class="row">

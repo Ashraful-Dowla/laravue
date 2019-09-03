@@ -16,7 +16,7 @@ export const FieldsDef_report= [
 		},
 		{
 			name:'name',
-			title: '<i class="fa fa-tag"></i> Specialist',
+			title: '<i class="fa fa-tag"></i> Department',
 			sortField: 'name'
 		},
 		{

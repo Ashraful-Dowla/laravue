@@ -11,7 +11,7 @@ export const FieldsDef_test_issued= [
 		},
 		{
 			name:'name',
-			title: '<i class="fa fa-tag"></i> Specialist',
+			title: '<i class="fa fa-tag"></i> Department',
 			sortField: 'name'
 		},
 		{

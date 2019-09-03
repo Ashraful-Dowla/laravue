@@ -54,9 +54,6 @@
 							<li>
 								<a class="fa fa-hospital-o"><router-link to="/patient/bill_issued"><span>Bill Issued</span></router-link></a>
 							</li>
-							<li>
-								<a class="fa fa-hospital-o"><router-link to="/patient/patient_account_summary"><span>Account Details</span></router-link></a>
-							</li>
 						</ul>
 					</div>
 				</div>

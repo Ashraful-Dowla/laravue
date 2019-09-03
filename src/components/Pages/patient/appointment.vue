@@ -21,7 +21,7 @@
                                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <p> <b>Specialist</b> </p>
+                                                    <p> <b>Department</b> </p>
                                                     <select class="form-control show-tick waves-effect">
                                                         <option>Cardiologist</option>
                                                         <option>Dermatologist</option>
@@ -34,7 +34,7 @@
                                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <p> <b>Doctor Select</b> </p>
+                                                    <p> <b>Select Doctor</b> </p>
                                                     <select class="form-control show-tick waves-effect">
                                                         <option>Dr.Kaushik Deb</option>
                                                         <option>Prof. Dr. Tafiquee Sayed</option>

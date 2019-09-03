@@ -6,12 +6,12 @@ export const FieldsDef_bill_issued = [
 		},
 		{
 			name:'name',
-			title: '<i class="fa fa-tag"></i> Report/ .....',
+			title: '<i class="fa fa-tag"></i> Report',
 			sortField: 'name'
 		},
 		{
 			name:'name',
-			title: '<i class="fa fa-tag"></i> Payment',
+			title: '<i class="fa fa-tag"></i> Amount',
 			sortField: 'name'
 		},
 		{

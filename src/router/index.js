@@ -69,7 +69,6 @@ import ReportOverview from '@/components/Pages/patient/report_overview'
 import BillIssued from '@/components/Pages/patient/bill_issued'
 import EmergencyStop from '@/components/Pages/patient/emergency_stop'
 import PreviousAppointment from '@/components/Pages/patient/previous_appointment'
-import PatientAccountSumary from '@/components/Pages/patient/Patient_Account_Summary'
 
 
 /*================Receptionist======================*/
@@ -231,11 +230,6 @@ export default new Router({
                 path: 'previous_appointment',
                 name: 'PreviousAppointment',
                 component: PreviousAppointment
-            },
-            {
-                path: 'patient_account_summary',
-                component: PatientAccountSumary,
-                name: 'patient_account_summary'
             }
         ]
     },

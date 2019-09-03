@@ -50,20 +50,13 @@
             			</div>
             		</div>
             	</div>
-            	<div class="col-md-5">
+            	<!-- <div class="col-md-5">
             		<div class="form-group">
             			<div class="borderBottom">
             				<input type="password" class="form-control" placeholder="CONFIRM PASSWORD" />
             			</div>
             		</div>
-            	</div>
-				<div class="col-md-5">
-					<div class="form-group">
-						<div class="borderBottom">
-							<input type="text" class="form-control" placeholder="Patient ID" />
-						</div>
-					</div>
-				</div>
+            	</div> -->
 				<div class="col-md-5">
             		<div class="form-group">
             			<div class="borderBottom">
@@ -91,47 +84,53 @@
 		                        </div>
 		                    </div>
 		                </div>
-						<div class="col-md-5">
-		                    <div class="form-group">
-		                        <div class="borderBottom">
-		                            <input type="text" class="form-control" placeholder="DISTRICT" />
-		                        </div>
-		                    </div>
-		                </div>
-						<div class="col-md-5">
-		                    <div class="form-group">
-		                        <div class="borderBottom">
-		                            <input type="text" class="form-control" placeholder="VILLAGE" />
-		                        </div>
-		                    </div>
-		                </div>
-						<div class="col-md-5">
-		                    <div class="form-group">
-		                        <div class="borderBottom">
-		                            <input type="text" class="form-control" placeholder="POSTAL CODE" />
-		                        </div>
-		                    </div>
-		                </div>
-						<div class="col-md-5">
-		                    <div class="form-group">
-		                        <div class="borderBottom">
-		                            <input type="text" class="form-control" placeholder="PHONE NUMBER" />
-		                        </div>
-		                    </div>
-		                </div>
-		                <div class="col-md-5">
-		                    <div class="form-group">
-		                        <div class="borderBottom">
-		                            <select class="form-control show-tick">
-				                        <option>Select Country</option>
-										<option>Bangladesh</option>
-										<option>America</option>
-										<option>America</option>
-										<option>America</option>
-				                    </select>
-		                        </div>
-		                    </div>
-		                </div>
+						<div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="borderBottom">
+                                        <select class="form-control select">
+                                            <option>Select Country</option>
+                                            <option>USA</option>
+                                            <option>UK</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="borderBottom">
+                                        <select class="form-control select">
+                                            <option>Select City</option>
+                                            <option>abc</option>
+                                            <option>efg</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="borderBottom">
+                                        <select class="form-control select">
+                                            <option>Select Sate</option>
+                                            <option>ksdgjhsgd</option>
+                                            <option>gjhgjadgjhgd</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="borderBottom">
+                                        <input type="password" class="form-control" placeholder="POSTAL CODE" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="borderBottom">
+                                        <input type="text" class="form-control" placeholder="PHONE NUMBER" />
+                                    </div>
+                                </div>
+                            </div>
 		                <div class="col-md-5">
 		                    <div class="form-group">
 		                        <div class="borderBottom">
@@ -151,16 +150,6 @@
 		                </div>
 					</div>
 				</div>
-				<div class="col-md-5">
-					<div class="form-group">
-						<label>UPLOAD PATIENT IMAGE</label>
-						<div class="profile-upload borderBottom">
-							<div class="upload-input">
-								<input type="file" class="form-control">
-							</div>
-						</div>
-					</div>
-                </div>
                 <div class="col-md-5">
 					<p>Status</p>
 					<div class="demo-radio-button form-group">

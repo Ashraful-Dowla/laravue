@@ -36,16 +36,16 @@
 								<a class="fa fa-user-md"><router-link to="/doctor/today_patients_list"><span>Today Patients List</span></router-link></a>
 							</li>
 							<li>
-								<a class="fa fa-wheelchair"><router-link to="/doctor/patient_previous_records"><span>Patient's Previous Record</span></router-link></a>
+								<a class="fa fa-calendar-check-o"><router-link to="/doctor/see_all_patient_list"><span>All Patients List</span></router-link></a>
 							</li>
 							<li>
 								<a class="fa fa-calendar"><router-link to="/doctor/see_all_doctors_list"><span>See Doctor's List</span></router-link></a>
 							</li>
 							<li>
-								<a class="fa fa-calendar-check-o"><router-link to="/doctor/see_all_patient_list"><span>All Patients List</span></router-link></a>
+								<a class="fa fa-hospital-o"><router-link to="/doctor/prescription"><span>Prescription</span></router-link></a>
 							</li>
 							<li>
-								<a class="fa fa-hospital-o"><router-link to="/doctor/prescription"><span>Prescription</span></router-link></a>
+								<a class="fa fa-wheelchair"><router-link to="/doctor/patient_previous_records"><span>Patient's Previous Record</span></router-link></a>
 							</li>
 							<li>
 								<a class="fa fa-hospital-o"><router-link to="/doctor/next_appointment"><span>Next Appointment</span></router-link></a>

@@ -13,7 +13,7 @@ export const FieldsDef_previous_appointment = [
 		},
 		{
 			name:'name',
-			title: '<i class="fa fa-tag"></i> Appointment by',
+			title: '<i class="fa fa-tag"></i> Appointed By',
 			sortField: 'name'
 		},
 		{
