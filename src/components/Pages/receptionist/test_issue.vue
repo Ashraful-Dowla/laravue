@@ -20,12 +20,11 @@
                                                 <div>
                                                     <input type="text" id="patient_id" class="form-control borderBottom" placeholder="Enter the Patient ID">
                                                 </div>
-                                                <button type="button" @click="addRow()" class="btn btn-raised btn-success m-t-15 waves-effect" style="float: right;">Add Test</button>
                                             </div>
                                         </form>
                                         <br><br><br>
                                         <h2 style="font-size: 24px;">Select Test</h2>
-                                        <v-select v-model="selected" :options="options" :reduce="test_name=>test_name.test_name" label="test_name"></v-select>
+                                        <v-select v-model="selected" :options="options" :reduce="test_name=>test_name.test_name" label="test_name"  @input="addRow"></v-select>
                                         <br><br><br><br>
                                         <h2 style="text-align: center;" v-if="tableRows.length">TEST SELECTED</h2>
                                         <table class="table" v-if="tableRows.length">
@@ -44,9 +43,28 @@
                                             <td>{{ val.cost }}</td>
                                             <td><button type="button" @click="deleteRow(idx)" class="ui button red"><i class="delete icon"></i></button></td>
                                         </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td style="font-size: 16px;">Sub Total {{ sub_total }}</td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td style="font-size: 16px;">Discount(%) <input type="text" name="discount" id="discount" v-model="discount" @keyup="dis"></td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                         <tr>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td style="font-size: 16px;">Net Payable {{ net_payable }}</td>
+                                            <td>&nbsp;</td>
+                                        </tr>
                                     </tbody>
                                 </table>
-                                <button type="button" @click="" class="btn btn-raised btn-primary m-t-15 waves-effect" v-if="tableRows.length">Submit</button>
+                                <router-link class="btn btn-raised btn-primary m-t-15 waves-effect" to="/receptionist/proceed_to_payment" tag="button" v-if="tableRows.length"> Proceed to Payment</router-link>
+                                <router-view/>
                             </div>
                         </div>
                     </div>
@@ -76,7 +94,11 @@
                     { test_name: 'CT-SCAN OF BRAIN', test_cost: '4000'},
                     { test_name: 'CT-Scan Contrast', test_cost: '1300'}
                 ],
-                tableRows: []
+                tableRows: [],
+                sub_total: 0,
+                discount: 0,
+                net_payable: 0
+
             };
         },
         methods:{
@@ -85,12 +107,24 @@
                 {
                     if(this.options[i].test_name == this.selected)
                     {
-                        this.tableRows.push({ name: this.options[i].test_name, cost: this.options[i].test_cost  })
+                        this.tableRows.push({ name: this.options[i].test_name, cost: this.options[i].test_cost, index: i  })
+                        this.sub_total = parseInt(this.sub_total) + parseInt(this.options[i].test_cost)
                     }
                 }
+                this.calculate_net_payable()
             },
             deleteRow(idx){
+                //console.log(this.tableRows)
+                this.sub_total = parseInt(this.sub_total) - parseInt(this.options[parseInt(this.tableRows[idx].index)].test_cost)
                 this.tableRows.splice(idx,1)
+                this.calculate_net_payable()
+            },
+            dis(){
+                this.calculate_net_payable()  
+            },
+            calculate_net_payable(){
+                this.net_payable = (100-parseFloat(this.discount))/100
+                this.net_payable = parseFloat(this.net_payable)* parseFloat(this.sub_total)
             }
         }
     }
