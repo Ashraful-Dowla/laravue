@@ -18,6 +18,7 @@
     "vue-bootstrap-typeahead": "^0.2.6",
     "vue-ckeditor2": "^2.1.5",
     "vue-ckeditor5": "^0.4.1",
+    "vue-country-select": "^0.2.2",
     "vue-events": "^3.1.0",
     "vue-router": "^3.0.1",
     "vue-select": "^3.1.0",
