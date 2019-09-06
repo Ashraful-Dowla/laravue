@@ -80,6 +80,7 @@ import CashPayment from '@/components/Pages/receptionist/cash_payment'
 import OldPatient from '@/components/Pages/receptionist/old_patient'
 import NewPatient from '@/components/Pages/receptionist/new_patient'
 import ProceedToPayment from '@/components/Pages/receptionist/proceed_to_payment'
+import Orders from '@/components/Pages/receptionist/orders'
 
 Vue.use(Router)
 
@@ -267,6 +268,11 @@ export default new Router({
                 path: 'proceed_to_payment',
                 name: 'ProceedToPayment',
                 component: ProceedToPayment
+            },
+            {
+                path: 'orders',
+                name: 'Orders',
+                component: Orders
             }
         ]
     }

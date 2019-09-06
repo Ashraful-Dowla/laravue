@@ -39,7 +39,10 @@
 								<a class="fa fa-money"><router-link to="/receptionist/cash_payment"><span>Cash Payment</span></router-link></a>
 							</li>
 							<li>
-								<a class="fa fa-money"><router-link to="/receptionist/new_patient"><span>Admit New Patient</span></router-link></a>
+								<a class="fa fa-ambulance"><router-link to="/receptionist/new_patient"><span>Admit New Patient</span></router-link></a>
+							</li>
+							<li>
+								<a class="fa fa-first-order"><router-link to="/receptionist/orders"><span>Orders</span></router-link></a>
 							</li>
 						</ul>
 					</div>
