@@ -5,9 +5,6 @@
                 <div class="col-md-8">
                     <h4 class="page-title">Admit New Patient</h4>
                 </div>
-                <div class="col-md-2 text-right m-b-30">
-                    <router-link class="btn  btn-raised bg-grey waves-effect fa fa-chevron-circle-left" to="/admin/patients"><strong>BACK</strong></router-link>
-                </div>
             </div>
             <div class="row">
                 <div class="col-md-10">

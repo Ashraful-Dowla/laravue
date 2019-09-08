@@ -17,8 +17,11 @@ const options = {
 }
  
 Vue.use(VueCkeditor.plugin, options);
+  
 
 Vue.config.productionTip = false
+
+
 
 /* eslint-disable no-new */
 /*new Vue({

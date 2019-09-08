@@ -28,7 +28,7 @@
                                             <input type="text" id="due" class="form-control" v-model="net_payable">
                                         </div>
                                     </div>
-                                    <button v-if="show" type="button" @click="" class="btn btn-raised btn-primary m-t-15 waves-effect">Submit</button>
+                                    <button v-if="show" type="button" @click="showModal" class="btn btn-raised btn-primary m-t-15 waves-effect">Submit</button>
                                 </form>
                             </div>
                         </div>
@@ -39,6 +39,8 @@
     </div>
 </template>
 <script type="text/javascript">
+// ES6 Modules or TypeScript
+import Swal from 'sweetalert2'
 export default{
     name:'cash_payment',
     data(){
@@ -51,6 +53,25 @@ export default{
     methods:{
         hide(){
             this.show= !this.show
+        },
+        showModal(){
+            Swal.fire({
+              title: 'Are you sure?',
+              text: "You won't be able to revert this!",
+              type: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Are you sure?'
+            }).then((result) => {
+              if (result.value) {
+                Swal.fire(
+                  'Paid!',
+                  'Successfully Paid!',
+                  'success'
+                )
+              }
+            })
         }
     }
 }

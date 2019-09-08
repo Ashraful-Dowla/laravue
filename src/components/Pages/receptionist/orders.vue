@@ -1,6 +1,9 @@
 <template>
 	<div class="page-wrapper">
-        <div class="container" style="margin-top: 25px;margin-left: 50px;">
+		<div class="content">
+        <div class="container-fluid" align="left">
+        	<div class="col-lg-12 col-md-12 col-sm-12">
+                <h2>Order Section</h2>
         	<form>
                  <p><b>Order ID</b></p>
                 <div class="form-group">
@@ -9,9 +12,9 @@
                     </div>
                 </div>
             </form>
-            <button class="ui button blue" style="float: right;" @click="">Search</button>
+            <button class="ui button blue" style="float: right;" @click="searchFunction">Search</button>
             <br><br><br><br>
-            <div id="printTable">
+            <div id="printTable" v-if="showDataTable">
 	        	<table class="table">
 	                <thead>
 	                    <tr>
@@ -77,12 +80,14 @@
 	                </tbody>
 	            </table>
             </div>
-	         <button class="ui button yellow" style="float: right;" @click="printFunction" >Print</button>
+	         <button class="ui button yellow" style="float: right;" @click="printFunction" v-if="showDataTable" >Print</button>
 	         <loading
      			:show="show"
      			:label="label">
  			 </loading>
         </div>
+    </div>
+    </div>
     </div>
 </template>
 <script>
@@ -125,18 +130,27 @@ export default{
                 net_payable: '900',
                 due: '0',
                 show: false,
-                label: 'Loading.....'
+                label: 'Loading.....',
+                showDataTable: false
             };
         },
         methods:{
         	printFunction(){
         		this.show = true
-        		window.setTimeout(()=> this.showTable(),5000)
+        		window.setTimeout(()=> this.showTable(),3000)
 	        },
 	        showTable(){
 	        	//console.log('asdasd')
 	        	this.show=false
         		this.$htmlToPaper('printTable')
+	        },
+	        searchFunction(){
+	        	this.show = true
+	        	window.setTimeout(()=> this.sTable() ,5000)
+	        },
+	        sTable(){
+	        	this.show = false
+	        	this.showDataTable = true
 	        }
         }
     }

@@ -63,8 +63,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <router-link class="btn btn-raised btn-primary m-t-15 waves-effect" to="/receptionist/proceed_to_payment" tag="button" v-if="tableRows.length"> Proceed to Payment</router-link>
-                                <router-view/>
+                                <router-link class="btn btn-raised btn-primary m-t-15 waves-effect" to="" tag="button" v-if="tableRows.length" @click.native="proceedToPayment"> Proceed to Payment</router-link>
                             </div>
                         </div>
                     </div>
@@ -81,6 +80,9 @@
 
     Vue.component('v-select', vSelect)
     import 'vue-select/dist/vue-select.css';
+    
+    // ES6 Modules or TypeScript
+    import Swal from 'sweetalert2'
 
     export default{
         name:'test_issue',
@@ -98,7 +100,6 @@
                 sub_total: 0,
                 discount: 0,
                 net_payable: 0
-
             };
         },
         methods:{
@@ -125,6 +126,23 @@
             calculate_net_payable(){
                 this.net_payable = (100-parseFloat(this.discount))/100
                 this.net_payable = parseFloat(this.net_payable)* parseFloat(this.sub_total)
+            },
+            proceedToPayment(){
+                Swal.fire({
+                      title: 'Are you sure?',
+                      text: "You won't be able to revert this!",
+                      type: 'warning',
+                      showCancelButton: true,
+                      confirmButtonColor: '#3085d6',
+                      cancelButtonColor: '#d33',
+                      confirmButtonText: 'Are you sure?'
+                    }).then((result) => {
+                      if (!result.value) {
+                          this.$router.push({path: '/receptionist/test_issue'})
+                      }else {
+                          this.$router.push({ path: '/receptionist/proceed_to_payment'})
+                      }
+                })
             }
         }
     }

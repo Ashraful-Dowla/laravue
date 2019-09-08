@@ -66,10 +66,10 @@
                                      </div>
                                      <div class="row">
                                         <div class="col-md-2">
-                                            <button  type="button" class="btn btn-raised btn-primary m-t-15 waves-effect fa fa-send-o">Submit</button>
+                                            <button  type="button" class="btn btn-raised btn-primary m-t-15 waves-effect fa fa-send-o" @click="showModal">Submit</button>
                                         </div>
                                         <div class="col-md-2">
-                                            <button type="button" class="btn btn-raised btn-danger m-t-15 waves-effect fa fa-money">Wallet Pay</button>
+                                            <button type="button" class="btn btn-raised btn-danger m-t-15 waves-effect fa fa-money" @click="showModalMyWallet">Wallet Pay</button>
                                         </div>
                                      </div>
                                  </form>
@@ -83,9 +83,53 @@
  </template>
  <script type="text/javascript">
  import Datepicker from 'vuejs-datepicker';
+ 
+ // ES6 Modules or TypeScript
+ import Swal from 'sweetalert2'
+
  export default {
     components: {
         'date-picker': Datepicker
+    },
+    methods:{
+        showModal(){
+            Swal.fire({
+              title: 'Are you sure?',
+              text: "You won't be able to revert this!",
+              type: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Are you sure?'
+            }).then((result) => {
+              if (result.value) {
+                Swal.fire(
+                  'Ok!',
+                  'Appointment Submitted Successfully',
+                  'success'
+                )
+              }
+            })
+        },
+        showModalMyWallet(){
+            Swal.fire({
+              title: 'Are you sure?',
+              text: "You won't be able to revert this!",
+              type: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Are you sure?'
+            }).then((result) => {
+              if (result.value) {
+                Swal.fire(
+                  'Paid!',
+                  'Successfully Paid from My Wallet',
+                  'success'
+                )
+              }
+            })
+        }
     }
 }
 </script>  
