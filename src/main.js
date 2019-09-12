@@ -21,7 +21,9 @@ Vue.use(VueCkeditor.plugin, options);
 
 Vue.config.productionTip = false
 
-
+import VueResource from 'vue-resource'
+import axios from 'axios'
+Vue.use(VueResource)
 
 /* eslint-disable no-new */
 /*new Vue({

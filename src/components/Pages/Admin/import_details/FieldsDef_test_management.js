@@ -1,13 +1,15 @@
 export const FieldsDef_test_management = [
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Title',
-			sortField: 'name'
+			name:'id',
+			title: '<i class="fa fa-tag"></i> Id'
 		},
 		{
-			name:'age',
-			title: '<i class="fa fa-tag"></i> Price',
-			sortField: 'name'
+			name:'title',
+			title: 'Test Title'
+		},
+		{
+			name: 'price',
+			title: 'Price'
 		},
 		{
             name: '__slot:actions',
