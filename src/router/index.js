@@ -82,6 +82,11 @@ import NewPatient from '@/components/Pages/receptionist/new_patient'
 import ProceedToPayment from '@/components/Pages/receptionist/proceed_to_payment'
 import Orders from '@/components/Pages/receptionist/orders'
 
+/*================Authentication======================*/
+import Login from '@/components/Pages/Authentication/Login'
+import Register from '@/components/Pages/Authentication/Register'
+import EmailConfirmation from '@/components/Pages/Authentication/emailConfirmationSuccess'
+
 Vue.use(Router)
 
 export default new Router({
@@ -92,11 +97,26 @@ export default new Router({
     	name: 'Home'
     },
     {
+        path: '/login',
+        component: Login,
+        name: 'login'
+    },
+    {
+        path: '/register',
+        component: Register,
+        name: 'register'
+    },
+    {
+        path: '/emailConfirmation/:email/:token',
+        component: EmailConfirmation,
+        name: 'emailConfirmation'
+    },
+    {
     	path: '/admin', //sidebar
     	component: Sidebar,
     	children: [
 
-    		{path: '', component: Dashboard,name: 'dashboard'},
+    		{path: '', component: Dashboard,name: 'dashboard',meta: {requiresAuth: true}},
 
             /*=============Admin Profile==============*/
             {path: '/admin/admin_profile', component: AdminProfile,name: 'admin_profile'},
@@ -156,7 +176,7 @@ export default new Router({
         path: '/doctor',
         component: Doctor,
         children: [
-            {path: '', component: DashboardDoctor,name: 'dashboardDoctor'},
+            {path: '', component: DashboardDoctor,name: 'dashboardDoctor',meta: {requiresAuth: true}},
 
             /*=============Doctor Profile===============*/
             {path: '/doctor/doctor_profile', component: DocDoctorProfile,name: 'doctor_profile'},
@@ -190,7 +210,8 @@ export default new Router({
             {
                 path: '',
                 name: 'DashboardPatient',
-                component: DashboardPatient
+                component: DashboardPatient,
+                meta: {requiresAuth: true}
             },
             {
                 path: 'appointment',
@@ -242,7 +263,8 @@ export default new Router({
             {
                 path:'',
                 name:'DashboardReceptionist',
-                component: DashboardReceptionist
+                component: DashboardReceptionist,
+                meta: {requiresAuth: true}
             },
             {
                 path:'test_issue',

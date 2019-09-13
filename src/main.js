@@ -6,7 +6,10 @@ import router from './router'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import VueCkeditor from 'vue-ckeditor5'
 import VueBootstrapTypeahead from 'vue-bootstrap-typeahead'
+import SimpleVueValidation from 'simple-vue-validator';
+const Validator = SimpleVueValidation.Validator; 
 
+Vue.use(SimpleVueValidation)
 Vue.component('vue-bootstrap-typeahead', VueBootstrapTypeahead)
 
 const options = {
@@ -32,6 +35,18 @@ Vue.use(VueResource)
   components: { App },
   template: '<App/>'
 })*/
+router.beforeEach((to,from,next) => {
+	if(to.meta.requiresAuth) {
+		const authUser = JSON.parse(window.localStorage.getItem('authUser'))
+		if(authUser && authUser.access_token){
+		 	next()
+		}
+		else{
+			next({name: 'login'})
+		}
+	}
+	next()
+})
 new Vue({
 	router
 }).$mount('#app');
