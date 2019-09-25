@@ -1,13 +1,14 @@
 export const FieldsDef_departments = [
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Department Name',
-			sortField: 'name'
+			name:'department_name',
+			title: 'Department Name',
+			sortField: 'department_name'
 		},
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Status',
-			sortField: 'name'
+			name:'status',
+			title: 'Status',
+		    dataClass: 'center aligned',
+		    callback: 'statusCall'
 		},
 		{
             name: '__slot:actions',

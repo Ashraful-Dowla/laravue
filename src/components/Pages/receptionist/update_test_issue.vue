@@ -5,7 +5,7 @@
                 <div class="row clearfix">
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="card">
-                            <h2> Test Issue</h2>
+                            <h2>Update Test Issue</h2>
                             <div class="row">
                                 <div class="col-md-10">
                                     <hr>
@@ -115,11 +115,14 @@
                 patient_id: '',
                 doctor_id: '',
                 id: '2',
-                suc: false
+                suc: false,
+                bill_id: '',
+                created_at: ''
             };
         },
         created(){
             var self = this
+            this.bill_id = this.$route.params.id
             this.$http.get(apiDomain+'api/getTestData')
                 .then((response)=>{
                     self.options = response.data
@@ -127,6 +130,29 @@
                         self.chkTest.push(0)
                     }
                 });
+
+            this.$http.get(apiDomain + 'api/getDataUpdateTestIssue/' + this.bill_id )
+                .then((response)=>{
+                    self.patient_id = response.data.data[0]["patient_id"]
+                    self.doctor_id = response.data.data[0]["doctor_id"]
+                    for(var i = 0 ; i < response.data.data.length ; i++){
+                        var idx = ''
+                        for(var j=0 ; j < self.options.length ; j++){
+                            if(self.options[j].title == response.data.data[i]["test_name"]){
+                                idx=j
+                                break
+                            }
+                        }
+                        self.tableRows.push({name: response.data.data[i]["test_name"], cost: response.data.data[i]["price"], index: idx})
+                        self.chkTest[idx] = 1
+                    }
+
+                    self.sub_total = response.data.data2[0]["amount"]
+                    self.discount = response.data.data2[0]["discount"]
+                    self.net_payable = response.data.data2[0]["amount_after_discount"]
+
+                    self.created_at = response.data.data2[0]["created_at"]
+                })
         },
         methods:{
             addRow(){
@@ -170,14 +196,14 @@
                         }).then((result) => {
                           if (result.value) {
                               self.sendData()
-                              //self.$router.push({ path: '/receptionist/proceed_to_payment'})
+                              self.$router.push({ path: '/receptionist/proceed_to_payment'})
                           }
                     }) 
                 }
             },
             sendData(){
                 var self = this
-                this.$http.post(apiDomain+'api/testIssuedData',{
+                this.$http.post(apiDomain+'api/UpdateTestIssue',{
                         options: self.tableRows,
                         patient_id: self.patient_id,
                         doctor_id: self.doctor_id,
@@ -185,14 +211,16 @@
                         total : self.net_payable,
                         id: self.id,
                         sub_total : self.sub_total,
-                        discount: self.discount
+                        discount: self.discount,
+                        bill_id: self.bill_id,
+                        created_at: self.created_at
                     }).then((response)=>{
-                        //console.log(response)
+                        console.log(response)
                         self.successModal()
-                        self.$router.push({ path: '/receptionist/proceed_to_payment'})
+                        //self.$router.push({ path: '/receptionist/proceed_to_payment'})
 
                     }).catch((e)=>{
-                        //console.log(e)
+                        console.log(e)
                         self.failedModal()
                     })
             },
@@ -210,8 +238,8 @@
             },
             successModal(){
                 Swal.fire(
-                    'Inserted!',
-                    'Successfully Inserted!',
+                    'Updated!',
+                    'Successfully Updated!',
                     'success'
                 )
             },

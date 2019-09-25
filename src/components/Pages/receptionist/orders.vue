@@ -5,11 +5,12 @@
         	<div class="col-lg-12 col-md-12 col-sm-12">
                 <h2>Order Section</h2>
         	<form>
-                 <p><b>Order ID</b></p>
-                <div class="form-group">
+                 <p><b>Bill ID</b></p>
+                <div class="form-group" :class="{error: validation.hasError('bill_id')}">
                     <div>
-                         <input type="text" id="order_id" class="form-control borderBottom" placeholder="Tnter the Order ID">
+                         <input type="text" id="order_id" v-model="bill_id" class="form-control borderBottom" placeholder="Enter the Bill ID">
                     </div>
+                    <div class="message" style="color: red;">{{ validation.firstError('bill_id') }}</div>
                 </div>
             </form>
             <button class="ui button blue" style="float: right;" @click="searchFunction">Search</button>
@@ -18,21 +19,21 @@
 	        	<table class="table">
 	                <thead>
 	                    <tr>
-	                        <th scope="col">Order ID</th>
+	                        <th scope="col">Bill ID</th>
 	                        <th scope="col">Patient ID</th>
 	                        <th scope="col">Test Name</th>
-	                        <th scope="col">Test Cost</th>
+	                        <th scope="col">Price</th>
 	                        <th scope="col">Status</th>
 	                    </tr>
 	                </thead>
 	                <tbody>
 	                    <tr v-for="(val,idx) in options ">
-	                        <td scope="row" v-if="idx==0">{{ idx+1 }}</td>
+	                        <td scope="row" v-if="idx==0">{{ bill_id }}</td>
 	                        <td scope="row" v-else>&nbsp;</td>
-	                        <td v-if="idx==0">{{ idx+1 }}</td>
+	                        <td v-if="idx==0">{{ patient_id }}</td>
 	                        <td v-else>&nbsp;</td>
 	                        <td>{{ val.test_name }}</td>
-	                        <td>{{ val.test_cost }}</td>
+	                        <td>{{ val.price }}</td>
 	                        <td v-if="status==1 && idx==0"><span class="ui teal label">Paid</span></td>
 	                        <td v-else-if="status==0 && idx==0"><span class="ui pink label">Unpaid</span></td>
 	                        <td v-else>&nbsp;</td>
@@ -93,6 +94,14 @@
 <script>
 import Vue from 'vue'
 import VueHtmlToPaper from 'vue-html-to-paper'
+ 
+import { apiDomain } from '@/components/Pages/Authentication/config'
+
+import SimpleVueValidation from 'simple-vue-validator'
+const Validator = SimpleVueValidation.Validator
+
+import Swal from 'sweetalert2'
+
 const options = {
   name: '_blank',
   specs: [
@@ -117,21 +126,20 @@ export default{
         data(){
             return {
                 selected: '',
+                bill_id: '',
                 options:[
-                    { test_name: 'ECG', test_cost: '1000'},
-                    { test_name: 'CBC', test_cost: '500'},
-                    { test_name: 'Lipid Profile Serum', test_cost: '1150'},
-                    { test_name: 'CT-SCAN OF BRAIN', test_cost: '4000'},
-                    { test_name: 'CT-Scan Contrast', test_cost: '1300'}
+                    //{ test_name: 'ECG', test_cost: '1000'},
                 ],
-                status: '1',
-                sub_total: '1000',
-                discount: '10',
-                net_payable: '900',
+                status: '',
+                sub_total: '',
+                discount: '',
+                net_payable: '',
                 due: '0',
                 show: false,
                 label: 'Loading.....',
-                showDataTable: false
+                showDataTable: false,
+                suc: false,
+                patient_id: ''
             };
         },
         methods:{
@@ -145,13 +153,67 @@ export default{
         		this.$htmlToPaper('printTable')
 	        },
 	        searchFunction(){
-	        	this.show = true
-	        	window.setTimeout(()=> this.sTable() ,5000)
+	        	var self = this
+	        	
+	        	this.errorCheck()
+	        	if(this.suc){
+	        		
+	        		self.showDataTable = false
+
+		        	this.$http.post( apiDomain + 'api/getOrdersData',{
+		        		bill_id: self.bill_id
+		        	}).then((response)=>{
+			        	
+		        		self.options = response.data.data
+		        		self.status = response.data.data2[0]["status"]
+		        		self.patient_id = response.data.data2[0]["patient_id"]
+		        		self.net_payable = response.data.data2[0]["amount_after_discount"]
+		        		self.sub_total = response.data.data2[0]["amount"]
+		        		self.discount =  response.data.data2[0]["discount"]
+		        		self.due = response.data.data2[0]["due"]
+
+
+			        	self.show = true
+			        	window.setTimeout(()=> self.sTable() ,5000)
+			        	
+		        	}).catch((e)=>{
+
+		        		self.show = true
+		        		self.showDataTable = false
+		        		window.setTimeout(()=>self.mk() ,5000)
+		        	})
+	        	}
 	        },
 	        sTable(){
 	        	this.show = false
 	        	this.showDataTable = true
-	        }
+	        },
+	        errorCheck(){
+	        	var self = this
+	        	this.$validate()
+	        		.then((response)=>{
+	        			if(response){
+	        				
+							self.suc = true	        				
+	        			}
+	        		})
+	        },
+            failedModal(){
+                Swal.fire({
+                  type: 'error',
+                  title: 'Oops...',
+                  text: 'No Data Found!'
+                })
+            },
+            mk(){
+            	this.show = false
+            	this.failedModal()
+            }
+        },
+        validators: {
+        	'bill_id': function(value){
+        		return Validator.value(value).required();
+        	}
         }
     }
 </script>

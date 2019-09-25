@@ -1,7 +1,8 @@
 <template>
 	<div id="departments">
 		<div class="page-wrapper">
-			<div class="container" style="margin-top: 25px;margin-left: 50px;">
+			<div class="content">
+			<div class="container" align="left">
 				<div class="row">
 					<div class="col-md-7">
 						<h4 class="page-title">Departments</h4>
@@ -20,7 +21,7 @@
 						<div class="ui container">
 					        <filter-bar></filter-bar>
 					        <vuetable ref="vuetable"
-					        api-url="https://vuetable.ratiw.net/api/users"
+					        :api-url="apiUrl"
 					        :fields="fields"
 					        pagination-path=""
 					        :per-page="5"
@@ -31,7 +32,10 @@
 					        >
 					        <template slot="actions" slot-scope="props">
 					          <div class="custom-actions">
-					        <router-link to="/admin/departments/edit_departments" class="ui button yellow"><i class="edit icon"></i></router-link>
+					         <button class="ui button yellow"
+				          		@click="onAction('edit-item', props.rowData, props.rowIndex)">
+				          		<i class="edit icon"></i>
+				        	</button>
 					        <button class="ui button red"
 					        @click="onAction('delete-item', props.rowData, props.rowIndex)">
 					        <i class="trash alternate icon"></i>
@@ -39,6 +43,49 @@
 					    </div>
 					  </template>
 					</vuetable>
+					<div class="card">
+						<div class="header">
+							<modal v-model="showModal">
+							    <p slot="header">Update Department Details</p>
+							 
+							  	<div slot="content">
+									 <div class="form-group" :class="{error: validation.hasError('modalForm.updated_department_name')}">
+										<p><b>Department Name</b></p>
+										<div class="borderBottom">
+											<input type="text" v-model="modalForm.updated_department_name" class="form-control" placeholder="Enter a title..." />
+										</div>
+										<div class="message" style="color: red;">{{ validation.firstError('modalForm.updated_department') }}</div>
+									</div>
+							    </div>
+								<div slot="content">
+									 <div class="form-group" :class="{error: validation.hasError('modalForm.updated_description')}">
+										<p><b>Description</b></p>
+										<div class="borderBottom">
+											<textarea cols="30" v-model="modalForm.updated_description" rows="4" class="form-control"></textarea>
+										</div>
+										<div class="message" style="color: red;">{{ validation.firstError('modalForm.updated_description') }}</div>
+									</div>
+								</div>
+							    <div slot="content">
+								    <div class="demo-radio-button form-group" :class="{error: validation.hasError('modalForm.updated_status')}">
+										<input name="group1" type="radio" id="radio_6" v-model="modalForm.updated_status" value="1" class="with-gap" />
+				        				<label for="radio_6">ACTIVE</label>
+										<input name="group1" type="radio" id="radio_7" v-model="modalForm.updated_status" value="0" class="with-gap" />
+				        				<label for="radio_7">INACTIVE</label>
+									</div>
+									<div class="message" style="color: red;">{{ validation.firstError('modalForm.updated_status') }}</div>
+								</div>
+							    <template slot="actions">
+							        <div class="ui button positive" @click="updateData()">
+							          Update
+							        </div>
+							        <div class="ui button red" @click="showModal=false">
+							          Cancel
+							        </div>
+							    </template>
+							</modal>
+						</div>
+					</div>
 					<div class="vuetable-pagination ui basic segment grid">
 					  <vuetable-pagination-info ref="paginationInfo"
 					  ></vuetable-pagination-info>
@@ -64,6 +111,7 @@
 				</div>
 			</div>
 		</div>
+		</div>
 	</div>
 </template>
 <script>
@@ -77,6 +125,15 @@
 	import FilterBar from '@/components/Pages/Admin/import_details/FilterBar'
 	import { FieldsDef_departments } from '@/components/Pages/Admin/import_details/FieldsDef_departments'
 
+	import modal from 'vue-semantic-modal'
+	import SimpleVueValidation from 'simple-vue-validator'
+    const Validator = SimpleVueValidation.Validator
+
+    import Swal from 'sweetalert2'
+	import { apiDomain } from '@/components/Pages/Authentication/config'
+
+
+
 	Vue.use(VueEvents)
 	//Vue.component('custom-actions', CustomActions)
 	//Vue.component('my-detail-row', DetailRow)
@@ -86,36 +143,33 @@
 		  components: {
 		    Vuetable,
 		    VuetablePagination,
-		    VuetablePaginationInfo
+		    VuetablePaginationInfo,
+		    modal
 		  },
 		  data () {
 		    return {
 		      fields: FieldsDef_departments,
 		      sortOrder: [],
-		      moreParams: {}
+		      moreParams: {},
+		      apiUrl: apiDomain + 'api/getDepartmentData',
+		      data: [],
+		      showModal: false,
+		      id: '2',
+		      modalForm:{
+		      	 updated_department_name:'',
+		      	 updated_status:'',
+		      	 updated_description: '',
+		      	 updated_by:'',
+		      	 update_id:''
+		      }
 		    }
 		  },
-		  mounted () {
-		    this.$events.$on('filter-set', eventData => this.onFilterSet(eventData))
-		    this.$events.$on('filter-reset', e => this.onFilterReset())
-		  },
 		  methods: {
-		    // allcap (value) {
-		    //   return value.toUpperCase()
-		    // },
-		    // genderLabel (value) {
-		    //   return value === 'M'
-		    //     ? '<span class="ui teal label"><i class="large man icon"></i>Male</span>'
-		    //     : '<span class="ui pink label"><i class="large woman icon"></i>Female</span>'
-		    // },
-		    // formatNumber (value) {
-		    //   return accounting.formatNumber(value, 2)
-		    // },
-		    // formatDate (value, fmt = 'D MMM YYYY') {
-		    //   return (value == null)
-		    //     ? ''
-		    //     : moment(value, 'YYYY-MM-DD').format(fmt)
-		    // },
+		  	statusCall(value){
+		  		return value === '1'
+		  						  ? '<span class="ui green label">Active</span>'
+		  						  : '<span class="ui red label">Not Active</span>'
+		  	},
 		    onPaginationData (paginationData) {
 		      this.$refs.pagination.setPaginationData(paginationData)
 		      this.$refs.paginationInfo.setPaginationData(paginationData)
@@ -124,20 +178,138 @@
 		      this.$refs.vuetable.changePage(page)
 		    },
 		    onAction (action, data, index) {
-		      console.log('slot action: ' + action, data.name, index)
+		      //console.log('slot action: ' + action, data.department_name, index)
+
+		      if(action == 'edit-item'){
+		      		this.modalForm.updated_department_name= data.department_name
+		      		this.modalForm.updated_status= data.status
+		      		this.modalForm.updated_description = data.description
+		      		this.modalForm.update_id = data.id
+		      		this.showModal = true
+		      }
+		      else if( action == 'delete-item'){
+		      		var self = this;
+		    		Swal.fire({
+			              title: 'Are you sure?',
+			              text: "You won't be able to revert this!",
+			              type: 'warning',
+			              showCancelButton: true,
+			              confirmButtonColor: '#3085d6',
+			              cancelButtonColor: '#d33',
+			              confirmButtonText: 'Are you sure?'
+			            }).then((result) => {
+			              if (result.value) {
+			              	//console.log(data.id)
+			                self.deleteData(data.id)
+			              }
+			         });
+		      	}
 		    },
-		    // onCellClicked (data, field, event) {
-		    //   console.log('cellClicked: ', field.name)
-		    //   this.$refs.vuetable.toggleDetailRow(data.id)
-		    // },
+		    updateData(){
+		    	var self = this;
+			    	Swal.fire({
+				              title: 'Are you sure?',
+				              text: "You won't be able to revert this!",
+				              type: 'warning',
+				              showCancelButton: true,
+				              confirmButtonColor: '#3085d6',
+				              cancelButtonColor: '#d33',
+				              confirmButtonText: 'Are you sure?'
+				            }).then((result) => {
+				              if (result.value) {
+				              	//console.log('xxxx')
+				                self.sendUpdateData()	
+				              }
+				         });
+		    },
+		    sendUpdateData(){
+			        var self = this
+			        this.modalForm.updated_by= this.id
+			    	this.$http.post(apiDomain+'api/updateDepartmentData',{
+
+			    		department_name: self.modalForm.updated_department_name,
+			    		description: self.modalForm.updated_description,
+			    		status: self.modalForm.updated_status,
+			    		update_id: self.modalForm.update_id,
+			    		updated_by: self.modalForm.updated_by
+
+			    	}).then((response)=>{
+
+			    		this.successUpdatedModal()
+			    		this.showModal = false
+			    		Vue.nextTick( () => this.$refs.vuetable.refresh() )
+
+			    	}).catch((e)=>{
+
+			    		console.log(e)
+			    		this.failedModal()
+			    		this.showModal = false
+			    		Vue.nextTick( () => this.$refs.vuetable.refresh() )
+			    	})
+		    },
+		    successUpdatedModal(){
+		    	Swal.fire(
+				    'Updated!',
+				    'Successfully Updated!',
+				    'success'
+				)
+		    },
+		    failedModal(){
+		    	Swal.fire({
+				  type: 'error',
+				  title: 'Oops...',
+				  text: 'Something went wrong!'
+				})
+		    },
+		    deleteData(deleteId){
+		    	var self = this;
+		    	this.$http.post(apiDomain+'api/deleteDepartmentData',{
+		    		id: deleteId
+		    	}).then((response)=>{
+		    		console.log(response)
+		    		this.successDeletedModal()
+		    		Vue.nextTick( () => this.$refs.vuetable.refresh() )
+		    	}).catch((e)=>{
+		    		console.log(e)
+		    		this.failedModal()
+		    	})
+		    },
+		    successDeletedModal(){
+		    	Swal.fire(
+				    'Deleted!',
+				    'Successfully Deleted!',
+				    'success'
+				)
+		    },
 		    onFilterSet (filterText) {
-		      this.moreParams.filter = filterText
-		      Vue.nextTick( () => this.$refs.vuetable.refresh() )
+		      //console.log('filter-set', filterText)
+		     	this.moreParams.filter = filterText
+      			Vue.nextTick( () => this.$refs.vuetable.refresh() )
 		    },
 		    onFilterReset () {
 		      delete this.moreParams.filter
-		      Vue.nextTick( () => this.$refs.vuetable.refresh() )
+      		  Vue.nextTick( () => this.$refs.vuetable.refresh() )
 		    }
+		  },
+		  mounted () {
+		    this.$events.$on('filter-set', eventData => this.onFilterSet(eventData))
+		    this.$events.$on('filter-reset', e => this.onFilterReset())
+		  },
+		  destroyed () {
+			this.$events.$off('filter-set');
+			this.$events.$off('filter-reset');
+		  },
+		  validators: {
+		  		'modalForm.updated_department_name': function (value) {
+		            return Validator.value(value).required();
+		        },
+		        'modalForm.status': function (value) {
+		            return Validator.value(value).required();
+		        },
+		        'modalForm.updated_description': function (value) {
+		            return Validator.value(value).required();
+		        }
+
 		  }
 		}
 </script>
