@@ -396,6 +396,7 @@
 	import Datepicker from 'vuejs-datepicker';
 	import { loginUrl, getHeader, userUrl, apiDomain } from './config';
 	import SimpleVueValidation from 'simple-vue-validator';
+      import Swal from 'sweetalert2';
   	const Validator = SimpleVueValidation.Validator;
 	export default {
 		components: {
@@ -404,27 +405,27 @@
 		data() {
 			return {
 				patient: {
-					firstName: 'ajajaja',
-					lastName: 'djshdjhd',
-					email: 'akm@gmail.com',
-					userName: 'dsdf',
-					password: '123456',
-					admissionDate: '04 Sep 2019',
-					birthday: '04 Sep 2019',
-					gender: 'male',
-					address: 'gsdjgjdhggsd ',
-					country: 'Bangladesh',
-					state: 'Ctg',
-					city: 'stk',
-					postalCode: '4310',
-					phoneNumber: '01789654',
-					nid_no: '10000055555',
+					firstName: '',
+					lastName: '',
+					email: '',
+					userName: '',
+					password: '',
+					admissionDate: '',
+					birthday: '',
+					gender: '',
+					address: ' ',
+					country: '',
+					state: '',
+					city: '',
+					postalCode: '',
+					phoneNumber: '',
+					nid_no: '',
 					nid_image: null,
-					status: '1'
+					status: ''
 				},
 				pass: this.password,
-				confirmPassword: '123456',
-                submitted: false
+				confirmPassword: '',
+                        submitted: false
 			}
 		},
 		methods: {
@@ -437,22 +438,58 @@
 		  			this.patient.nid_image = event.target.result
 		  		}
 		  	},
-		  	signUp: function(){
-                var self = this
-                this.submitted = true;
-		  		this.$validate()
-                    .then( function(success) {
-  	            	if (success) {
-  	              	    self.$http.post(apiDomain + 'api/patientAdmission', self.patient)
-                            .then(response => {
-                                console.log(response);
+		  	signUp () {
+                        var self = this
+                        this.submitted = true;
+      		  	this.$validate()
+                          .then( function(success) {
+        	            	if (success) {
+                                    Swal.fire({
+                                        title: 'Are you sure?',
+                                        text: "You won't be able to revert this!",
+                                        type: 'warning',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#3085d6',
+                                        cancelButtonColor: '#d33',
+                                        confirmButtonText: 'Ok'
+                                    }).then((result) => {
+                                          if (result.value) {
+                                                self.sendData()     
+                                          }
+                                    });
+                              }
+                        }).catch((e)=>{
+                          console.log(e)
                         })
-                    }
-                }).catch((e)=>{
-                    console.log(e)
-                })
 
-		  	}
+		  	},
+                  sendData(){
+                        var self = this
+                       self.$http.post(apiDomain + 'api/patientAdmission', self.patient)
+                       .then(response => {
+                              if(response.status === 200){
+                                    console.log(response)
+                                    self.successModal()
+                              }
+                        }).catch((e)=>{
+                          console.log(e)
+                          self.failedModal()
+                        })
+                  },
+                  successModal(){
+                        Swal.fire(
+                              'Success!',
+                              'Successfully Registered!',
+                              'success'
+                        )
+                  },
+                  failedModal(){
+                        Swal.fire({
+                              type: 'error',
+                              title: 'Oops...',
+                              text: 'Something went wrong! '
+                        })
+                  }
 		},
 		validators: {
 	      'patient.email': function (value) {

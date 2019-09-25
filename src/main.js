@@ -6,11 +6,14 @@ import router from './router'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import VueCkeditor from 'vue-ckeditor5'
 import VueBootstrapTypeahead from 'vue-bootstrap-typeahead'
-import SimpleVueValidation from 'simple-vue-validator';
+import SimpleVueValidation from 'simple-vue-validator'
+import izitoast from 'izitoast'
+
 const Validator = SimpleVueValidation.Validator; 
 
 Vue.use(SimpleVueValidation)
 Vue.component('vue-bootstrap-typeahead', VueBootstrapTypeahead)
+Vue.prototype.$izitoast = izitoast
 
 const options = {
   editors: {

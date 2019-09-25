@@ -1,20 +1,20 @@
 export const FieldsDef_previous_appointment = [
 		{
-			name:'birthdate',
+			name:'appointment_date',
 			title: 'Date',
-		    sortField: 'birthdate',
+		    sortField: 'appointment_date',
 		    titleClass: 'center aligned',
 		    dataClass: 'center aligned',
 		},
 		{
-			name:'name',
+			name:'first_name',
 			title: '<i class="fa fa-tag"></i> Doctor',
-			sortField: 'name'
+			sortField: 'first_name'
 		},
 		{
-			name:'name',
+			name:'status',
 			title: '<i class="fa fa-tag"></i> Appointed By',
-			sortField: 'name'
+			sortField: 'status'
 		},
 		{
             name: '__slot:actions',

@@ -1,35 +1,35 @@
 export const FieldsDef= [
 		{
-			name:'id',
+			name:'patient_id',
 			title:'Patient ID',
-			sortField: 'id'
+			sortField: 'patient_id'
 		},
 		{
-			name:'name',
+			name:'patient_name',
 			title: '<i class="fa fa-tag"></i> Patient Name',
-			sortField: 'name'
+			sortField: 'patient_name'
 		},
 		{
-			name:'name',
+			name:'doctor_name',
 			title: '<i class="fa fa-tag"></i> Doctor Name',
-			sortField: 'name'
+			sortField: 'doctor_name'
 		},
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Specialist',
-			sortField: 'name'
+			name:'department',
+			title: '<i class="fa fa-tag"></i> Department',
+			sortField: 'department'
 		},
 		{
-			name:'birthdate',
+			name:'last_visit',
 			title: 'Last Visit',
-		    sortField: 'birthdate',
+		    sortField: 'last_visit',
 		    titleClass: 'center aligned',
 		    dataClass: 'center aligned',
 		},
 		{
-			name:'birthdate',
+			name:'next_visit',
 			title: 'Next Visit',
-		    sortField: 'birthdate',
+		    sortField: 'next_visit',
 		    titleClass: 'center aligned',
 		    dataClass: 'center aligned',
 		},

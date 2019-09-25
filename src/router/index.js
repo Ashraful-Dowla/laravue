@@ -211,7 +211,7 @@ export default new Router({
                 path: '',
                 name: 'DashboardPatient',
                 component: DashboardPatient,
-                meta: {requiresAuth: true}
+                meta: { requiresAuth: true }
             },
             {
                 path: 'appointment',
@@ -257,7 +257,6 @@ export default new Router({
     },
     {
         path:'/receptionist',
-        name: 'DashReceptionist',
         component: DashReceptionist,
         children: [
             {

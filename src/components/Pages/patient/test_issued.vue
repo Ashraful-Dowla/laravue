@@ -20,10 +20,6 @@
                 @click="onAction('view-item', props.rowData, props.rowIndex)">
                 <i class="zoom icon"></i>
               </button>
-              <button class="ui button yellow"
-                @click="onAction('edit-item', props.rowData, props.rowIndex)">
-                <i class="edit icon"></i>
-              </button>
               <button class="ui button red"
                 @click="onAction('delete-item', props.rowData, props.rowIndex)">
                 <i class="trash alternate icon"></i>

@@ -5,7 +5,7 @@
     <h1>Visit History</h1>
     <filter-bar></filter-bar>
     <vuetable ref="vuetable"
-      api-url="https://vuetable.ratiw.net/api/users"
+      :api-url="apiURL"
       :fields="fields"
       pagination-path=""
       :per-page="5"
@@ -19,14 +19,6 @@
           <button class="ui button positive"
             @click="onAction('view-item', props.rowData, props.rowIndex)">
             <i class="zoom icon"></i>
-          </button>
-          <button class="ui button yellow"
-            @click="onAction('edit-item', props.rowData, props.rowIndex)">
-            <i class="edit icon"></i>
-          </button>
-          <button class="ui button red"
-            @click="onAction('delete-item', props.rowData, props.rowIndex)">
-            <i class="trash alternate icon"></i>
           </button>
         </div>
       </template>
@@ -49,14 +41,11 @@ import VueEvents from 'vue-events'
 import Vuetable from 'vuetable-2/src/components/Vuetable'
 import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
 import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
-//import CustomActions from './CustomActions'
-//import DetailRow from './DetailRow'
 import FilterBar from '@/components/Pages/patient/import_details/FilterBar'
 import { FieldsDef } from '@/components/Pages/patient/import_details/FieldsDef'
+import { apiDomain } from '@/components/Pages/Authentication/config';
 
 Vue.use(VueEvents)
-//Vue.component('custom-actions', CustomActions)
-//Vue.component('my-detail-row', DetailRow)
 Vue.component('filter-bar', FilterBar)
 
 export default {
@@ -68,14 +57,10 @@ export default {
   data () {
     return {
       fields: FieldsDef,
-      sortOrder: [
-        {
-          field: 'id',
-          sortField: 'id',
-          direction: 'asc'
-        }
-      ],
-      moreParams: {}
+      sortOrder: [],
+      moreParams: {},
+      apiURL: '',
+      data: []
     }
   },
   mounted () {
@@ -83,22 +68,6 @@ export default {
     this.$events.$on('filter-reset', e => this.onFilterReset())
   },
   methods: {
-    // allcap (value) {
-    //   return value.toUpperCase()
-    // },
-    // genderLabel (value) {
-    //   return value === 'M'
-    //     ? '<span class="ui teal label"><i class="large man icon"></i>Male</span>'
-    //     : '<span class="ui pink label"><i class="large woman icon"></i>Female</span>'
-    // },
-    // formatNumber (value) {
-    //   return accounting.formatNumber(value, 2)
-    // },
-    // formatDate (value, fmt = 'D MMM YYYY') {
-    //   return (value == null)
-    //     ? ''
-    //     : moment(value, 'YYYY-MM-DD').format(fmt)
-    // },
     onPaginationData (paginationData) {
       this.$refs.pagination.setPaginationData(paginationData)
       this.$refs.paginationInfo.setPaginationData(paginationData)
@@ -109,10 +78,6 @@ export default {
     onAction (action, data, index) {
       console.log('slot action: ' + action, data.name, index)
     },
-    // onCellClicked (data, field, event) {
-    //   console.log('cellClicked: ', field.name)
-    //   this.$refs.vuetable.toggleDetailRow(data.id)
-    // },
     onFilterSet (filterText) {
       this.moreParams.filter = filterText
       Vue.nextTick( () => this.$refs.vuetable.refresh() )
@@ -121,6 +86,18 @@ export default {
       delete this.moreParams.filter
       Vue.nextTick( () => this.$refs.vuetable.refresh() )
     }
+  },
+  created () {
+     const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+    this.apiURL = apiDomain + 'api/patient_visit_history/' + tokenData.patient_id
+    console.log(this.apiURL)
+
+    // this.$http.post(apiDomain + 'api/patient_visit_history', {pt_id: tokenData.patient_id})
+    //     .then(response => {
+    //        console.log(response)
+    //     }).catch((e) => {
+    //       console.log(e)
+    //     })
   }
 }
 </script>

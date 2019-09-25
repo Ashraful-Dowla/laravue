@@ -117,8 +117,6 @@
 	import Vuetable from 'vuetable-2/src/components/Vuetable'
 	import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
 	import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
-	//import CustomActions from './CustomActions'
-	//import DetailRow from './DetailRow'
 	import FilterBar from '@/components/Pages/Admin/import_details/FilterBar'
 	import { FieldsDef_test_management } from '@/components/Pages/Admin/import_details/FieldsDef_test_management'
 
@@ -127,8 +125,6 @@
 	import modal from 'vue-semantic-modal'
 
     Vue.use(VueEvents)
-	//Vue.component('custom-actions', CustomActions)
-	//Vue.component('my-detail-row', DetailRow)
 	Vue.component('filter-bar', FilterBar)
 
 	export default {
@@ -181,7 +177,6 @@
 			              confirmButtonText: 'Are you sure?'
 			            }).then((result) => {
 			              if (result.value) {
-			              	//console.log(data.id)
 			                self.deleteData(data.id)
 			              }
 			         });

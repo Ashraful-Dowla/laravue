@@ -33,7 +33,7 @@
 								<a class="fa fa-dashboard"><router-link to=""><span>Dashboard</span></router-link></a>
 							</li>
 							<li class="submenu">
-								<a href="#"><i class="fa fa-user"></i> <span> Appointment </span> <span class="menu-arrow"></span></a>
+								<a href=""><i class="fa fa-user"></i> <span> Appointment </span> <span class="menu-arrow"></span></a>
 								<ul style="display: none;">
 									<li><router-link to="/patient/appointment">Book Appointment</router-link></li>
 									<li><router-link to="/patient/previous_appointment">Previous Appointment</router-link></li>

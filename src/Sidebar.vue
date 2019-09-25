@@ -1,5 +1,5 @@
 <template>
-	<div id="app">
+	<div id="app" class="laravue-back-color">
 		<div class="main-wrapper">
 			<div class="header">
 				<div class="header-left">
@@ -34,7 +34,7 @@
 					</div>
 				</div>-->
 			</div>
-			<div class="sidebar" id="sidebar">
+			<div class="sidebar laravue-back-color" id="sidebar">
 				<div class="sidebar-inner slimscroll">
 					<div id="sidebar-menu" class="sidebar-menu">
 						<ul style="padding-top: 10px;">
@@ -93,3 +93,4 @@
 		</div>
 	</div>
 </template>
+</style>

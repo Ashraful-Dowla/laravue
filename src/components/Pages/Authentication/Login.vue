@@ -53,13 +53,14 @@
     import { loginUrl, getHeader, userUrl } from './config';
     import { clientId, clientSecret } from './env';
     import SimpleVueValidation from 'simple-vue-validator';
+    import Swal from 'sweetalert2';
     const Validator = SimpleVueValidation.Validator; 
 	export default{
         data(){
             return{
                 login: {
-                    email: '',
-                    password: ''
+                    email: 'ajmalhossainopu9@gmail.com',
+                    password: '123456'
                 }
             }
         },
@@ -77,7 +78,12 @@
                             password: self.login.password,
                             scope: ''
                         }
-                        const authUser = {}
+                        const authUser = {
+                            access_token: '',
+                            refresh_token: '',
+                            email: '',
+                            patient_id: ''
+                        }
                         self.$http.post(loginUrl, postData)
                             .then(response => {
                                 if(response.status === 200){
@@ -90,31 +96,55 @@
                                     self.$http.get(userUrl, {headers: getHeader()})
                                     .then(response => {
 
-                                        // console.log('User object',response)
-                                        authUser.email = response.body.email
-                                        authUser.name = response.body.name
-                                        window.localStorage.setItem('authUser', JSON.stringify(authUser))
-                                        if(response.body.role === '1'){
-                                            window.location.href = 'admin'
+                                        if(response.body.email_verified_at !== null){
+                                            // console.log('User object',response)
+                                            authUser.email = response.body.email
+                                            authUser.patient_id = response.body.patient_id
+                                            window.localStorage.setItem('authUser', JSON.stringify(authUser))
+                                            if(response.body.role === '1'){
+                                                window.location.href = 'admin'
+                                            }
+                                            else if(response.body.role === '2'){
+                                                window.location.href = 'doctor'
+                                            }
+                                            else if(response.body.role === '3'){
+                                                window.location.href = 'receptionist'
+                                            }
+                                            else if(response.body.role === '4'){
+                                                self.$router.push({ path: 'patient'})
+                                            }
                                         }
-                                        else if(response.body.role === '2'){
-                                            window.location.href = 'doctor'
-                                        }
-                                        else if(response.body.role === '3'){
-                                            window.location.href = 'receptionist'
-                                        }
-                                        else if(response.body.role === '4'){
-                                            window.location.href = 'patient'
+                                        else{
+                                            self.confirmYourEmail()
                                         }
                                         
+                                    }).catch((e)=>{
+                                        console.log(response)
                                     })
                                 }
+                            }).catch((e)=>{
+                                console.log(e)
+                                self.failedModal()
                             })
                     }
                 }).catch((e)=>{
                     console.log(e)
                 })
-			}
+			},
+            failedModal(){
+                Swal.fire({
+                  type: 'error',
+                  title: 'Oops...',
+                  text: 'Something went wrong! '
+              })
+            },
+            confirmYourEmail(){
+                Swal.fire({
+                  type: 'error',
+                  title: 'Unauthorized!',
+                  text: 'Please,confirm your email.'
+              })
+            }
 		},
         validators: {
           'login.email': function (value) {

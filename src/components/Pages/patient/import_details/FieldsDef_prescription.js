@@ -1,35 +1,40 @@
 export const FieldsDef_prescription= [
 		{
 			name:'id',
-			title:'Patient ID',
+			title:'ID',
 			sortField: 'id'
 		},
 		{
-			name:'name',
+			name:'patient_id',
+			title:'Patient ID',
+			sortField: 'patient_id'
+		},
+		{
+			name:'patient_name',
 			title: '<i class="fa fa-tag"></i> Patient Name',
-			sortField: 'name'
+			sortField: 'patient_name'
 		},
 		{
-			name:'name',
+			name:'doctor_name',
 			title: '<i class="fa fa-tag"></i> Doctor Name',
-			sortField: 'name'
+			sortField: 'doctor_name'
 		},
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Specialist',
-			sortField: 'name'
+			name:'department',
+			title: '<i class="fa fa-tag"></i> Department',
+			sortField: 'department'
 		},
 		{
-			name:'birthdate',
+			name:'prescription_date',
 			title: 'Visited date',
-		    sortField: 'birthdate',
+		    sortField: 'prescription_date',
 		    titleClass: 'center aligned',
 		    dataClass: 'center aligned',
 		},
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Prescription',
-			sortField: 'name'
+			name:'__slot:prescriptionsField',
+			title: 'Prescription',
+			dataClass: 'center aligned'
 		},
 		{
             name: '__slot:actions',

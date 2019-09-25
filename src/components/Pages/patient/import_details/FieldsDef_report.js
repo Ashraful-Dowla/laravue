@@ -1,6 +1,11 @@
 export const FieldsDef_report= [
 		{
 			name:'id',
+			title:'ID',
+			sortField: 'id'
+		},
+		{
+			name:'id',
 			title:'Patient ID',
 			sortField: 'id'
 		},
