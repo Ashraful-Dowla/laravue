@@ -2,7 +2,7 @@
     <div class="page-wrapper">
         <div class="content">
         <div class="container-fluid" align="left">
-                <router-link class="btn btn-raised btn-info m-t-15 waves-effect" to="/receptionist/test_issue" tag="button" style="float: right;">Back</router-link>
+                <button class="btn btn-raised btn-info m-t-15 waves-effect" tag="button" style="float: right;" @click="goBack">Back</button>
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <h2>Payment Section</h2>
                 <v-select v-model="selected" :options="options" :reduce="mark=>mark.mark" label="name" @input="chk"></v-select>
@@ -97,6 +97,9 @@ export default{
         }
     },
     methods: {
+        goBack(){
+            this.$router.go(-1)
+        },
         chk(){
             this.mark = this.selected
         },

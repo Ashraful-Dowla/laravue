@@ -44,6 +44,9 @@
 							<li>
 								<a class="fa fa-first-order"><router-link to="/receptionist/orders"><span>Orders</span></router-link></a>
 							</li>
+							<li>
+								<a class="fa fa-list"><router-link to="/receptionist/bill_issued"><span>Bill Issued</span></router-link></a>
+							</li>
 						</ul>
 					</div>
 				</div>
