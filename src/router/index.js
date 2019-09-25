@@ -81,6 +81,8 @@ import OldPatient from '@/components/Pages/receptionist/old_patient'
 import NewPatient from '@/components/Pages/receptionist/new_patient'
 import ProceedToPayment from '@/components/Pages/receptionist/proceed_to_payment'
 import Orders from '@/components/Pages/receptionist/orders'
+import ReceptionistBillIssued from '@/components/Pages/receptionist/bill_issued_receptionist'
+import UpdateTestIssue from '@/components/Pages/receptionist/update_test_issue'
 
 /*================Authentication======================*/
 import Login from '@/components/Pages/Authentication/Login'
@@ -119,57 +121,57 @@ export default new Router({
     		{path: '', component: Dashboard,name: 'dashboard',meta: {requiresAuth: true}},
 
             /*=============Admin Profile==============*/
-            {path: '/admin/admin_profile', component: AdminProfile,name: 'admin_profile'},
-            {path: '/admin/edit_admin_profile', component: EditAdminProfile,name: 'edit_admin_profile'},
+            {path: '/admin/admin_profile', component: AdminProfile,name: 'admin_profile',meta: {requiresAuth: true}},
+            {path: '/admin/edit_admin_profile', component: EditAdminProfile,name: 'edit_admin_profile',meta: {requiresAuth: true}},
 
             /*==============Doctors============*/
-            {path: '/admin/doctors', component: Doctors, name: 'doctors'},
-            {path: '/admin/doctors/adddoctor', component: AddDoctor, name: 'adddoctor'},
-            {path: '/admin/doctors/editdoctor', component: EditDoctor, name: 'editdoctor'},
-            {path: '/admin/doctors/profile', component: DoctorProfile, name: 'doctorProfile'},
-            {path: '/admin/doctors/edit_profile', component: EditProfile, name: 'editProfile'},
+            {path: '/admin/doctors', component: Doctors, name: 'doctors',meta: {requiresAuth: true}},
+            {path: '/admin/doctors/adddoctor', component: AddDoctor, name: 'adddoctor',meta: {requiresAuth: true}},
+            {path: '/admin/doctors/editdoctor', component: EditDoctor, name: 'editdoctor',meta: {requiresAuth: true}},
+            {path: '/admin/doctors/profile', component: DoctorProfile, name: 'doctorProfile',meta: {requiresAuth: true}},
+            {path: '/admin/doctors/edit_profile', component: EditProfile, name: 'editProfile',meta: {requiresAuth: true}},
 
             /*==============Schedule============*/
-            {path: '/admin/doctors_schedule', component: Schedule, name: 'schedule'},
-            {path: '/admin/doctors_schedule/addschedule', component: AddSchedule, name: 'addschedule'},
-            {path: '/admin/doctors_schedule/editschedule', component: EditSchedule, name: 'editschedule'},
+            {path: '/admin/doctors_schedule', component: Schedule, name: 'schedule',meta: {requiresAuth: true}},
+            {path: '/admin/doctors_schedule/addschedule', component: AddSchedule, name: 'addschedule',meta: {requiresAuth: true}},
+            {path: '/admin/doctors_schedule/editschedule', component: EditSchedule, name: 'editschedule',meta: {requiresAuth: true}},
 
             /*==============Patients============*/
-            {path: '/admin/patients', component: Patients, name: 'patients'},
-            {path: '/admin/patients/add_patients', component: AddPatients, name: 'addPatients'},
-            {path: '/admin/patients/edit_patients', component: EditPatients, name: 'editPatients'},
+            {path: '/admin/patients', component: Patients, name: 'patients',meta: {requiresAuth: true}},
+            {path: '/admin/patients/add_patients', component: AddPatients, name: 'addPatients',meta: {requiresAuth: true}},
+            {path: '/admin/patients/edit_patients', component: EditPatients, name: 'editPatients',meta: {requiresAuth: true}},
 
             /*==============Appointments============*/
-            {path: '/admin/appointments', component: Appointments, name: 'appointments'},
-            {path: '/admin/appointments/add_appointments', component: AddAppointments, name: 'addAppointments'},
-            {path: '/admin/appointments/edit_appointments', component: EditAppointments, name: 'editAppointments'},
+            {path: '/admin/appointments', component: Appointments, name: 'appointments',meta: {requiresAuth: true}},
+            {path: '/admin/appointments/add_appointments', component: AddAppointments, name: 'addAppointments',meta: {requiresAuth: true}},
+            {path: '/admin/appointments/edit_appointments', component: EditAppointments, name: 'editAppointments',meta: {requiresAuth: true}},
 
             /*==============Departments============*/
-            {path: '/admin/departments', component: Departments, name: 'departments'},  
-            {path: '/admin/departments/add_departments', component: AddDepartments, name: 'addDepartments'},
-            {path: '/admin/departments/edit_departments', component: EditDepartments, name: 'editDepartments'},
+            {path: '/admin/departments', component: Departments, name: 'departments',meta: {requiresAuth: true}},  
+            {path: '/admin/departments/add_departments', component: AddDepartments, name: 'addDepartments',meta: {requiresAuth: true}},
+            {path: '/admin/departments/edit_departments', component: EditDepartments, name: 'editDepartments',meta: {requiresAuth: true}},
 
             /*==============Employee============*/
-            {path: '/admin/employees', component: Employees, name: 'employees'}, 
-            {path: '/admin/employees/add_employees', component: AddEmployees, name: 'addAmployees'}, 
-            {path: '/admin/employees/edit_employees', component: EditEmployees, name: 'editAmployees'}, 
-            {path: '/admin/employees/leaves', component: Leaves, name: 'leaves'}, 
-            {path: '/admin/employees/edit_leaves', component: EditLeaves, name: 'editLeaves'}, 
-            {path: '/admin/add_leave', component: AddLeave, name: 'add_leave'}, 
+            {path: '/admin/employees', component: Employees, name: 'employees',meta: {requiresAuth: true}}, 
+            {path: '/admin/employees/add_employees', component: AddEmployees, name: 'addAmployees',meta: {requiresAuth: true}}, 
+            {path: '/admin/employees/edit_employees', component: EditEmployees, name: 'editAmployees',meta: {requiresAuth: true}}, 
+            {path: '/admin/employees/leaves', component: Leaves, name: 'leaves',meta: {requiresAuth: true}}, 
+            {path: '/admin/employees/edit_leaves', component: EditLeaves, name: 'editLeaves',meta: {requiresAuth: true}}, 
+            {path: '/admin/add_leave', component: AddLeave, name: 'add_leave',meta: {requiresAuth: true}}, 
 
             /*==============Others============*/    
-            {path: '/admin/settings', component: Settings, name: 'settings'},
-            {path: '/admin/test_management', component: TestManagement, name: 'test_management'},
-            {path: '/admin/see_prascriptions', component: SeePrascriptions, name: 'see_prascriptions'},
-            {path: '/admin/see_reports', component: SeeReports, name: 'see_reports'},
-            {path: '/admin/refill_account', component: RefillAccount, name: 'refill_account'},
-            {path: '/admin/expenditure_details', component: ExpenditureDetails, name: 'expenditure_details'},
-            {path: '/admin/payments', component: Payments, name: 'payments'},
+            {path: '/admin/settings', component: Settings, name: 'settings',meta: {requiresAuth: true}},
+            {path: '/admin/test_management', component: TestManagement, name: 'test_management',meta: {requiresAuth: true}},
+            {path: '/admin/see_prascriptions', component: SeePrascriptions, name: 'see_prascriptions',meta: {requiresAuth: true}},
+            {path: '/admin/see_reports', component: SeeReports, name: 'see_reports',meta: {requiresAuth: true}},
+            {path: '/admin/refill_account', component: RefillAccount, name: 'refill_account',meta: {requiresAuth: true}},
+            {path: '/admin/expenditure_details', component: ExpenditureDetails, name: 'expenditure_details',meta: {requiresAuth: true}},
+            {path: '/admin/payments', component: Payments, name: 'payments',meta: {requiresAuth: true}},
 
             /*==============RECEPTIONIST============*/
-            {path: '/admin/receptionist', component: Receptionist, name: 'receptionist'},
-            {path: '/admin/receptionist/add_receptionist', component: AddReceptionist, name: 'add_receptionist'},
-            {path: '/admin/receptionist/edit_receptionist', component: EditReceptionist, name: 'edit_receptionist'},
+            {path: '/admin/receptionist', component: Receptionist, name: 'receptionist',meta: {requiresAuth: true}},
+            {path: '/admin/receptionist/add_receptionist', component: AddReceptionist, name: 'add_receptionist',meta: {requiresAuth: true}},
+            {path: '/admin/receptionist/edit_receptionist', component: EditReceptionist, name: 'edit_receptionist',meta: {requiresAuth: true}},
     	]
     },
     {
@@ -179,28 +181,28 @@ export default new Router({
             {path: '', component: DashboardDoctor,name: 'dashboardDoctor',meta: {requiresAuth: true}},
 
             /*=============Doctor Profile===============*/
-            {path: '/doctor/doctor_profile', component: DocDoctorProfile,name: 'doctor_profile'},
-            {path: '/doctor/edit_doctor_profile', component: EditDocDoctorProfile,name: 'edit_doctor_profile'},
+            {path: '/doctor/doctor_profile', component: DocDoctorProfile,name: 'doctor_profile',meta: {requiresAuth: true}},
+            {path: '/doctor/edit_doctor_profile', component: EditDocDoctorProfile,name: 'edit_doctor_profile',meta: {requiresAuth: true}},
 
             /*=============Today Patient List============*/
-            {path: '/doctor/today_patients_list', component: TodayPatientList,name: 'today_patients_list'},
-            {path: '/doctor/see_all_patient_list', component: SeeAllPatientList,name: 'see_all_patient_list'},
+            {path: '/doctor/today_patients_list', component: TodayPatientList,name: 'today_patients_list',meta: {requiresAuth: true}},
+            {path: '/doctor/see_all_patient_list', component: SeeAllPatientList,name: 'see_all_patient_list',meta: {requiresAuth: true}},
 
             /*=============Patient Previous Records============*/
-            {path: '/doctor/patient_previous_records', component: PatientPreviousRecords,name: 'patient_previous_records'},
+            {path: '/doctor/patient_previous_records', component: PatientPreviousRecords,name: 'patient_previous_records',meta: {requiresAuth: true}},
 
             /*=============See all doctor list============*/
-            {path: '/doctor/see_all_doctors_list', component: SeeDoctorList,name: 'see_all_doctors_list'},
+            {path: '/doctor/see_all_doctors_list', component: SeeDoctorList,name: 'see_all_doctors_list',meta: {requiresAuth: true}},
 
             /*=============Prescription============*/
-            {path: '/doctor/prescription', component: Prescription,name: 'prescription'},
+            {path: '/doctor/prescription', component: Prescription,name: 'prescription',meta: {requiresAuth: true}},
 
             /*=============Next Appointment============*/
-            {path: '/doctor/next_appointment', component: NextAppointment,name: 'next_appointment'},
+            {path: '/doctor/next_appointment', component: NextAppointment,name: 'next_appointment',meta: {requiresAuth: true}},
 
             /*=============Leave============*/
-            {path: '/doctor/make_leave_request', component: MakeLeaveRequest,name: 'make_leave_request'},           
-            {path: '/doctor/leave_request_approval', component: LeaveRequestApproval,name: 'leave_request_approval'},           
+            {path: '/doctor/make_leave_request', component: MakeLeaveRequest,name: 'make_leave_request',meta: {requiresAuth: true}},           
+            {path: '/doctor/leave_request_approval', component: LeaveRequestApproval,name: 'leave_request_approval',meta: {requiresAuth: true}},           
         ]
     },
     {
@@ -216,42 +218,50 @@ export default new Router({
             {
                 path: 'appointment',
                 name: 'Appointment',
-                component: Appointment
+                component: Appointment,
+                meta: {requiresAuth: true}
             },
             {
                 path: 'test_issued',
                 name: 'TestIssued',
-                component: TestIssued
+                component: TestIssued,
+                meta: {requiresAuth: true}
             },
             {
                 path:'last_visit',
                 name: 'LastVisit',
-                component: LastVisit
+                component: LastVisit,
+                meta: {requiresAuth: true}
             },
             {
                 path: 'prescription_view',
                 name: 'PrescriptionView',
-                component: PrescriptionView
+                component: PrescriptionView,
+                meta: {requiresAuth: true}
             },
             {
                 path: 'report_overview',
                 name: 'ReportOverview',
-                component: ReportOverview
+                component: ReportOverview,
+                meta: {requiresAuth: true}
             },
             {
                 path: 'bill_issued',
                 name: 'BillIssued',
-                component: BillIssued
+                component: BillIssued,
+                meta: {requiresAuth: true}
             },
             {
                 path: 'emergency_stop',
                 name: 'EmergencyStop',
-                component: EmergencyStop
+                component: EmergencyStop,
+                meta: {requiresAuth: true}
             },
             {
                 path: 'previous_appointment',
                 name: 'PreviousAppointment',
-                component: PreviousAppointment
+                component: PreviousAppointment,
+                meta: {requiresAuth: true}
             }
         ]
     },
@@ -259,6 +269,7 @@ export default new Router({
         path:'/receptionist',
         name: 'DashReceptionist',
         component: DashReceptionist,
+        meta: {requiresAuth: true},
         children: [
             {
                 path:'',
@@ -269,32 +280,50 @@ export default new Router({
             {
                 path:'test_issue',
                 name: 'TestIssue',
-                component: TestIssue
+                component: TestIssue,
+                meta: {requiresAuth: true}
             },
             {
                 path: 'cash_payment',
                 name: 'CashPayment',
-                component: CashPayment
+                component: CashPayment,
+                meta: {requiresAuth: true}
             },
             {
                 path: 'old_patient',
                 name: 'OldPatient',
-                component: OldPatient
+                component: OldPatient,
+                meta: {requiresAuth: true}
             },
             {
                 path: 'new_patient',
                 name: 'NewPatient',
-                component: NewPatient
+                component: NewPatient,
+                meta: {requiresAuth: true}
             },
             {
                 path: 'proceed_to_payment',
                 name: 'ProceedToPayment',
-                component: ProceedToPayment
+                component: ProceedToPayment,
+                meta: {requiresAuth: true}
             },
             {
                 path: 'orders',
                 name: 'Orders',
-                component: Orders
+                component: Orders,
+                meta: { requiresAuth: true }
+            },
+            {
+                path: 'bill_issued',
+                name: 'ReceptionistBillIssued',
+                component: ReceptionistBillIssued,
+                meta: { requiresAuth: true } 
+            },
+            {
+                path: 'update_test_issue/:id',
+                name: 'UpdateTestIssue',
+                component : UpdateTestIssue,
+                meta : { requiresAuth: true }
             }
         ]
     }
