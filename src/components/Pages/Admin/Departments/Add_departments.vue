@@ -77,41 +77,31 @@
 				department_name: '',
 				description: '',
 				status: '1',
-				suc: false,
 				id: '2'
 			};
 		},
 		methods:{
 			createDepartment(){
-				this.errorCheck()
-				var self = this
-				if(this.suc){
-					var self = this;
-		    		Swal.fire({
-			              title: 'Are you sure?',
-			              text: "You won't be able to revert this!",
-			              type: 'warning',
-			              showCancelButton: true,
-			              confirmButtonColor: '#3085d6',
-			              cancelButtonColor: '#d33',
-			              confirmButtonText: 'Are you sure?'
-			            }).then((result) => {
-			              if (result.value) {
-			                self.sendData()	
-			              }
-			         });
-				}
-			},
-			errorCheck(){
 				var self = this
 				this.$validate()
 					.then((response)=>{
 						if(response){
-                            self.suc = true
-                        }else{
-                            self.suc = false
+				    		Swal.fire({
+					              title: 'Are you sure?',
+					              text: "You won't be able to revert this!",
+					              type: 'warning',
+					              showCancelButton: true,
+					              confirmButtonColor: '#3085d6',
+					              cancelButtonColor: '#d33',
+					              confirmButtonText: 'Are you sure?'
+					            }).then((result) => {
+					              if (result.value) {
+					                self.sendData()	
+					              }
+					         });
                         }
 					})
+				
 			},
 			sendData(){
 				var self = this

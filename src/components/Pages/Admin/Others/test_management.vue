@@ -38,7 +38,7 @@
 			<div class="row">
 				<div class="col-md-10 border">
 					<div class="ui container">
-				        <filter-bar></filter-bar>
+				       <!--  <filter-bar></filter-bar> -->
 				        <vuetable ref="vuetable"
 				        :api-url="apiUrl"
 				        :fields="fields"
@@ -211,32 +211,23 @@
 		      Vue.nextTick( () => this.$refs.vuetable.refresh() )
 		    },
 		    create_test(){
-		    	this.errorCheck()
-		    	if(this.suc){
-		    		var self = this;
-		    		Swal.fire({
-			              title: 'Are you sure?',
-			              text: "You won't be able to revert this!",
-			              type: 'warning',
-			              showCancelButton: true,
-			              confirmButtonColor: '#3085d6',
-			              cancelButtonColor: '#d33',
-			              confirmButtonText: 'Are you sure?'
-			            }).then((result) => {
-			              if (result.value) {
-			                self.sendData()	
-			              }
-			         });
-		    	}
-		    },
-		    errorCheck(){
 		    	var self = this;
 		    	this.$validate()
 		    		.then((success)=>{
 		    			if(success){
-                            self.suc = true
-                        }else{
-                            self.suc = false
+				    		Swal.fire({
+					              title: 'Are you sure?',
+					              text: "You won't be able to revert this!",
+					              type: 'warning',
+					              showCancelButton: true,
+					              confirmButtonColor: '#3085d6',
+					              cancelButtonColor: '#d33',
+					              confirmButtonText: 'Are you sure?'
+					            }).then((result) => {
+					              if (result.value) {
+					                self.sendData()	
+					              }
+					         });
                         }
 		    		})
 		    },

@@ -1,7 +1,7 @@
 <template>
 	<div class="page-wrapper">
 		<div class="container" style="margin-top: 25px;margin-left: 50px;">
-			<h3>Prescriptions</h3>
+			<h3>Report Overview</h3>
 			<div class="row">
 				<div class="col-md-11">
 					<hr>
@@ -10,9 +10,9 @@
 			<div class="row">
 				<div class="col-md-11 border">
 					<div class="ui container">
-						<filter-bar></filter-bar>
+						<!-- <filter-bar></filter-bar> -->
 						<vuetable ref="vuetable"
-						api-url="https://vuetable.ratiw.net/api/users"
+						api-url=""
 						:fields="fields"
 						pagination-path=""
 						:per-page="5"

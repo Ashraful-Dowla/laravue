@@ -138,7 +138,6 @@ export default{
                 show: false,
                 label: 'Loading.....',
                 showDataTable: false,
-                suc: false,
                 patient_id: ''
             };
         },
@@ -154,49 +153,40 @@ export default{
 	        },
 	        searchFunction(){
 	        	var self = this
-	        	
-	        	this.errorCheck()
-	        	if(this.suc){
+	        	this.$validate()
+	        		.then((response)=>{
+	        			if(response){
+			        		self.showDataTable = false
+
+				        	this.$http.post( apiDomain + 'api/getOrdersData',{
+				        		bill_id: self.bill_id
+				        	}).then((response)=>{
+					        	
+				        		self.options = response.data.data
+				        		self.status = response.data.data2[0]["status"]
+				        		self.patient_id = response.data.data2[0]["patient_id"]
+				        		self.net_payable = response.data.data2[0]["amount_after_discount"]
+				        		self.sub_total = response.data.data2[0]["amount"]
+				        		self.discount =  response.data.data2[0]["discount"]
+				        		self.due = response.data.data2[0]["due"]
+
+
+					        	self.show = true
+					        	window.setTimeout(()=> self.sTable() ,5000)
+					        	
+				        	}).catch((e)=>{
+
+				        		self.show = true
+				        		self.showDataTable = false
+				        		window.setTimeout(()=>self.mk() ,5000)
+				        	})      				
+	        			}
+	        		})
 	        		
-	        		self.showDataTable = false
-
-		        	this.$http.post( apiDomain + 'api/getOrdersData',{
-		        		bill_id: self.bill_id
-		        	}).then((response)=>{
-			        	
-		        		self.options = response.data.data
-		        		self.status = response.data.data2[0]["status"]
-		        		self.patient_id = response.data.data2[0]["patient_id"]
-		        		self.net_payable = response.data.data2[0]["amount_after_discount"]
-		        		self.sub_total = response.data.data2[0]["amount"]
-		        		self.discount =  response.data.data2[0]["discount"]
-		        		self.due = response.data.data2[0]["due"]
-
-
-			        	self.show = true
-			        	window.setTimeout(()=> self.sTable() ,5000)
-			        	
-		        	}).catch((e)=>{
-
-		        		self.show = true
-		        		self.showDataTable = false
-		        		window.setTimeout(()=>self.mk() ,5000)
-		        	})
-	        	}
 	        },
 	        sTable(){
 	        	this.show = false
 	        	this.showDataTable = true
-	        },
-	        errorCheck(){
-	        	var self = this
-	        	this.$validate()
-	        		.then((response)=>{
-	        			if(response){
-	        				
-							self.suc = true	        				
-	        			}
-	        		})
 	        },
             failedModal(){
                 Swal.fire({

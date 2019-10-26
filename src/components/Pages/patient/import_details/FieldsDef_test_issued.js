@@ -5,30 +5,31 @@ export const FieldsDef_test_issued= [
 			sortField: 'id'
 		},
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Doctor Name',
-			sortField: 'name'
+			name: 'bill_id',
+			title: 'Bill ID'
 		},
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Department',
-			sortField: 'name'
+			name: 'doctor_id',
+			title: 'Doctor Name'
 		},
 		{
-			name:'birthdate',
+			name: 'test_name',
+			title: 'Test Name'
+		},
+		{
+			name:'updated_at',
 			title: 'Test Issued Date',
-		    sortField: 'birthdate',
 		    titleClass: 'center aligned',
-		    dataClass: 'center aligned',
-		},
-		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Test Invoice',
-			sortField: 'name'
-		},
-		{
-            name: '__slot:actions',
-            title:'Actions',
-            dataClass: 'center aligned'
-        }
+		    dataClass: 'center aligned'
+		}//,
+		// {
+		// 	name:'name',
+		// 	title: '<i class="fa fa-tag"></i> Test Invoice',
+		// 	sortField: 'name'
+		// },
+		// {
+  //           name: '__slot:actions',
+  //           title:'Actions',
+  //           dataClass: 'center aligned'
+  //       }
 ] 

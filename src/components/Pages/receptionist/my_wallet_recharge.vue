@@ -5,7 +5,7 @@
                 <div class="row clearfix">
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="card">
-                            <h2> Refill Account </h2>
+                            <h2> My Wallet Recharge </h2>
                             <div class="body">
                                 <form>
                                     <label for="user_id">User ID</label>
@@ -83,8 +83,6 @@
             	}).then((response)=>{
             		console.log(response)
             		self.successModal()
-            		self.user_id = ''
-            		self.recharge_amount = ''
             	}).catch((e)=>{
             		console.log(e)
             		self.failedModal()
