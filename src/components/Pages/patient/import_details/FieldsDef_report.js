@@ -5,40 +5,31 @@ export const FieldsDef_report= [
 			sortField: 'id'
 		},
 		{
-			name:'id',
-			title:'Patient ID',
-			sortField: 'id'
+			name:'patient_id',
+			title:'Patient ID'
 		},
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Patient Name',
-			sortField: 'name'
+			name:'patient_name',
+			title: '<i class="fa fa-tag"></i> Patient Name'
 		},
 		{
-			name:'name',
+			name:'doctor_name',
 			title: '<i class="fa fa-tag"></i> Doctor Name',
 			sortField: 'name'
 		},
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Department',
-			sortField: 'name'
+			name:'department',
+			title: '<i class="fa fa-tag"></i> Department'
 		},
 		{
-			name:'birthdate',
-			title: 'Test Issued Date',
-		    sortField: 'birthdate',
+			name:'issued_date',
+			title: 'Issued Date',
 		    titleClass: 'center aligned',
 		    dataClass: 'center aligned',
 		},
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Report Link',
-			sortField: 'name'
-		},
-		{
             name: '__slot:actions',
-            title: 'Actions',
+            title: 'Report View',
             dataClass: 'center aligned'
         }
 ] 

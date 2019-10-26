@@ -21,6 +21,10 @@ export const FieldsDef_bill_issued = [
 			title: 'Net Payable'
 		},
 		{
+			name:'due',
+			title: 'Due'
+		},
+		{
 			name:'created_at',
 			title: 'Issued Date',
 		    titleClass: 'center aligned',

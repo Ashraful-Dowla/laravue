@@ -9,43 +9,106 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-5">
-                    <div class="form-group">
+                    <div class="form-group" :class="{error: validation.hasError('patient_id')}">
                     	<p><b>Patient ID</b></p>
                         <div class="borderBottom">
-                            <input type="text" class="form-control" placeholder="PT-XXXXXXXX" />
+                            <input type="text" v-model="patient_id" class="form-control" placeholder="PT-XXXXXXXX" />
                         </div>
+                        <div class="message" style="color: red;">{{ validation.firstError('patient_id') }}</div>
                     </div>
                 </div>
 			</div>
-			<!-- <div class="row">
-				<div class="col-sm-5">
-					<div class="form-group ">
-						<p><b>Test</b></p>
-	                    <vue-bootstrap-typeahead 
-	                      placeholder="Search for a Test"
-						  v-model="query"
-						  :data="['Canada', 'USA', 'Mexico']"
-						  class="borderBottom"
-						></vue-bootstrap-typeahead>
-	                </div>
-            	</div>
-			</div> -->
 			<div class="row">
-				<div class="col-md-10">
-					<ckeditor type="classic" v-model="editorText">CKEDITOR</ckeditor><br>
-					<button style="float: right;" type="button" class="btn  btn-raised bg-blue-grey waves-effect"><strong>PRESCRIBE</strong></button>
+				<div class="col-md-10" >
+					<div class="form-group" :class="{error: validation.hasError('editor_text')}">
+						<ckeditor type="classic" v-model="editor_text">CKEDITOR</ckeditor><br>
+						<button style="float: right;" type="button" class="btn  btn-raised bg-blue-grey waves-effect" @click="sendData"><strong>PRESCRIBE</strong></button>
+					</div>
+					 <div class="message" style="color: red;">{{ validation.firstError('editor_text') }}</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </template>
 <script>
+	import { apiDomain } from '@/components/Pages/Authentication/config'
+	
+	import SimpleVueValidation from 'simple-vue-validator'
+	const Validator = SimpleVueValidation.Validator
+
+	import Swal from 'sweetalert2'	
+	
 	export default {
 		data () {
 			return {
-				editorText: ''
+				editor_text: '',
+				patient_id: '',
+				id: '2'
 			}
-		}
+		},
+		methods:{
+			sendData(){
+				var self = this
+	        	this.$validate()
+	        		.then((response)=>{
+	        			if(response){
+							this.chk()     				
+	        			}
+	        		})
+			},
+			chk(){
+				var self = this
+				Swal.fire({
+                          title: 'Are you sure?',
+                          text: "You won't be able to revert this!",
+                          type: 'warning',
+                          showCancelButton: true,
+                          confirmButtonColor: '#3085d6',
+                          cancelButtonColor: '#d33',
+                          confirmButtonText: 'Are you sure?'
+                        }).then((result) => {
+                          if (result.value) {
+                              self.send()
+                          }
+                    }) 
+			},
+			send(){
+				var self = this
+				this.$http.post(apiDomain + 'api/addPrescription',{
+					patient_id: self.patient_id,
+					editor_text: self.editor_text,
+					id: self.id,
+				}).then((response)=>{
+					console.log(response)
+					self.successModal()
+				}).catch((e)=>{
+					console.log(e)
+					self.failedModal()
+				})
+			},
+            successModal(){
+                Swal.fire(
+                    'Inserted!',
+                    'Successfully Inserted!',
+                    'success'
+                )
+            },
+            failedModal(){
+                Swal.fire({
+                  type: 'error',
+                  title: 'Oops...',
+                  text: 'Something went wrong!'
+                })
+            }
+		},
+        validators: {
+        	'patient_id': function(value){
+        		return Validator.value(value).required();
+        	},
+        	'editor_text': function(value){
+        		return Validator.value(value).required();
+        	}
+        }
 	}
 </script>
 <style scoped>

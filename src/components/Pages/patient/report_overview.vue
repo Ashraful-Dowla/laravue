@@ -3,9 +3,9 @@
     <div class="content">
   <div class="ui container">
     <h1>Report Overview</h1>
-    <filter-bar></filter-bar>
+    <!-- <filter-bar></filter-bar> -->
     <vuetable ref="vuetable"
-      api-url="https://vuetable.ratiw.net/api/users"
+      :api-url="apiURL"
       :fields="fields"
       pagination-path=""
       :per-page="5"
@@ -46,10 +46,31 @@ import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePagination
 import FilterBar from '@/components/Pages/patient/import_details/FilterBar'
 import { FieldsDef_report } from '@/components/Pages/patient/import_details/FieldsDef_report'
 
+import { apiDomain } from '@/components/Pages/Authentication/config'
+
+import VueHtmlToPaper from 'vue-html-to-paper'
+
+// ES6 Modules or TypeScript
+import Swal from 'sweetalert2'
+
 Vue.use(VueEvents)
 //Vue.component('custom-actions', CustomActions)
 //Vue.component('my-detail-row', DetailRow)
 Vue.component('filter-bar', FilterBar)
+
+const options = {
+    name: '_blank',
+    specs: [
+      'fullscreen=yes',
+      'titlebar=yes',
+      'scrollbars=yes'
+    ],
+    styles: [
+      'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
+      'https://unpkg.com/kidlat-css/css/kidlat.css'
+    ]
+  }  
+Vue.use(VueHtmlToPaper, options)
 
 export default {
   components: {
@@ -67,30 +88,22 @@ export default {
           direction: 'asc'
         }
       ],
-      moreParams: {}
+      moreParams: {},
+      id: '2',
+      apiURL: '',
+      data:[],
+      dt: '#'
     }
   },
+  created(){
+      this.apiURL = apiDomain + 'api/getReport/' + this.id
+      //console.log(apiDomain)
+  },  
   mounted () {
     this.$events.$on('filter-set', eventData => this.onFilterSet(eventData))
     this.$events.$on('filter-reset', e => this.onFilterReset())
   },
   methods: {
-    // allcap (value) {
-    //   return value.toUpperCase()
-    // },
-    // genderLabel (value) {
-    //   return value === 'M'
-    //     ? '<span class="ui teal label"><i class="large man icon"></i>Male</span>'
-    //     : '<span class="ui pink label"><i class="large woman icon"></i>Female</span>'
-    // },
-    // formatNumber (value) {
-    //   return accounting.formatNumber(value, 2)
-    // },
-    // formatDate (value, fmt = 'D MMM YYYY') {
-    //   return (value == null)
-    //     ? ''
-    //     : moment(value, 'YYYY-MM-DD').format(fmt)
-    // },
     onPaginationData (paginationData) {
       this.$refs.pagination.setPaginationData(paginationData)
       this.$refs.paginationInfo.setPaginationData(paginationData)
@@ -99,12 +112,18 @@ export default {
       this.$refs.vuetable.changePage(page)
     },
     onAction (action, data, index) {
-      console.log('slot action: ' + action, data.name, index)
+      //console.log('slot action: ' + action, data.name, index)
+      if(action == 'view-item'){
+         var self = this
+         // //console.log(data.department)
+         this.$http.get( apiDomain+ 'api/getReportData/' + data.id ).then((response)=>{
+             //console.log(response.data)
+             self.dt = response.data
+             //console.log(self.dt)
+             window.open(self.dt)
+         })
+      } 
     },
-    // onCellClicked (data, field, event) {
-    //   console.log('cellClicked: ', field.name)
-    //   this.$refs.vuetable.toggleDetailRow(data.id)
-    // },
     onFilterSet (filterText) {
       this.moreParams.filter = filterText
       Vue.nextTick( () => this.$refs.vuetable.refresh() )

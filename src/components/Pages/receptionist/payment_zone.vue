@@ -2,9 +2,21 @@
     <div class="page-wrapper">
         <div class="content">
         <div class="container-fluid" align="left">
-            <button type="button" class="btn btn-raised btn-info m-t-15 waves-effect" @click="goBack" style="float: right;">Back</button>
             <div class="col-lg-12 col-md-12 col-sm-12">
-                <h2>Payment Section</h2>
+                <h2>Payment Zone</h2>
+                <form>
+                    <label for="patient_id">Bill ID</label>
+                    <div class="form-group" :class="{error: validation.hasError('bill_id')}">
+                        <div class="form-line">
+                            <input type="text" id="bill_id" v-model="bill_id" class="form-control" placeholder="Enter the Bill ID" :readonly="show">
+                        </div>
+                        <div class="message" style="color: red;">{{ validation.firstError('bill_id') }}</div>
+                    </div>
+                    <button v-if="!show" type="button" @click="hide()" class="btn btn-raised btn-info m-t-15 waves-effect" style="float: right;">Payable</button>
+                    <button v-if="show" type="button" @click="hide()" class="btn btn-raised btn-danger m-t-15 waves-effect" style="float: right;">Cancel</button>
+                </form>
+                <br><br><br><br>
+                <div v-if="show">
                 <v-select v-model="selected" :options="options" :reduce="mark=>mark.mark" label="name" @input="chk"></v-select>
                 <br><br><br>
                 <div class="card" v-if="mark==1">
@@ -74,6 +86,7 @@
                     </div>
                 </div>
             </div>
+            </div>
         </div>
     </div>
     </div>
@@ -110,26 +123,29 @@ export default{
             net_payable: '',
             paid: '',
             id: '2',
-            card_number: ''
+            card_number: '',
+            show: false,
+            suc: false
         }
     },
-    created(){
-        var self = this
-
-        this.bill_id = this.$route.params.bill_id
-
-        this.$http.get(apiDomain + 'api/getProceedToPaymentData/' + self.bill_id)
-                .then((response)=>{
-                    //console.log(response)
-                    self.net_payable = response.data[0]["due"]
-
-                }).catch((e)=>{
-                    console.log(e)
-            })
-    },
     methods: {
-        goBack(){
-            this.$router.go(-1)
+        hide(){
+            var self = this
+            this.$validate()
+                .then((response)=>{
+                    if(response){
+                        self.show = !self.show
+                        if(self.show){
+                            self.$http.get(apiDomain + 'api/getProceedToPaymentData/' + self.bill_id)
+                            .then((response)=>{
+                                self.net_payable = response.data[0]["due"]
+
+                            }).catch((e)=>{
+                                console.log(e)
+                            })
+                        }
+                    }
+                })
         },
         chk(){
             this.mark = this.selected
@@ -182,6 +198,11 @@ export default{
             text: 'Something went wrong!'
           })
         },
+    },
+    validators: {
+        'bill_id' : function(value){
+            return Validator.value(value).required();
+        }
     }
 }
 </script>

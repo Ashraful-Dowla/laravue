@@ -3,7 +3,7 @@
     <div class="content">
   <div class="ui container">
     <h1>Visit History</h1>
-    <filter-bar></filter-bar>
+    <!-- <filter-bar></filter-bar> -->
     <vuetable ref="vuetable"
       :api-url="apiURL"
       :fields="fields"
@@ -60,7 +60,8 @@ export default {
       sortOrder: [],
       moreParams: {},
       apiURL: '',
-      data: []
+      data: [],
+      id: '2'
     }
   },
   mounted () {
@@ -88,9 +89,11 @@ export default {
     }
   },
   created () {
-     const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
-    this.apiURL = apiDomain + 'api/patient_visit_history/' + tokenData.patient_id
-    console.log(this.apiURL)
+    //const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+    //this.apiURL = apiDomain + 'api/patient_visit_history/' + tokenData.patient_id
+    //console.log(this.apiURL)
+
+    this.apiURL = apiDomain + 'api/patient_visit_history/' + this.id
 
     // this.$http.post(apiDomain + 'api/patient_visit_history', {pt_id: tokenData.patient_id})
     //     .then(response => {

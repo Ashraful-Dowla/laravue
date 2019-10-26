@@ -32,11 +32,12 @@ export const FieldsDef= [
 		    sortField: 'next_visit',
 		    titleClass: 'center aligned',
 		    dataClass: 'center aligned',
-		},
-		{
-            name: '__slot:actions',
-            title: 'Actions',
-            dataClass: 'center aligned',
-            visible: this.authenticated
-        }
+		}
+		// ,
+		// {
+  //           name: '__slot:actions',
+  //           title: 'Actions',
+  //           dataClass: 'center aligned',
+  //           visible: this.authenticated
+  //       }
 ] 

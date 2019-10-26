@@ -49,7 +49,7 @@
         </div>
     </div>
 </template>
-<script>
+<script>    
     import { loginUrl, getHeader, userUrl } from './config';
     import { clientId, clientSecret } from './env';
     import SimpleVueValidation from 'simple-vue-validator';
@@ -59,8 +59,8 @@
         data(){
             return{
                 login: {
-                    email: 'ajmalhossainopu9@gmail.com',
-                    password: '123456'
+                    email: '',
+                    password: ''
                 }
             }
         },
@@ -96,7 +96,7 @@
                                     self.$http.get(userUrl, {headers: getHeader()})
                                     .then(response => {
 
-                                        if(response.body.email_verified_at !== null){
+                                        if(response.body.email_verified_at == null){
                                             // console.log('User object',response)
                                             authUser.email = response.body.email
                                             authUser.patient_id = response.body.patient_id

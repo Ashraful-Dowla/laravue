@@ -216,7 +216,7 @@
                     }).then((response)=>{
                         console.log(response)
                         self.successModal()
-                        
+                        this.$router.push('/admin/payments')
                     }).catch((e)=>{
                         console.log(e)
                         self.failedModal()

@@ -156,24 +156,24 @@
             },
             proceedToPayment(){
                 var self = this
-                this.errorCheck()
-                if(this.suc){
-                    //console.log(self.patient_id)
-                    Swal.fire({
-                          title: 'Are you sure?',
-                          text: "You won't be able to revert this!",
-                          type: 'warning',
-                          showCancelButton: true,
-                          confirmButtonColor: '#3085d6',
-                          cancelButtonColor: '#d33',
-                          confirmButtonText: 'Are you sure?'
-                        }).then((result) => {
-                          if (result.value) {
-                              self.sendData()
-                              //self.$router.push({ path: '/receptionist/proceed_to_payment'})
-                          }
-                    }) 
-                }
+                this.$validate()
+                    .then((response)=>{
+                        if(response){
+                            Swal.fire({
+                                  title: 'Are you sure?',
+                                  text: "You won't be able to revert this!",
+                                  type: 'warning',
+                                  showCancelButton: true,
+                                  confirmButtonColor: '#3085d6',
+                                  cancelButtonColor: '#d33',
+                                  confirmButtonText: 'Are you sure?'
+                                }).then((result) => {
+                                  if (result.value) {
+                                      self.sendData()
+                                  }
+                            }) 
+                        }
+                    })
             },
             sendData(){
                 var self = this
@@ -189,7 +189,7 @@
                     }).then((response)=>{
                         //console.log(response)
                         self.successModal()
-                        self.$router.push({ path: '/receptionist/proceed_to_payment'})
+                        //self.$router.push({ path: '/receptionist/proceed_to_payment'})
 
                     }).catch((e)=>{
                         //console.log(e)
@@ -199,14 +199,7 @@
             errorCheck(){
                 var self = this
                 //console.log(this.suc)
-                this.$validate()
-                    .then((response)=>{
-                        if(response){
-                            self.suc = true
-                        }else{
-                            self.suc = false
-                        }
-                    })
+                
             },
             successModal(){
                 Swal.fire(
@@ -214,6 +207,12 @@
                     'Successfully Inserted!',
                     'success'
                 )
+
+                this.tableRows = []
+                this.patient_id = ''
+                this.doctor_id = ''
+                this.selected = ''
+
             },
             failedModal(){
                 Swal.fire({

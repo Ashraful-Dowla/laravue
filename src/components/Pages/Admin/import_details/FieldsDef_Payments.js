@@ -1,37 +1,44 @@
-export const FieldsDef_Payments = [
+export const FieldsDef_bill_issued = [
 		{
 			name:'id',
-			title: '<i class="fa fa-tag"></i> Payment ID',
-			sortField: 'name'
+			title:'Bill Id',
+			sortField: 'id'
 		},
 		{
-			name:'id',
-			title: '<i class="fa fa-tag"></i> Patient ID',
-			sortField: 'name'
+			name:'patient_id',
+			title: ' Patient ID'
 		},
 		{
-			name:'age',
-			title: '<i class="fa fa-tag"></i> Ammount',
-			sortField: 'name'
+			name:'amount',
+			title: ' Amount'
 		},
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Payment Status',
-			sortField: 'name'
+			name:'discount',
+			title: ' Discount'
 		},
 		{
-			name:'age',
-			title: '<i class="fa fa-tag"></i> Date',
-			sortField: 'name'
+			name:'amount_after_discount',
+			title: 'Net Payable'
 		},
 		{
-			name:'age',
-			title: '<i class="fa fa-tag"></i> Time',
-			sortField: 'name'
+			name:'due',
+			title: 'Due'
 		},
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Payment Details',
-			sortField: 'name'
-		}
-]
+			name:'created_at',
+			title: 'Issued Date',
+		    titleClass: 'center aligned',
+		    dataClass: 'center aligned'
+		},
+		{
+			name:'status',
+			title: 'Status ',
+			dataClass: 'center aligned',
+			callback: 'statusCall'
+		},
+		{
+            name: '__slot:actions',
+            title: 'Actions',
+            dataClass: 'center aligned'
+        }
+] 
