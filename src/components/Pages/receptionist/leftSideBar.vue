@@ -36,7 +36,7 @@
 								<a class="fa fa-wheelchair"><router-link to="/receptionist/test_issue"><span>Test Issue</span></router-link></a>
 							</li>
 							<li>
-								<a class="fa fa-money"><router-link to="/receptionist/cash_payment"><span>Cash Payment</span></router-link></a>
+								<a class="fa fa-money"><router-link to="/receptionist/payment_zone"><span>Payment Zone</span></router-link></a>
 							</li>
 							<li>
 								<a class="fa fa-ambulance"><router-link to="/receptionist/new_patient"><span>Admit New Patient</span></router-link></a>
@@ -46,6 +46,15 @@
 							</li>
 							<li>
 								<a class="fa fa-list"><router-link to="/receptionist/bill_issued"><span>Bill Issued</span></router-link></a>
+							</li>
+							<li>
+								<a class="fa fa-money"><router-link to="/receptionist/my_wallet_recharge"><span>My Wallet Recharge</span></router-link></a>
+							</li>
+							<li>
+								<a class="fa fa-history"><router-link to="/receptionist/transaction"><span>Transaction</span></router-link></a>
+							</li>
+							<li>
+								<a class="fa fa-list"><router-link to="/receptionist/report_upload"><span>Report Upload</span></router-link></a>
 							</li>
 						</ul>
 					</div>

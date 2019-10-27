@@ -50,6 +50,9 @@
 							<li>
 								<a class="fa fa-hospital-o"><router-link to="/doctor/next_appointment"><span>Next Appointment</span></router-link></a>
 							</li>
+							<li>
+								<a class="fa fa-list"><router-link to="/doctor/report_upload"><span>Report Upload</span></router-link></a>
+							</li>
 							<li class="submenu">
 								<a href="#"><i class="fa fa-user"></i> <span> Leave Request </span> <span class="menu-arrow"></span></a>
 								<ul style="display: none;">

@@ -19,7 +19,7 @@
 				<div class="row">
 					<div class="col-md-11 border">
 						<div class="ui container">
-					        <filter-bar></filter-bar>
+					        <!-- <filter-bar></filter-bar> -->
 					        <vuetable ref="vuetable"
 					        :api-url="apiUrl"
 					        :fields="fields"
@@ -43,11 +43,10 @@
 					    </div>
 					  </template>
 					</vuetable>
-					<div class="card">
+					<div class="content">
 						<div class="header">
 							<modal v-model="showModal">
 							    <p slot="header">Update Department Details</p>
-							 
 							  	<div slot="content">
 									 <div class="form-group" :class="{error: validation.hasError('modalForm.updated_department_name')}">
 										<p><b>Department Name</b></p>
@@ -84,7 +83,7 @@
 							        </div>
 							    </template>
 							</modal>
-						</div>
+					</div>
 					</div>
 					<div class="vuetable-pagination ui basic segment grid">
 					  <vuetable-pagination-info ref="paginationInfo"

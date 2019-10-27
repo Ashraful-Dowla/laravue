@@ -1,18 +1,15 @@
 export const FieldsDef_see_patients_previous_records = [
 		{
-			name:'name',
-			title:'Patient ID',
-			sortField: 'id'
+			name:'patient_id',
+			title:'Patient ID'
 		},
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Patient Name',
-			sortField: 'name'
+			name: 'patient_name',
+			title: 'Patient Name'
 		},
 		{
-			name:'name',
-			title: 'Date',
-			sortField: 'name'
+			name:'created_at',
+			title: 'Date'
 		},
 		{
             name: '__slot:actions',

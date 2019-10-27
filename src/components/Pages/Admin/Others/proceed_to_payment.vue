@@ -162,7 +162,7 @@ export default{
             }).then((response)=>{
                 console.log(response)
                 self.successModal()
-                self.$router.push('/receptionist/bill_issued')
+                self.$router.push('/admin/payments')
             }).catch((e)=>{
                 console.log(e)
                 self.failedModal()

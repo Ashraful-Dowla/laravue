@@ -32,13 +32,8 @@ export const FieldsDef_prescription= [
 		    dataClass: 'center aligned',
 		},
 		{
-			name:'__slot:prescriptionsField',
-			title: 'Prescription',
-			dataClass: 'center aligned'
-		},
-		{
             name: '__slot:actions',
-            title: 'Actions',
+            title: 'View Prescription',
             dataClass: 'center aligned'
         }
 ] 

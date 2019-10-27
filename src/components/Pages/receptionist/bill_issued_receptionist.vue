@@ -16,6 +16,10 @@
     >
       <template slot="actions" slot-scope="props">
         <div class="custom-actions">
+           <button class="ui button green"
+            @click="onAction('pay-item', props.rowData, props.rowIndex)">
+            <i class="payment icon"></i>
+          </button>
           <button class="ui button yellow"
             @click="onAction('edit-item', props.rowData, props.rowIndex)">
             <i class="edit icon"></i>
@@ -121,6 +125,8 @@ export default {
                               self.deleteData(data.id)
                           }
                     }) 
+        }else if(action == 'pay-item'){
+            this.$router.push('/receptionist/proceed_to_payment/' + data.id)
         }
     },
     deleteData(idx){

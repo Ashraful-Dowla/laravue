@@ -1,11 +1,11 @@
 <template>
- <div class="page-wrapper">
+<div class="page-wrapper">
     <div class="content">
   <div class="ui container">
-    <h1>Prescription</h1>
-   <!--  <filter-bar></filter-bar> -->
+    <h1>Transaction </h1>
+    <!-- <filter-bar></filter-bar> -->
     <vuetable ref="vuetable"
-      :api-url="apiURL"
+      :api-url="apiUrl"
       :fields="fields"
       pagination-path=""
       :per-page="5"
@@ -14,14 +14,6 @@
       :append-params="moreParams"
       @vuetable:pagination-data="onPaginationData"
     >
-      <template slot="actions" slot-scope="props">
-        <div class="custom-actions">
-          <button class="ui button positive"
-            @click="onAction('view-item', props.rowData, props.rowIndex)">
-            <i class="zoom icon"></i>
-          </button>
-        </div>
-      </template>
     </vuetable>
     <div class="vuetable-pagination ui basic segment grid">
       <vuetable-pagination-info ref="paginationInfo"
@@ -30,12 +22,9 @@
         @vuetable-pagination:change-page="onChangePage"
       ></vuetable-pagination>
     </div>
-    <div style="display: none;"> 
-      <div v-html="prescription" id="printMe"></div>
-    </div>
   </div>
   </div>
-</div>
+  </div>
 </template>
 
 <script>
@@ -46,32 +35,17 @@ import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
 import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
 //import CustomActions from './CustomActions'
 //import DetailRow from './DetailRow'
-import FilterBar from '@/components/Pages/patient/import_details/FilterBar'
-import { FieldsDef_prescription } from '@/components/Pages/patient/import_details/FieldsDef_prescription'
-import { apiDomain } from '@/components/Pages/Authentication/config';
+//import FilterBar from '@/components/Pages/patient/import_details/FilterBar'
+import { FieldsDef_transaction } from '@/components/Pages/receptionist/import_details/FieldsDef_transaction'
 
-import VueHtmlToPaper from 'vue-html-to-paper';
- 
-const optionss = {
-  name: '_blank',
-  specs: [
-    'fullscreen=yes',
-    'titlebar=yes',
-    'scrollbars=yes'
-  ],
-  styles: [
-    'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
-    'https://unpkg.com/kidlat-css/css/kidlat.css'
-  ]
-}
- 
-Vue.use(VueHtmlToPaper, optionss);
+import { apiDomain } from '@/components/Pages/Authentication/config'
 
+ import Swal from 'sweetalert2'
 
 Vue.use(VueEvents)
 //Vue.component('custom-actions', CustomActions)
 //Vue.component('my-detail-row', DetailRow)
-Vue.component('filter-bar', FilterBar)
+//Vue.component('filter-bar', FilterBar)
 
 export default {
   components: {
@@ -81,27 +55,29 @@ export default {
   },
   data () {
     return {
-      fields: FieldsDef_prescription,
-      sortOrder: [],
+      fields: FieldsDef_transaction,
+      sortOrder: [ ],
       moreParams: {},
-      apiURL: '',
-      data: [],
+      apiUrl: '',
       id: '2',
-      prescription: ''
+      data: []
     }
   },
-  created () {
-    // const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
-    // this.apiURL = apiDomain + 'api/prescription_view/' + tokenData.patient_id
-    // console.log(this.apiURL)
-
-      this.apiURL = apiDomain + 'api/adminPrescriptionView'
+  created(){
+     this.apiUrl = apiDomain + 'api/getTransactionData/' + this.id
+     console.log(this.apiUrl) 
   },
   mounted () {
     this.$events.$on('filter-set', eventData => this.onFilterSet(eventData))
     this.$events.$on('filter-reset', e => this.onFilterReset())
   },
   methods: {
+    markCall(value)
+    {
+       if(value==1) return '<span class="ui green label">Wallet</span>'
+       else if(value==2) return '<span class="ui blue label">Card</span>'
+       else return '<span class="ui red label">Cash</span>'
+    },
     onPaginationData (paginationData) {
       this.$refs.pagination.setPaginationData(paginationData)
       this.$refs.paginationInfo.setPaginationData(paginationData)
@@ -111,20 +87,19 @@ export default {
     },
     onAction (action, data, index) {
       //console.log('slot action: ' + action, data.name, index)
-      if(action == 'view-item'){
-          this.prescription = data.prescription
-          //console.log(data.prescription)
-          window.setTimeout(()=> this.$htmlToPaper('printMe'),3000)
-      }
+        
     },
     onFilterSet (filterText) {
-      this.moreParams.filter = filterText
+      console.log(this.filterText)
+      this.moreParams = {
+            'filter': filterText.trim()
+      }
       Vue.nextTick( () => this.$refs.vuetable.refresh() )
     },
     onFilterReset () {
-      delete this.moreParams.filter
+      this.moreParams = {}
       Vue.nextTick( () => this.$refs.vuetable.refresh() )
     }
-  },
+  }
 }
 </script>

@@ -23,7 +23,7 @@
         </div>
       </div>
 </template>
-<script>
+<script>    
     import { loginUrl, getHeader, userUrl } from './config';
     import { clientId, clientSecret } from './env';
     import SimpleVueValidation from 'simple-vue-validator';
@@ -34,6 +34,7 @@
             return{
                 hidePassword: true,
                 login: {
+
                     email: 'kamal@gamil.com',
                     password: '123456'
                 }
@@ -82,7 +83,7 @@
                                     self.$http.get(userUrl, {headers: getHeader()})
                                     .then(response => {
 
-                                        if(response.body.email_verified_at !== null){
+                                        if(response.body.email_verified_at == null){
                                             // console.log('User object',response)
                                             if(response.body.role === '1'){
                                                 authUser.id = response.body.id

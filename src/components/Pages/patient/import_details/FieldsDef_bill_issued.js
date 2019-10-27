@@ -5,26 +5,36 @@ export const FieldsDef_bill_issued = [
 			sortField: 'id'
 		},
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Report',
-			sortField: 'name'
+			name:'patient_id',
+			title: ' Patient ID'
 		},
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Amount',
-			sortField: 'name'
+			name:'amount',
+			title: ' Amount'
 		},
 		{
-			name:'birthdate',
+			name:'discount',
+			title: ' Discount'
+		},
+		{
+			name:'amount_after_discount',
+			title: 'Net Payable'
+		},
+		{
+			name:'due',
+			title: 'Due'
+		},
+		{
+			name:'created_at',
 			title: 'Issued Date',
-		    sortField: 'birthdate',
 		    titleClass: 'center aligned',
-		    dataClass: 'center aligned',
+		    dataClass: 'center aligned'
 		},
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Status ',
-			sortField: 'name'
+			name:'status',
+			title: 'Status ',
+			dataClass: 'center aligned',
+			callback: 'statusCall'
 		},
 		{
             name: '__slot:actions',

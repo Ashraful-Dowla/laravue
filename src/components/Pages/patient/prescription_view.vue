@@ -3,7 +3,7 @@
     <div class="content">
   <div class="ui container">
     <h1>Prescription View</h1>
-    <filter-bar></filter-bar>
+   <!--  <filter-bar></filter-bar> -->
     <vuetable ref="vuetable"
       :api-url="apiURL"
       :fields="fields"
@@ -22,15 +22,6 @@
           </button>
         </div>
       </template>
-      <template slot="prescriptionsField" slot-scope="props">
-        <div class="custom-actions">
-          <!-- <button class="ui button positive"
-            @click="prescriptionView()">
-            <i class="eye icon"></i>
-          View Prescription</button> -->
-          <a href="#" @click="prescriptionView('view-prescription', props.rowData, props.rowIndex)">View Prescription</a>
-        </div>
-      </template>
     </vuetable>
     <div class="vuetable-pagination ui basic segment grid">
       <vuetable-pagination-info ref="paginationInfo"
@@ -39,8 +30,8 @@
         @vuetable-pagination:change-page="onChangePage"
       ></vuetable-pagination>
     </div>
-    <div id="printMe">
-        <p>{{prescription}}</p>
+    <div style="display: none;"> 
+      <div v-html="prescription" id="printMe"></div>
     </div>
   </div>
   </div>
@@ -58,6 +49,7 @@ import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePagination
 import FilterBar from '@/components/Pages/patient/import_details/FilterBar'
 import { FieldsDef_prescription } from '@/components/Pages/patient/import_details/FieldsDef_prescription'
 import { apiDomain } from '@/components/Pages/Authentication/config';
+
 import VueHtmlToPaper from 'vue-html-to-paper';
  
 const optionss = {
@@ -94,8 +86,16 @@ export default {
       moreParams: {},
       apiURL: '',
       data: [],
+      id: '2',
       prescription: ''
     }
+  },
+  created () {
+    // const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+    // this.apiURL = apiDomain + 'api/prescription_view/' + tokenData.patient_id
+    // console.log(this.apiURL)
+
+      this.apiURL = apiDomain + 'api/prescription_view/'+ this.id
   },
   mounted () {
     this.$events.$on('filter-set', eventData => this.onFilterSet(eventData))
@@ -110,7 +110,12 @@ export default {
       this.$refs.vuetable.changePage(page)
     },
     onAction (action, data, index) {
-      console.log('slot action: ' + action, data.name, index)
+      //console.log('slot action: ' + action, data.name, index)
+      if(action == 'view-item'){
+          this.prescription = data.prescription
+          //console.log(data.prescription)
+          window.setTimeout(()=> this.$htmlToPaper('printMe'),3000)
+      }
     },
     onFilterSet (filterText) {
       this.moreParams.filter = filterText
@@ -119,23 +124,7 @@ export default {
     onFilterReset () {
       delete this.moreParams.filter
       Vue.nextTick( () => this.$refs.vuetable.refresh() )
-    },
-    prescriptionView (action, data, index) {
-        var self = this
-        this.$http.post(apiDomain + 'api/getPrescription',{rowid: data.id})
-            .then(response => {
-                console.log(response)
-                self.prescription = response.body.prescription
-                self.$htmlToPaper('printMe');
-            }).catch((e) => {
-                console.log(e)
-            })
     }
   },
-  created () {
-    const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
-    this.apiURL = apiDomain + 'api/prescription_view/' + tokenData.patient_id
-    console.log(this.apiURL)
-  }
 }
 </script>

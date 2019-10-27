@@ -42,6 +42,9 @@ import EditAdminProfile from '@/components/Pages/Admin/Profile/Edit_Admin_Profil
 import Receptionist from '@/components/Pages/Admin/Receptionist/Receptionist'
 import AddReceptionist from '@/components/Pages/Admin/Receptionist/Add_Receptionist'
 import EditReceptionist from '@/components/Pages/Admin/Receptionist/Edit_Receptionist'
+import AdminReportUpload from '@/components/Pages/Admin/report_upload'
+import AdminUpdateTestIssue from '@/components/Pages/Admin/Others/update_test_issue'
+import AdminProceedToPayment from '@/components/Pages/Admin/Others/proceed_to_payment'
 
 /*===============Doctor===============*/
 import Doctor from '@/components/Pages/Doctors/SidebarDoctor'
@@ -56,8 +59,12 @@ import DocDoctorProfile from '@/components/Pages/Doctors/Profile/Doctor_Profile'
 import EditDocDoctorProfile from '@/components/Pages/Doctors/Profile/Edit_Doctor_Profile'
 import MakeLeaveRequest from '@/components/Pages/Doctors/Leave/make_leave_request'
 import LeaveRequestApproval from '@/components/Pages/Doctors/Leave/Leave_request_approval'
+
 import AddDoctorEducation from '@/components/Pages/Doctors/Profile/Add_Education'
 import AddDoctorExperience from '@/components/Pages/Doctors/Profile/experience'
+
+import DoctorReportUpload from '@/components/Pages/Doctors/report_upload'
+
 
 
 /*==================Patient===========================*/
@@ -79,13 +86,16 @@ import PreviousAppointment from '@/components/Pages/patient/previous_appointment
 import DashReceptionist from '@/components/Pages/receptionist/leftSideBar'
 import DashboardReceptionist from '@/components/Pages/receptionist/Dashboard'
 import TestIssue from '@/components/Pages/receptionist/test_issue'
-import CashPayment from '@/components/Pages/receptionist/cash_payment'
+import PaymentZone from '@/components/Pages/receptionist/payment_zone'
 import OldPatient from '@/components/Pages/receptionist/old_patient'
 import NewPatient from '@/components/Pages/receptionist/new_patient'
 import ProceedToPayment from '@/components/Pages/receptionist/proceed_to_payment'
 import Orders from '@/components/Pages/receptionist/orders'
 import ReceptionistBillIssued from '@/components/Pages/receptionist/bill_issued_receptionist'
 import UpdateTestIssue from '@/components/Pages/receptionist/update_test_issue'
+import MyWalletRecharge from '@/components/Pages/receptionist/my_wallet_recharge'
+import Transaction from '@/components/Pages/receptionist/transaction'
+import ReportUpload from '@/components/Pages/receptionist/report_upload'
 
 /*================Authentication======================*/
 import Login from '@/components/Pages/Authentication/Login'
@@ -196,8 +206,31 @@ export default new Router({
             /*==============RECEPTIONIST============*/
             {path: '/admin/receptionist', component: Receptionist, name: 'receptionist',meta: {requiresAuth: true}},
             {path: '/admin/receptionist/add_receptionist', component: AddReceptionist, name: 'add_receptionist',meta: {requiresAuth: true}},
+
             {path: '/admin/receptionist/edit_receptionist/:id', component: EditReceptionist, name: 'edit_receptionist',meta: {requiresAuth: true}},
     	]
+
+            {path: '/admin/receptionist/edit_receptionist', component: EditReceptionist, name: 'edit_receptionist',meta: {requiresAuth: true}},
+    	    {
+                path: 'report_upload',
+                name: 'AdminReportUpload',
+                component: AdminReportUpload,
+                meta: { requiresAuth: true }
+            },
+            {
+                path: 'update_test_issue/:id',
+                name: 'AdminUpdateTestIssue',
+                component: AdminUpdateTestIssue,
+                meta: { requiresAuth: true }
+            },
+            {
+                path: 'proceed_to_payment/:bill_id',
+                name: 'AdminProceedToPayment',
+                component: AdminProceedToPayment,
+                meta: {requiresAuth: true}
+            }
+        ]
+
     },
     {
         path: '/doctor',
@@ -242,6 +275,12 @@ export default new Router({
             /*=============Leave============*/
             {path: '/doctor/make_leave_request', component: MakeLeaveRequest,name: 'make_leave_request',meta: {requiresAuth: true}},           
             {path: '/doctor/leave_request_approval', component: LeaveRequestApproval,name: 'leave_request_approval',meta: {requiresAuth: true}},           
+            {
+                path: 'report_upload',
+                name: 'DoctorReportUpload',
+                component: DoctorReportUpload,
+                meta: { requiresAuth: true}
+            }
         ]
     },
     {
@@ -346,9 +385,9 @@ export default new Router({
                 meta: {requiresAuth: true}
             },
             {
-                path: 'cash_payment',
-                name: 'CashPayment',
-                component: CashPayment,
+                path: 'payment_zone',
+                name: 'PaymentZone',
+                component: PaymentZone,
                 meta: {requiresAuth: true}
             },
             {
@@ -364,7 +403,7 @@ export default new Router({
                 meta: {requiresAuth: true}
             },
             {
-                path: 'proceed_to_payment',
+                path: 'proceed_to_payment/:bill_id',
                 name: 'ProceedToPayment',
                 component: ProceedToPayment,
                 meta: {requiresAuth: true}
@@ -386,6 +425,24 @@ export default new Router({
                 name: 'UpdateTestIssue',
                 component : UpdateTestIssue,
                 meta : { requiresAuth: true }
+            },
+            {
+                path: 'my_wallet_recharge',
+                name: 'MyWalletRecharge',
+                component: MyWalletRecharge,
+                meta: { requiresAuth: true }
+            },
+            {
+                path: 'transaction',
+                name: 'Transaction',
+                component: Transaction,
+                meta: { requiresAuth: true }
+            },
+            {
+                path: 'report_upload',
+                name: 'ReportUpload',
+                component: ReportUpload,
+                meta: { requiresAuth: true}
             }
         ]
     }
