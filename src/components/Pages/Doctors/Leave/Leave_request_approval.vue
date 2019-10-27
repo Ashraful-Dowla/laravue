@@ -16,7 +16,7 @@
 					<br>
 					<div class="ui container">
 				        <vuetable ref="vuetable"
-				        api-url="https://vuetable.ratiw.net/api/users"
+				        :api-url="apiURL"
 				        :fields="fields"
 				        pagination-path=""
 				        :per-page="5"
@@ -26,21 +26,14 @@
 				        @vuetable:pagination-data="onPaginationData"
 				        >
 				        <template slot="actions" slot-scope="props">
-				          <div class="custom-actions">
-				            <button class="ui button positive"
-				            @click="onAction('view-item', props.rowData, props.rowIndex)">
-				            <i class="zoom icon"></i>
-				          </button>
-				          <button class="ui button yellow"
-				          @click="onAction('edit-item', props.rowData, props.rowIndex)">
-				          <i class="edit icon"></i>
-				        </button>
-				        <button class="ui button red"
-				        @click="onAction('delete-item', props.rowData, props.rowIndex)">
-				        <i class="trash alternate icon"></i>
-				      </button>
-				    </div>
-				  </template>
+					        <div class="custom-actions">
+							    <!-- <button class="ui button red"
+							    	@click="onAction('delete-item', props.rowData, props.rowIndex)">
+							        <i class="trash alternate icon"></i>
+							    </button> -->
+							    <router-link to=""><i class="trash alternate icon" style="color: black;" @click="onAction('delete-item', props.rowData, props.rowIndex)"></i></router-link>
+						    </div>
+				  		</template>
 				</vuetable>
 				<div class="vuetable-pagination ui basic segment grid">
 				  <vuetable-pagination-info ref="paginationInfo"
@@ -61,14 +54,12 @@
 	import Vuetable from 'vuetable-2/src/components/Vuetable'
 	import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
 	import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
-	//import CustomActions from './CustomActions'
-	//import DetailRow from './DetailRow'
 	import FilterBar from '@/components/Pages/Doctors/import_details/FilterBar'
 	import { FieldsDef_leave_request_approval } from '@/components/Pages/Doctors/import_details/FieldsDef_leave_request_approval'
+	import { apiDomain } from '@/components/Pages/Authentication/config'
+	import Swal from 'sweetalert2'
 
 	Vue.use(VueEvents)
-	//Vue.component('custom-actions', CustomActions)
-	//Vue.component('my-detail-row', DetailRow)
 	Vue.component('filter-bar', FilterBar)
 
 	export default {
@@ -81,7 +72,8 @@
 		    return {
 		      fields: FieldsDef_leave_request_approval,
 		      sortOrder: [],
-		      moreParams: {}
+		      moreParams: {},
+		      apiURL: ''
 		    }
 		  },
 		  mounted () {
@@ -89,22 +81,17 @@
 		    this.$events.$on('filter-reset', e => this.onFilterReset())
 		  },
 		  methods: {
-		    // allcap (value) {
-		    //   return value.toUpperCase()
-		    // },
-		    // genderLabel (value) {
-		    //   return value === 'M'
-		    //     ? '<span class="ui teal label"><i class="large man icon"></i>Male</span>'
-		    //     : '<span class="ui pink label"><i class="large woman icon"></i>Female</span>'
-		    // },
-		    // formatNumber (value) {
-		    //   return accounting.formatNumber(value, 2)
-		    // },
-		    // formatDate (value, fmt = 'D MMM YYYY') {
-		    //   return (value == null)
-		    //     ? ''
-		    //     : moment(value, 'YYYY-MM-DD').format(fmt)
-		    // },
+		  	statusCall(value){
+		  		if(value === '2'){
+		  			return '<span class="ui red label">Request Denied</span>'
+		  		}
+		  		else if(value === '0'){
+		  			return '<span class="ui yellow label">Panding</span>'
+		  		}
+		  		else if(value === '1'){
+		  			return '<span class="ui green label">Granted</span>'
+		  		}
+		  	},
 		    onPaginationData (paginationData) {
 		      this.$refs.pagination.setPaginationData(paginationData)
 		      this.$refs.paginationInfo.setPaginationData(paginationData)
@@ -113,12 +100,52 @@
 		      this.$refs.vuetable.changePage(page)
 		    },
 		    onAction (action, data, index) {
-		      console.log('slot action: ' + action, data.name, index)
+		    	var self = this
+		    	if(action === 'delete-item'){
+		    		Swal.fire({
+			              title: 'Are you sure?',
+			              text: "You won't be able to revert this!",
+			              type: 'warning',
+			              showCancelButton: true,
+			              confirmButtonColor: '#3085d6',
+			              cancelButtonColor: '#d33',
+			              confirmButtonText: 'Are you sure?'
+			            }).then((result) => {
+			              if (result.value) {
+			              	//console.log(data.id)
+			                self.deleteData(data.id)
+			              }
+			         });
+		    	}
 		    },
-		    // onCellClicked (data, field, event) {
-		    //   console.log('cellClicked: ', field.name)
-		    //   this.$refs.vuetable.toggleDetailRow(data.id)
-		    // },
+		    deleteData(id){
+		    	var self = this
+		    	this.$http.post(apiDomain + 'api/deleteLeaveRequestApproval',{rowData: id})
+		    		.then(response => {
+		    			if(response.status === 200){
+		    				console.log(response)
+		    				self.successdModal()
+		    				Vue.nextTick( () => this.$refs.vuetable.refresh() )
+		    			}
+		    		}).catch((e) => {
+		    			console.log(e)
+		    			self.failedModal()
+		    		})
+		    },
+		    successdModal(){
+		    	Swal.fire(
+				    'Deleted!',
+				    'Successfully Deleted!',
+				    'success'
+				)
+		    },
+		    failedModal(){
+		    	Swal.fire({
+				  type: 'error',
+				  title: 'Oops...',
+				  text: 'Something went wrong!'
+				})
+		    },
 		    onFilterSet (filterText) {
 		      this.moreParams.filter = filterText
 		      Vue.nextTick( () => this.$refs.vuetable.refresh() )
@@ -127,6 +154,17 @@
 		      delete this.moreParams.filter
 		      Vue.nextTick( () => this.$refs.vuetable.refresh() )
 		    }
-		  }
+		  },
+		created(){
+			const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+			var self = this
+			this.apiURL = apiDomain + 'api/leaveRequestApproval/' + tokenData.doctor_id
+			this.$http.get(self.apiURL)
+				.then(response => {
+					console.log(response)
+				}).catch((e) =>{
+					console.log(e)
+				})
 		}
+	}
 </script>

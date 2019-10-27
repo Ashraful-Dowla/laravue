@@ -1,38 +1,47 @@
  export const FieldsDef_leaves = [
+		{
+		 	name:'id',
+		 	title:'ID',
+		 	sortField:'id'
+		},
  		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Employee',
-			sortField: 'name'
+			name:'__slot:doctor_name',
+			title: 'Doctor Name',
 		},
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Leave Type',
-			sortField: 'name'
+			name:'department_name',
+			title:'department',
+			sortField:'department_namet'
 		},
 		{
-			name:'age',
-			title: '<i class="fa fa-tag"></i> From',
-			sortField: 'name'
+			name:'request_type',
+			title: 'Leave Type',
+			sortField: 'request_type'
 		},
 		{
-			name:'age',
-			title: '<i class="fa fa-tag"></i> To',
-			sortField: 'name'
+			name:'date_from',
+			title: 'From',
+			sortField: 'date_from'
 		},
 		{
-			name:'id',
-			title: '<i class="fa fa-tag"></i> No of Days',
-			sortField: 'name'
+			name:'date_to',
+			title: 'To',
+			sortField: 'date_to'
 		},
 		{
-			name:'age',
-			title: '<i class="fa fa-tag"></i> Reason',
-			sortField: 'name'
+			name:'number_of_days',
+			title: 'No of Days',
+			sortField: 'number_of_days'
 		},
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Status',
-			sortField: 'name'
+			name:'leave_reason',
+			title: 'Reason',
+			sortField: 'leave_reason'
+		},
+		{
+			name:'status',
+			title: 'Status',
+			callback:'statusCall'
 		},
 		{
             name: '__slot:actions',

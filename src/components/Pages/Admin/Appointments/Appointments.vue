@@ -11,7 +11,7 @@
 					<h4 class="page-title">Appointments</h4>
 				</div>
 				<div class="col-md-4 text-right m-b-20">
-					<router-link class="btn  btn-raised bg-blue-grey waves-effect fa fa-plus" to="/admin/appointments/add_appointments"><strong>Add Appointment</strong></router-link>
+					<router-link class="ui button positive" to="/admin/appointments/add_appointments"><i class="plus icon"></i><strong>Add Appointment</strong></router-link>
 				</div>
 			</div>
 			<div class="row">
@@ -24,7 +24,7 @@
 					<div class="ui container">
 						<filter-bar></filter-bar>
 						<vuetable ref="vuetable"
-						api-url="https://vuetable.ratiw.net/api/users"
+						:api-url="apiURL"
 						:fields="fields"
 						pagination-path=""
 						:per-page="5"
@@ -35,7 +35,7 @@
 						>
 						<template slot="actions" slot-scope="props">
 							<div class="custom-actions">
-								<router-link to="/admin/appointments/edit_appointments" class="ui button yellow"><i class="edit icon"></i></router-link>
+								<router-link :to="{name: 'editAppointments', params: { id: props.rowData.id }}" class="ui button yellow"><i class="edit icon"></i></router-link>
 								<button class="ui button red"
 								@click="onAction('delete-item', props.rowData, props.rowIndex)">
 								<i class="trash alternate icon"></i>
@@ -62,14 +62,12 @@
 	import Vuetable from 'vuetable-2/src/components/Vuetable'
 	import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
 	import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
-	//import CustomActions from './CustomActions'
-	//import DetailRow from './DetailRow'
 	import FilterBar from '@/components/Pages/Admin/import_details/FilterBar'
 	import { FieldsDef_appointments } from '@/components/Pages/Admin/import_details/FieldsDef_appointments'
+	import { apiDomain } from '@/components/Pages/Authentication/config';
+	import Swal from 'sweetalert2'
 
 	Vue.use(VueEvents)
-	//Vue.component('custom-actions', CustomActions)
-	//Vue.component('my-detail-row', DetailRow)
 	Vue.component('filter-bar', FilterBar)
 
 	export default {
@@ -82,7 +80,8 @@
 		    return {
 		      fields: FieldsDef_appointments,
 		      sortOrder: [],
-		      moreParams: {}
+		      moreParams: {},
+		      apiURL: ''
 		    }
 		  },
 		  mounted () {
@@ -90,22 +89,11 @@
 		    this.$events.$on('filter-reset', e => this.onFilterReset())
 		  },
 		  methods: {
-		    // allcap (value) {
-		    //   return value.toUpperCase()
-		    // },
-		    // genderLabel (value) {
-		    //   return value === 'M'
-		    //     ? '<span class="ui teal label"><i class="large man icon"></i>Male</span>'
-		    //     : '<span class="ui pink label"><i class="large woman icon"></i>Female</span>'
-		    // },
-		    // formatNumber (value) {
-		    //   return accounting.formatNumber(value, 2)
-		    // },
-		    // formatDate (value, fmt = 'D MMM YYYY') {
-		    //   return (value == null)
-		    //     ? ''
-		    //     : moment(value, 'YYYY-MM-DD').format(fmt)
-		    // },
+		  	appointmentStatus(value){
+		  		return value === 'online'
+		  						  ? '<span class="ui green label">Online</span>'
+		  						  : '<span class="ui red label">Manual</span>'
+		  	},
 		    onPaginationData (paginationData) {
 		      this.$refs.pagination.setPaginationData(paginationData)
 		      this.$refs.paginationInfo.setPaginationData(paginationData)
@@ -114,12 +102,37 @@
 		      this.$refs.vuetable.changePage(page)
 		    },
 		    onAction (action, data, index) {
-		      console.log('slot action: ' + action, data.name, index)
+		    	if(action === 'delete-item'){
+		    		var self = this
+		    		Swal.fire({
+	                    title: 'Are you sure?',
+	                    text: "You won't be able to revert this!",
+	                    type: 'warning',
+	                    showCancelButton: true,
+	                    confirmButtonColor: '#3085d6',
+	                    cancelButtonColor: '#d33',
+	                    confirmButtonText: 'Ok'
+	                }).then((result) => {
+	                      if (result.value) {
+	                            self.deleteAppointment(data.id);     
+	                      }
+	                });
+		    	}
 		    },
-		    // onCellClicked (data, field, event) {
-		    //   console.log('cellClicked: ', field.name)
-		    //   this.$refs.vuetable.toggleDetailRow(data.id)
-		    // },
+		    deleteAppointment(id){
+		    	var self = this
+	    		this.$http.post(apiDomain + 'api/deleteAppointment',{apt_id: id})
+	    			.then(response => {
+	    				console.log(response)
+	    				if(response.status === 200){
+	    					self.successModal();
+	    					Vue.nextTick( () => self.$refs.vuetable.refresh() )
+	    				}
+	    			}).catch((e) => {
+	    				console.log(e)
+	    				self.failedModal();
+	    			})
+		    },
 		    onFilterSet (filterText) {
 		      this.moreParams.filter = filterText
 		      Vue.nextTick( () => this.$refs.vuetable.refresh() )
@@ -127,7 +140,32 @@
 		    onFilterReset () {
 		      delete this.moreParams.filter
 		      Vue.nextTick( () => this.$refs.vuetable.refresh() )
+		    },
+		    successModal(){
+		    	Swal.fire(
+				    'Deleted!',
+				    'Successfully Deleted!',
+				    'success'
+				)
+		    },
+		    failedModal(){
+		    	Swal.fire({
+				  type: 'error',
+				  title: 'Oops...',
+				  text: 'Something went wrong!'
+				})
 		    }
+		  },
+		  created(){
+		  	var self = this
+		    	this.apiURL = apiDomain + 'api/getAppointmentsInfo'
+		    	console.log(this.apiURL)
+		    	this.$http.get(self.apiURL)
+		    		.then(response => {
+		    			console.log(response)
+		    		}).catch((e)=>{
+		    			console.log(e)
+		    		})
 		  }
 		}
 </script>

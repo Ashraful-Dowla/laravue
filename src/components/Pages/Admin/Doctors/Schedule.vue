@@ -7,7 +7,7 @@
 						<h4 class="page-title">Schedule</h4>
 					</div>
 					<div class="col-md-4 text-right m-b-20">
-						<router-link class="btn  btn-raised bg-blue-grey waves-effect fa fa-plus" to="/admin/doctors_schedule/addschedule"><strong>Add Schedule</strong></router-link>
+						<router-link class="ui button positive" to="/admin/doctors_schedule/addschedule"><i class="plus icon"></i><strong>Add Schedule</strong></router-link>
 					</div>
 				</div>
 				<div class="row">
@@ -20,23 +20,34 @@
 						<div class="ui container">
 					        <filter-bar></filter-bar>
 					        <vuetable ref="vuetable"
-					        api-url="https://vuetable.ratiw.net/api/users"
+					        :api-url="apiURL"
 					        :fields="fields"
 					        pagination-path=""
 					        :per-page="5"
 					        :multi-sort="true"
 					        :sort-order="sortOrder"
+					        data-path="scheduleInfo"
 					        :append-params="moreParams"
 					        @vuetable:pagination-data="onPaginationData"
 					        >
 					        <template slot="actions" slot-scope="props">
 					          <div class="custom-actions">
-					        <router-link to="/admin/doctors_schedule/editschedule" class="ui button yellow"><i class="edit icon"></i></router-link>
+					        <router-link :to="{name: 'editschedule', params: {id: props.rowData.doctor_id}}" class="ui button yellow"><i class="edit icon"></i></router-link>
 					        <button class="ui button red"
 					        @click="onAction('delete-item', props.rowData, props.rowIndex)">
 					        <i class="trash alternate icon"></i>
 					      </button>
 					    </div>
+					  </template>
+					  <template slot="availableTimes" slot-scope="props">
+					    <div v-for="dt in props.rowData.date_time">
+					      Date: {{dt.date}}, Time: {{dt.time_from}} to {{dt.time_to}}
+					    </div>
+					  </template>
+					  <template slot="doctor_name" slot-scope="props">
+					  	<div>
+					  		{{props.rowData.first_name+' '+props.rowData.last_name}}
+					  	</div>
 					  </template>
 					</vuetable>
 					<div class="vuetable-pagination ui basic segment grid">
@@ -51,19 +62,6 @@
 				</div>
 			</div>
 		</div>
-		<div id="delete_schedule" class="modal fade delete-modal" role="dialog">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="modal-body text-center">
-						<img src="assets/img/sent.png" alt="" width="50" height="46">
-						<h3>Are you sure want to delete this Schedule?</h3>
-						<div class="m-t-20"> <a href="#" class="btn btn-white" data-dismiss="modal">Close</a>
-							<button type="submit" class="btn btn-danger">Delete</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
 </template>
 <script>
@@ -72,14 +70,13 @@
 	import Vuetable from 'vuetable-2/src/components/Vuetable'
 	import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
 	import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
-	//import CustomActions from './CustomActions'
-	//import DetailRow from './DetailRow'
 	import FilterBar from '@/components/Pages/Admin/import_details/FilterBar'
 	import { FieldsDef_doctor_schedule } from '@/components/Pages/Admin/import_details/FieldsDef_doctor_schedule'
+	import { apiDomain } from '@/components/Pages/Authentication/config'
+	import modal from 'vue-semantic-modal'
+	import Swal from 'sweetalert2'
 
 	Vue.use(VueEvents)
-	//Vue.component('custom-actions', CustomActions)
-	//Vue.component('my-detail-row', DetailRow)
 	Vue.component('filter-bar', FilterBar)
 
 	export default {
@@ -92,7 +89,8 @@
 		    return {
 		      fields: FieldsDef_doctor_schedule,
 		      sortOrder: [],
-		      moreParams: {}
+		      moreParams: {},
+		      apiURL: ''
 		    }
 		  },
 		  mounted () {
@@ -100,22 +98,11 @@
 		    this.$events.$on('filter-reset', e => this.onFilterReset())
 		  },
 		  methods: {
-		    // allcap (value) {
-		    //   return value.toUpperCase()
-		    // },
-		    // genderLabel (value) {
-		    //   return value === 'M'
-		    //     ? '<span class="ui teal label"><i class="large man icon"></i>Male</span>'
-		    //     : '<span class="ui pink label"><i class="large woman icon"></i>Female</span>'
-		    // },
-		    // formatNumber (value) {
-		    //   return accounting.formatNumber(value, 2)
-		    // },
-		    // formatDate (value, fmt = 'D MMM YYYY') {
-		    //   return (value == null)
-		    //     ? ''
-		    //     : moment(value, 'YYYY-MM-DD').format(fmt)
-		    // },
+		  	statusCall(value){
+		  		return value === '1'
+		  						  ? '<span class="ui green label">Active</span>'
+		  						  : '<span class="ui red label">Not Active</span>'
+		  	},
 		    onPaginationData (paginationData) {
 		      this.$refs.pagination.setPaginationData(paginationData)
 		      this.$refs.paginationInfo.setPaginationData(paginationData)
@@ -124,12 +111,51 @@
 		      this.$refs.vuetable.changePage(page)
 		    },
 		    onAction (action, data, index) {
-		      console.log('slot action: ' + action, data.name, index)
+		    	var self = this
+		      	if(action === 'delete-item'){
+		      		Swal.fire({
+	                    title: 'Are you sure?',
+	                    text: "You won't be able to revert this!",
+	                    type: 'warning',
+	                    showCancelButton: true,
+	                    confirmButtonColor: '#3085d6',
+	                    cancelButtonColor: '#d33',
+	                    confirmButtonText: 'Ok'
+	                }).then((result) => {
+	                      if (result.value) {
+	                            self.deleteDoctorSchedule(data.doctor_id);     
+	                      }
+	                });
+		      	}
 		    },
-		    // onCellClicked (data, field, event) {
-		    //   console.log('cellClicked: ', field.name)
-		    //   this.$refs.vuetable.toggleDetailRow(data.id)
-		    // },
+		    deleteDoctorSchedule(id){
+		    	var self = this
+		    	this.$http.post(apiDomain + 'api/deleteDoctorSchedule',{doc_id: id})
+	      			.then(response => {
+	      				if(response.status === 200){
+	      					console.log(response)
+	      					self.successModal();
+	      					Vue.nextTick( () => self.$refs.vuetable.refresh() )
+	      				}
+	      			}).catch((e) => {
+	      				self.failedModal()
+	      				console.log(e)
+	      			})
+		    },
+		    successModal(){
+	            Swal.fire(
+	                  'Success!',
+	                  'Successfully Deleted!',
+	                  'success'
+	            )
+	        },
+	        failedModal(){
+	            Swal.fire({
+	                  type: 'error',
+	                  title: 'Oops...',
+	                  text: 'Something went wrong! '
+	            })
+	        },
 		    onFilterSet (filterText) {
 		      this.moreParams.filter = filterText
 		      Vue.nextTick( () => this.$refs.vuetable.refresh() )
@@ -138,6 +164,15 @@
 		      delete this.moreParams.filter
 		      Vue.nextTick( () => this.$refs.vuetable.refresh() )
 		    }
+		  },
+		  created(){
+		  	this.apiURL = apiDomain + 'api/getDoctorScheduleInfo'
+		  	this.$http.get(this.apiURL)
+		  		.then(response => {
+		  			console.log(response)
+		  		}).catch((e) => {
+		  			console.log(e)
+		  		})
 		  }
 		}
 </script>

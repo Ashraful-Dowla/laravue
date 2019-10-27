@@ -20,80 +20,63 @@
                         <div class="row">
                            <div class="col-md-6">
                               <div class="form-group">
-                                 <div class="borderBottom">
-                                    <input type="text" class="form-control" placeholder="FIRST NAME" />
+                                <p><b>First Name</b></p>
+                                 <div class="borderBottom" :class="{error: validation.hasError('receptionistInfo.firstName')}">
+                                    <input type="text" class="form-control" placeholder="FIRST NAME" v-model="receptionistInfo.firstName"/>
                                 </div>
+                                <div class="message" style="color: red;">{{ validation.firstError('receptionistInfo.firstName') }}</div>
                             </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
-                             <div class="borderBottom">
-                                <input type="text" class="form-control" placeholder="LAST NAME" />
+                            <p><b>Last Name</b></p>
+                             <div class="borderBottom" :class="{error: validation.hasError('receptionistInfo.lastName')}">
+                                <input type="text" class="form-control" placeholder="LAST NAME" v-model="receptionistInfo.lastName"/>
                             </div>
+                            <div class="message" style="color: red;">{{ validation.firstError('receptionistInfo.lastName') }}</div>
                         </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                         <div class="borderBottom">
-                            <input type="text" class="form-control" placeholder="USERNAME" />
+                        <p><b>Username</b></p>
+                         <div class="borderBottom" :class="{error: validation.hasError('receptionistInfo.username')}" >
+                            <input type="text" class="form-control" placeholder="USERNAME" v-model="receptionistInfo.username"/>
                         </div>
+                        <div class="message" style="color: red;">{{ validation.firstError('receptionistInfo.username') }}</div>
                     </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                     <div class="borderBottom">
-                        <input type="email" class="form-control" placeholder="EMAIL" />
+                    <p><b>Email</b></p>
+                     <div class="borderBottom" :class="{error: validation.hasError('receptionistInfo.email')}">
+                        <input type="email" class="form-control" placeholder="EMAIL" v-model="receptionistInfo.email"/>
                     </div>
+                    <div class="message" style="color: red;">{{ validation.firstError('receptionistInfo.email') }}</div>
                 </div>
             </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                 <div class="borderBottom">
-                    <input type="password" class="form-control" placeholder="PASSWORD" />
-                </div>
-            </div>
-        </div>
-                                <!-- <div class="col-md-6">
-                                    <div class="form-group">
-                                        <div class="borderBottom">
-                                            <input type="password" class="form-control" placeholder="CONFIRM PASSWORD" />
-                                        </div>
-                                    </div>
-                                </div> -->
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <div class="borderBottom">
-                                            <date-picker :bootstrap-styling="true" placeholder="BIRTHDAY" class="datepicker form-control"></date-picker>
+                                        <p><b>Birthday</b></p>
+                                        <div class="borderBottom" :class="{error: validation.hasError('receptionistInfo.birthday')}">
+                                            <date-picker :bootstrap-styling="true" placeholder="BIRTHDAY" class="datepicker form-control" v-model="receptionistInfo.birthday"></date-picker>
                                         </div>
+                                        <div class="message" style="color: red;">{{ validation.firstError('receptionistInfo.birthday') }}</div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <div class="borderBottom">
-                                            <date-picker :bootstrap-styling="true" placeholder="JOINING DATE" class="datepicker form-control"></date-picker>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <p>Select Gender</p>
-                                  <div class="demo-radio-button form-group">
-                                     <input name="group1" type="radio" id="radio_4" class="with-gap" />
-                                     <label for="radio_4">MALE</label>
-                                     <input name="group1" type="radio" id="radio_5" class="with-gap" />
-                                     <label for="radio_5">FEMALE</label>
-                                 </div>
-                             </div>
                              <div class="col-md-10">
                                 <div class="form-group">
-                                    <div class="borderBottom">
-                                        <input type="text" class="form-control" placeholder="ADDRESS" />
+                                    <p><b>Address</b></p>
+                                    <div class="borderBottom" :class="{error: validation.hasError('receptionistInfo.address')}">
+                                        <input type="text" class="form-control" placeholder="ADDRESS" v-model="receptionistInfo.address"/>
                                     </div>
+                                    <div class="message" style="color: red;">{{ validation.firstError('receptionistInfo.address') }}</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <div class="borderBottom">
-                                        <select id="country" name="country" class="form-control select">
+                                    <p><b>Country</b></p>
+                                    <div class="borderBottom" :class="{error: validation.hasError('receptionistInfo.country')}">
+                                        <select id="country" name="country" class="form-control select" v-model="receptionistInfo.country">
                                             <option value="" selected="selected">Select Country</option>
                                             <option value="Afghanistan">Afghanistan</option>
                                             <option value="Albania">Albania</option>
@@ -291,72 +274,55 @@
                                             <option value="Zimbabwe">Zimbabwe</option>
                                         </select>
                                     </div>
+                                    <div class="message" style="color: red;">{{ validation.firstError('receptionistInfo.country') }}</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <div class="borderBottom">
-                                        <input type="text" class="form-control" placeholder="Enter State" />
+                                    <p><b>State</b></p>
+                                    <div class="borderBottom" :class="{error: validation.hasError('receptionistInfo.state')}">
+                                        <input type="text" class="form-control" placeholder="Enter State" v-model="receptionistInfo.state"/>
                                     </div>
+                                    <div class="message" style="color: red;">{{ validation.firstError('receptionistInfo.state') }}</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <div class="borderBottom">
-                                        <input type="text" class="form-control" placeholder="Enter City" />
+                                    <p><b>City</b></p>
+                                    <div class="borderBottom" :class="{error: validation.hasError('receptionistInfo.city')}">
+                                        <input type="text" class="form-control" placeholder="Enter City" v-model="receptionistInfo.city"/>
                                     </div>
+                                    <div class="message" style="color: red;">{{ validation.firstError('receptionistInfo.city') }}</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <div class="borderBottom">
-                                        <input type="password" class="form-control" placeholder="POSTAL CODE" />
+                                    <p><b>Postal Code</b></p>
+                                    <div class="borderBottom" :class="{error: validation.hasError('receptionistInfo.postalCode')}">
+                                        <input type="text" class="form-control" placeholder="POSTAL CODE" v-model="receptionistInfo.postalCode"/>
                                     </div>
+                                    <div class="message" style="color: red;">{{ validation.firstError('receptionistInfo.postalCode') }}</div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <div class="borderBottom">
-                                        <input type="text" class="form-control" placeholder="PHONE NUMBER" />
+                                    <p><b>Phone Number</b></p>
+                                    <div class="borderBottom" :class="{error: validation.hasError('receptionistInfo.phoneNumber')}">
+                                        <input type="text" class="form-control" placeholder="PHONE NUMBER" v-model="receptionistInfo.phoneNumber"/>
                                     </div>
+                                    <div class="message" style="color: red;">{{ validation.firstError('receptionistInfo.phoneNumber') }}</div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <div class="borderBottom">
-                                        <input type="password" class="form-control" placeholder="NID NO" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>NID IMAGE</label>
-                                    <div class="profile-upload borderBottom">
-                                        <div class="upload-input">
-                                            <input type="file" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                               <div class="form-group">
-                                  <label>UPLOAD IMAGE</label>
-                                  <div class="profile-upload borderBottom">
-                                     <div class="upload-input">
-                                        <input type="file" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div class="col-md-6">
-                        <p>STATUS</p>
-                        <div class="demo-radio-button form-group">
-                           <input name="group1" type="radio" id="radio_6" class="with-gap" />
+                        <p><b>Status</b></p>
+                        <div class="demo-radio-button form-group" :class="{error: validation.hasError('receptionistInfo.status')}">
+                           <input name="group1" type="radio" id="radio_6" class="with-gap" value="1" v-model="receptionistInfo.status"/>
                            <label for="radio_6">ACTIVE</label>
-                           <input name="group1" type="radio" id="radio_7" class="with-gap" />
+                           <input name="group1" type="radio" id="radio_7" class="with-gap" value="0" v-model="receptionistInfo.status"/>
                            <label for="radio_7">INACTIVE</label>
                        </div>
+                       <div class="message" style="color: red;">{{ validation.firstError('receptionistInfo.status') }}</div>
                    </div>
                    
                </form>
@@ -365,7 +331,7 @@
        <div class="row">
         <div class="col-md-10">
             <div class="m-t-20 text-center">
-                <button type="button" class="btn  btn-raised btn-success waves-effect">Save Changes</button>
+                <button type="button" class="ui button positive" @click="editReceptionist()">Save Changes</button>
             </div>
         </div>
     </div>
@@ -379,11 +345,154 @@
 </template>
 <script>
 import Datepicker from 'vuejs-datepicker';
-export default {
-  components: {
-     'date-picker': Datepicker
- }
-}
+import { apiDomain } from '@/components/Pages/Authentication/config';
+import SimpleVueValidation from 'simple-vue-validator';
+const Validator = SimpleVueValidation.Validator;
+import Swal from 'sweetalert2';
+
+    export default {
+        components: {
+            'date-picker': Datepicker
+        },
+        data() {
+            return {
+                receptionistInfo: {
+                    firstName: '',
+                    lastName: '',
+                    username: '',
+                    email: '',
+                    birthday: '',
+                    address: '',
+                    country: '',
+                    state: '',
+                    city: '',
+                    postalCode: '',
+                    phoneNumber: '',
+                    status: '',
+                    id: '',
+                    AD_id: null
+                }
+            }
+        },
+        methods: {
+            editReceptionist(){
+                var self = this
+                this.submitted = true
+                this.$validate()
+                  .then( function(success) {
+                    if (success) {
+                        Swal.fire({
+                            title: 'Are you sure?',
+                            text: "You won't be able to revert this!",
+                            type: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Ok'
+                        }).then((result) => {
+                                if (result.value) {
+                                    self.sendData()     
+                              }
+                        });
+                    }
+                }).catch((e)=>{
+                  console.log(e)
+                })
+            },
+            sendData(){
+                var self = this
+                this.$http.post(apiDomain + 'api/saveReceptionistEdits',self.receptionistInfo)
+                    .then(response => {
+                        if (response.status === 200) {
+                            console.log(response)
+                            self.successModal();
+                        }
+                    }).catch((e) => {
+                        console.log(e)
+                        self.failedModal();
+                    })
+            },
+            successModal(){
+                Swal.fire(
+                      'Success!',
+                      'Successfully Edited!',
+                      'success'
+                )
+            },
+            failedModal(){
+                Swal.fire({
+                      type: 'error',
+                      title: 'Oops...',
+                      text: 'Something went wrong! '
+                })
+            }
+        },
+        validators: {
+            'receptionistInfo.firstName': function (value) {
+                return Validator.value(value).required();
+            },
+            'receptionistInfo.lastName': function (value) {
+                return Validator.value(value).required();
+            },
+            'receptionistInfo.username': function (value) {
+                return Validator.value(value).required();
+            },
+            'receptionistInfo.email': function (value) {
+                return Validator.value(value).required().email();
+            },
+            'receptionistInfo.birthday': function (value) {
+                return Validator.value(value).required();
+            },
+            'receptionistInfo.address': function (value) {
+                return Validator.value(value).required();
+            },
+            'receptionistInfo.country': function (value) {
+                return Validator.value(value).required();
+            },
+            'receptionistInfo.state': function (value) {
+                return Validator.value(value).required();
+            },
+            'receptionistInfo.city': function (value) {
+                return Validator.value(value).required();
+            },
+            'receptionistInfo.postalCode': function (value) {
+                return Validator.value(value).required();
+            },
+            'receptionistInfo.phoneNumber': function (value) {
+                return Validator.value(value).required();
+            },
+            'receptionistInfo.status': function (value) {
+                return Validator.value(value).required();
+            }
+        },
+        created(){
+            var self = this
+
+            const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+            this.receptionistInfo.AD_id = tokenData.id
+
+            this.receptionistInfo.id = this.$route.params.id
+            this.$http.post(apiDomain + 'api/initiateReceptionistInfo',{rec_id: self.receptionistInfo.id})
+                .then(response => {
+                    console.log(response)
+                    self.receptionistInfo.firstName = response.body.rec_info_edit[0].first_name
+                    self.receptionistInfo.lastName = response.body.rec_info_edit[0].last_name
+                    self.receptionistInfo.username = response.body.rec_info_edit[0].username
+                    self.receptionistInfo.email = response.body.rec_info_edit[0].email
+                    self.receptionistInfo.birthday = response.body.rec_info_edit[0].birthday
+                    self.receptionistInfo.address = response.body.rec_info_edit[0].address
+                    self.receptionistInfo.country = response.body.rec_info_edit[0].country
+                    self.receptionistInfo.state = response.body.rec_info_edit[0].state
+                    self.receptionistInfo.city = response.body.rec_info_edit[0].city
+                    self.receptionistInfo.postalCode = response.body.rec_info_edit[0].postal_code
+                    self.receptionistInfo.phoneNumber = response.body.rec_info_edit[0].phone_number
+                    self.receptionistInfo.status = response.body.rec_info_edit[0].status
+                    // console.log(self.receptionistInfo.status)
+                }).catch((e)=>{
+                    console.log(e)
+                })
+        }
+    }
 </script>
 <style scoped>
 .borderBottom{

@@ -197,6 +197,7 @@ export default {
             })
         },
         dateSelected () {
+          console.log(this.appointment.doctor)
           var self = this
           this.$nextTick(function(){
             self.$http.post(apiDomain + 'api/getAvailableDate', self.appointment)

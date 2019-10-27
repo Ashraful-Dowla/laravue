@@ -7,7 +7,7 @@ export const FieldsDef_previous_appointment = [
 		    dataClass: 'center aligned',
 		},
 		{
-			name:'first_name',
+			name:'doctor_name',
 			title: '<i class="fa fa-tag"></i> Doctor',
 			sortField: 'first_name'
 		},

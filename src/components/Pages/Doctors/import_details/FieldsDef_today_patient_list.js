@@ -1,23 +1,24 @@
-export const FieldsDef_today_patient_list= [
+export const FieldsDef_today_patient_list = [
 		{
-			name:'id',
+			name:'patient_id',
 			title:'Patient ID',
-			sortField: 'id'
+			sortField: 'patient_id'
 		},
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Patient Name',
-			sortField: 'name'
+			name:'patient_name',
+			title: 'Patient Name',
+			sortField: 'patient_name'
 		},
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Mobile Number',
-			sortField: 'name'
+			name:'phone_number',
+			title: 'Mobile Number',
+			sortField: 'phone_number'
 		},
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Status',
-			sortField: 'name'
+			name:'status',
+			title: 'Status',
+			callback:'statusCall',
+			dataClass: 'center aligned'
 		},
 		{
             name: '__slot:actions',

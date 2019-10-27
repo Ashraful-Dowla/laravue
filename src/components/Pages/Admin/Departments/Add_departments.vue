@@ -51,7 +51,7 @@
 			<div class="row">
 				<div class="col-md-10">
 					<div class="m-t-20 text-center">
-						<button type="button" class="btn  btn-raised btn-success waves-effect" @click="createDepartment()">Create Department</button>
+						<button type="button" class="ui button positive" @click="createDepartment()">Create Department</button>
 					</div>
 				</div>
 			</div>
@@ -78,7 +78,7 @@
 				description: '',
 				status: '1',
 				suc: false,
-				id: '2'
+				id: null
 			};
 		},
 		methods:{
@@ -157,6 +157,10 @@
 			'status': function(value){
 				return Validator.value(value).required();
 			}
+		},
+		created(){
+			const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+    		this.id = tokenData.id
 		}
 	}
 </script>

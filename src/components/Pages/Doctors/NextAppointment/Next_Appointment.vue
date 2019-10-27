@@ -10,29 +10,38 @@
 			<div class="row">
 				<div class="col-sm-3">
                     <div class="form-group">
-                        <div class="borderBottom">
-                            <input type="text" class="form-control" placeholder="Enter a Number" />
+                    	<P><b>Enter a digit</b></P>
+                        <div class="borderBottom" :class="{error: validation.hasError('number_of_days')}">
+                            <input type="text" class="form-control" placeholder="Enter a Number" v-model="number_of_days" v-on:keyup="extentionSelected()" />
                         </div>
+                        <div class="message" style="color: red;">{{ validation.firstError('number_of_days') }}</div>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
-                    	<div class="borderBottom">
-		                    <select class="form-control show-tick">
+                    	<P><b>Select extention</b></P>
+                    	<div class="borderBottom" :class="{error: validation.hasError('extention')}">
+		                    <select class="form-control show-tick" v-model="extention" @change="extentionSelected()">
 		                        <option>Select</option>
-		                        <option>Days</option>
-								<option>Weeks</option>
-								<option>Months</option>
-								<option>Years</option>
+		                        <option value="days">Days</option>
+								<option value="weeks">Weeks</option>
+								<option value="months">Months</option>
+								<option value="years">Years</option>
 		                    </select>
 		                </div>
+		                <div class="message" style="color: red;">{{ validation.firstError('extention') }}</div>
                     </div>
                 </div>
 				<div class="col-sm-3">
 					<div class="form-group">
-	                    <div class="borderBottom">
-		                    <input type="text" class="form-control" placeholder="Patient ID: PT-XXXXXXXX" />
+						<P><b>Select patient ID</b></P>
+	                    <div class="borderBottom" :class="{error: validation.hasError('patient_id')}">
+		                    <!-- <input type="text" class="form-control" placeholder="Patient ID: PT-XXXXXXXX" v-model="patient_id"/> -->
+		                    <select class="form-control" v-model="patient_id">
+		                    	<option v-for="pat in patient_list" :value="pat.patient_id">{{pat.patient_id}}</option>
+		                    </select>
 		                </div>
+		                <div class="message" style="color: red;">{{ validation.firstError('patient_id') }}</div>
 	                </div>
             	</div>
 			</div>
@@ -41,43 +50,53 @@
 					<hr>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-10 border">
-					<div class="ui container">
-				        <h3 style="text-align: center;">Available Dates</h3>
-				        <vuetable ref="vuetable"
-				        api-url="https://vuetable.ratiw.net/api/users"
-				        :fields="fields"
-				        pagination-path=""
-				        :per-page="5"
-				        :multi-sort="true"
-				        :sort-order="sortOrder"
-				        :append-params="moreParams"
-				        @vuetable:pagination-data="onPaginationData"
-				        >
-				        <template slot="actions" slot-scope="props">
-				          <div class="custom-actions">
-				            <button class="ui button positive"
-				            @click="onAction('view-item', props.rowData, props.rowIndex)">
-				            <i class="hand pointer icon"></i>
-				          Pick</button>
-				    </div>
-				  </template>
-				</vuetable>
-				<div class="vuetable-pagination ui basic segment grid">
-				  <vuetable-pagination-info ref="paginationInfo"
-				  ></vuetable-pagination-info>
-				  <vuetable-pagination ref="pagination"
-				  @vuetable-pagination:change-page="onChangePage"
-				  ></vuetable-pagination>
+			<div class="row" v-if="messageBox">
+				<div class="col-6">
+					<p><i v-if="successIcon" class="calendar check outline icon" style="color:green;"></i><i v-if="failedIcon" class="calendar times outline icon" style="color:red;"></i><b>{{msg}}</b></p>
 				</div>
-				</div>
-				</div>
-			</div><br>
+			</div>
 			<div class="row">
 				<div class="col-md-10">
-					<button style="float: right;" type="button" class="btn  btn-raised bg-blue-grey waves-effect"><strong>SUBMIT</strong></button>
+					<hr>
 				</div>
+			</div>
+			<div class="row">
+			<!--*******************************************************************-->
+				<div class="col-md-4" v-if="dropdown1">
+					<P><b>select Date</b></P>
+					<select class="form-control" v-model="next_date" :class="{error: validation.hasError('next_date')}">
+						<option :value="next_date">{{next_date}}</option>
+					</select>
+					<div class="message" style="color: red;">{{ validation.firstError('next_date') }}</div>
+				</div>
+				<div class="col-md-4" v-if="dropdown2">
+					<P><b>select Date</b></P>
+					<select class="form-control" v-model="next_date" :class="{error: validation.hasError('next_date')}" @change="availableDateSelected()">
+						<option v-for="info in availableDates" :value="info[0].date">{{info[0].date}}</option>
+					</select>
+					<div class="message" style="color: red;">{{ validation.firstError('next_date') }}</div>
+				</div>
+			<!--*******************************************************************-->
+				<div class="col-md-4" v-if="dropdown3">
+					<P><b>select Time</b></P>
+					<select class="form-control" v-model="time" :class="{error: validation.hasError('time')}">
+						<option v-for="time in times" :value="time.time_from+' to '+time.time_to">{{time.time_from+'-'+time.time_to}}</option>
+					</select>
+					<div class="message" style="color: red;">{{ validation.firstError('time') }}</div>
+				</div>
+				<div class="col-md-4" v-if="dropdown4">
+					<P><b>select Time</b></P>
+					<select class="form-control" v-model="time" :class="{error: validation.hasError('time')}">
+						<option :value="checkTimeForAvailableDateSelected">{{checkTimeForAvailableDateSelected}}</option>
+					</select>
+					<div class="message" style="color: red;">{{ validation.firstError('time') }}</div>
+				</div>
+			<!--*******************************************************************-->
+				<div class="col-md-2">
+					<br>
+					<button class="ui button positive" @click="submitForNextAppointment()"><strong>Submit</strong></button>
+				</div>
+			<!--*******************************************************************-->
 			</div>
 			<div class="row">
 				<div class="col-md-10">
@@ -93,14 +112,14 @@
 	import Vuetable from 'vuetable-2/src/components/Vuetable'
 	import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
 	import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
-	//import CustomActions from './CustomActions'
-	//import DetailRow from './DetailRow'
 	import FilterBar from '@/components/Pages/Doctors/import_details/FilterBar'
 	import { FieldsDef_next_appointment } from '@/components/Pages/Doctors/import_details/FieldsDef_next_appointment'
+	import { apiDomain } from '@/components/Pages/Authentication/config';
+	import SimpleVueValidation from 'simple-vue-validator';
+	const Validator = SimpleVueValidation.Validator;
+	import Swal from 'sweetalert2';
 
 	Vue.use(VueEvents)
-	//Vue.component('custom-actions', CustomActions)
-	//Vue.component('my-detail-row', DetailRow)
 	Vue.component('filter-bar', FilterBar)
 
 	export default {
@@ -111,9 +130,29 @@
 		  },
 		  data () {
 		    return {
-		      fields: FieldsDef_next_appointment,
-		      sortOrder: [],
-		      moreParams: {}
+		      	fields: FieldsDef_next_appointment,
+		      	sortOrder: [],
+		      	moreParams: {},
+		      	number_of_days: null,
+		      	apiURL: '',
+		      	extention: null,
+		      	next_date: null,
+		      	time: '',
+		      	doctor_id: '',
+		      	patient_id: '',
+		      	department: '',
+		      	dropdown1: true,
+		      	dropdown2: false,
+		      	dropdown3: true,
+		      	dropdown4: false,
+		      	times: [],
+				availableDates: [],
+				messageBox: false,
+				msg: '',
+				successIcon: false,
+				failedIcon: false,
+				patient_list: [],
+				checkTimeForAvailableDateSelected: ''
 		    }
 		  },
 		  mounted () {
@@ -121,22 +160,142 @@
 		    this.$events.$on('filter-reset', e => this.onFilterReset())
 		  },
 		  methods: {
-		    // allcap (value) {
-		    //   return value.toUpperCase()
-		    // },
-		    // genderLabel (value) {
-		    //   return value === 'M'
-		    //     ? '<span class="ui teal label"><i class="large man icon"></i>Male</span>'
-		    //     : '<span class="ui pink label"><i class="large woman icon"></i>Female</span>'
-		    // },
-		    // formatNumber (value) {
-		    //   return accounting.formatNumber(value, 2)
-		    // },
-		    // formatDate (value, fmt = 'D MMM YYYY') {
-		    //   return (value == null)
-		    //     ? ''
-		    //     : moment(value, 'YYYY-MM-DD').format(fmt)
-		    // },
+		  	submitForNextAppointment(){
+		  		var self = this
+	            this.$validate()
+	              .then( function(success) {
+	                if (success) {
+	                        Swal.fire({
+	                            title: 'Are you sure?',
+	                            text: "You won't be able to revert this!",
+	                            type: 'warning',
+	                            showCancelButton: true,
+	                            confirmButtonColor: '#3085d6',
+	                            cancelButtonColor: '#d33',
+	                            confirmButtonText: 'Ok'
+	                        }).then((result) => {
+	                              if (result.value) {
+	                                    self.sendData()     
+	                              }
+	                        });
+	                  }
+	            }).catch((e)=>{
+	              console.log(e)
+	            })
+		  	},
+		  	sendData(){
+		  		var self = this
+		  		this.$http.post(apiDomain + 'api/saveNextAppoint',{
+		  			patient_id: self.patient_id,
+		  			doctor_id: self.doctor_id,
+		  			department: self.department,
+		  			appointment_date: self.next_date,
+		  			time: self.time
+		  		}).then(response => {
+		  			if(response.status === 200){
+		  				console.log(response)
+		  				self.successModal()
+		  			}
+		  		}).catch((e) => {
+		  			console.log(e)
+		  			self.failedModal()
+		  		})
+		  	},
+		  	successModal(){
+	            Swal.fire(
+	                  'Success!',
+	                  'Appointment Saved Successfully!',
+	                  'success'
+	            )
+	        },
+	          failedModal(){
+	            Swal.fire({
+	                  type: 'error',
+	                  title: 'Oops...',
+	                  text: 'Something went wrong! '
+	            })
+	        },
+		  	extentionSelected(){
+		  		this.$nextTick(function(){
+		  			console.log(this.number_of_days+' '+this.extention)
+			  		if(this.number_of_days != null && this.extention !== null){
+			  			var self = this
+			  			var date = new Date();
+			  			var temp = 0;
+			  			if(this.extention === 'days'){
+			  				this.next_date = new Date(Date.now()+this.number_of_days*24*60*60*1000);
+			  				this.next_date = this.next_date.toISOString().substr(0, 10);
+			  				console.log(this.next_date)
+			  			}
+			  			else if(this.extention === 'weeks'){
+			  				temp = this.number_of_days*7;
+			  				this.next_date = new Date(Date.now()+temp*24*60*60*1000);
+			  				this.next_date = this.next_date.toISOString().substr(0, 10);
+			  				console.log(this.next_date)
+			  			}
+			  			else if(this.extention === 'months'){
+			  				temp = this.number_of_days*30;
+			  				this.next_date = new Date(Date.now()+temp*24*60*60*1000);
+			  				this.next_date = this.next_date.toISOString().substr(0, 10);
+			  				console.log(this.next_date)
+			  			}
+			  			else if(this.extention === 'years'){
+			  				temp = this.number_of_days*365;
+			  				this.next_date = new Date(Date.now()+temp*24*60*60*1000);
+			  				this.next_date = this.next_date.toISOString().substr(0, 10);
+			  				console.log(this.next_date)
+			  			}
+			  			this.apiURL = apiDomain + 'api/getAvailableDateforNextAppointment/' +self.next_date+'/'+self.doctor_id+'/'+self.department;
+			  			this.$http.get(self.apiURL)
+			  				.then(response => {
+			  					console.log(response)
+			  					if(response.body.status === '1'){
+			  						self.messageBox = true
+			  						self.successIcon = true
+			  						self.failedIcon = false
+			  						self.dropdown2 = false
+			  						self.dropdown4 =false
+			  						self.dropdown1 =true
+			  						self.dropdown3 =true
+			  						self.msg = 'Date is available'
+				                    self.times = response.body.yes
+				                }
+				                else if(response.body.status === '0'){
+				                	self.messageBox = true
+				                	self.successIcon = false
+				                	self.failedIcon = true
+				                	self.dropdown1 = false
+				                	self.dropdown2 = true
+				                	self.dropdown3 = false
+				                	self.dropdown4 = true
+				                	self.msg = 'Date is not available. Suggestions is given below.'
+				                	self.availableDates = response.body.dateTimeInfo
+				                }
+				                else{
+				                	self.messageBox = false
+				                	self.dropdown1 = true
+				                	self.dropdown2 = false
+				                	self.dropdown3 = true
+				                	self.dropdown4 = false
+				                	self.msg = ''
+				                	self.successIcon = false
+				                	self.failedIcon = false
+				                	self.times = []
+				                	self.availableDates = [],
+				                	self.next_date = null
+				                }
+			  				})
+			  		}
+		  		})
+		  	},
+		  	availableDateSelected(){
+	        	var self = this
+	            for(var i=0; i < self.availableDates.length; i++){
+	                if(self.availableDates[i][0].date === self.next_date){
+	                    self.checkTimeForAvailableDateSelected = self.availableDates[i][0].time_from+' to '+self.availableDates[i][0].time_to
+	                }
+	            }
+	        },
 		    onPaginationData (paginationData) {
 		      this.$refs.pagination.setPaginationData(paginationData)
 		      this.$refs.paginationInfo.setPaginationData(paginationData)
@@ -147,10 +306,6 @@
 		    onAction (action, data, index) {
 		      console.log('slot action: ' + action, data.name, index)
 		    },
-		    // onCellClicked (data, field, event) {
-		    //   console.log('cellClicked: ', field.name)
-		    //   this.$refs.vuetable.toggleDetailRow(data.id)
-		    // },
 		    onFilterSet (filterText) {
 		      this.moreParams.filter = filterText
 		      Vue.nextTick( () => this.$refs.vuetable.refresh() )
@@ -159,7 +314,38 @@
 		      delete this.moreParams.filter
 		      Vue.nextTick( () => this.$refs.vuetable.refresh() )
 		    }
-		  }
+		  },
+		  created(){
+		  	const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+    		this.doctor_id = tokenData.id
+    		this.department = tokenData.department
+
+    		var apiURL = apiDomain + 'api/getPatientInfoForNextAppointment/' + tokenData.id
+    		console.log(apiURL)
+		    this.$http.get(apiURL)
+		      .then(response => {
+		        console.log(response)
+		        this.patient_list = response.body.pat_info
+		      })
+		  },
+		  	validators: {
+			  	'number_of_days': function (value) {
+			   		return Validator.value(value).required();
+				},
+				'extention': function (value) {
+			   		return Validator.value(value).required();
+				},
+				'patient_id': function (value) {
+			   		return Validator.value(value).required();
+				},
+				'next_date': function (value) {
+			   		return Validator.value(value).required();
+				},
+				'time': function (value) {
+			   		return Validator.value(value).required();
+				},
+			}
+
 		}
 </script>
 <style scoped>

@@ -1,4 +1,4 @@
-export const FieldsDef_Receptionist = [
+export const FieldsDef_doctors_list = [
 	{
 		name:'id',
 		title: 'ID',
@@ -6,8 +6,13 @@ export const FieldsDef_Receptionist = [
 	},
 	{
 		name:'first_name',
-		title: 'Receptionist Name',
+		title: 'Doctor Name',
 		sortField: 'first_name'
+	},
+	{
+		name:'department',
+		title: 'Department',
+		sortField: 'department'
 	},
 	{
 		name:'phone_number',

@@ -6,7 +6,7 @@
             			<h4 class="page-title">Patients</h4>
             		</div>
             		<div class="col-md-5 text-right m-b-20">
-            			<router-link class="btn  btn-raised bg-blue-grey waves-effect fa fa-plus" to="/admin/patients/add_patients"><strong>Add Patient</strong></router-link>
+            			<router-link class="ui button positive" to="/admin/patients/add_patients"><i class="plus icon"></i><strong>Add Patient</strong></router-link>
             		</div>
             	</div>
             	<div class="row">
@@ -19,7 +19,7 @@
 						<div class="ui container">
 					        <filter-bar></filter-bar>
 					        <vuetable ref="vuetable"
-					        api-url="https://vuetable.ratiw.net/api/users"
+					        :api-url="apiURL"
 					        :fields="fields"
 					        pagination-path=""
 					        :per-page="5"
@@ -29,13 +29,12 @@
 					        @vuetable:pagination-data="onPaginationData"
 					        >
 					        <template slot="actions" slot-scope="props">
-					          <div class="custom-actions">
-					        <router-link to="/admin/patients/edit_patients" class="ui button yellow"><i class="edit icon"></i></router-link>
-					        <button class="ui button red"
-					        @click="onAction('delete-item', props.rowData, props.rowIndex)">
-					        <i class="trash alternate icon"></i>
-					      </button>
-					    </div>
+					          	<div class="custom-actions">
+							        <!-- <router-link to="/admin/patients/edit_patients" class="ui button yellow"><i class="edit icon"></i></router-link> -->
+							        <router-link to=""><i class="zoom icon" @click="onAction('show-items',props.rowData, props.rowIndex)"></i></router-link>
+									<router-link :to="{name: 'editPatients', params: { id: props.rowData.id }}"><i class="edit icon"></i></router-link>
+									<router-link to=""><i class="trash alternate icon" @click="onAction('delete-items',props.rowData, props.rowIndex)"></i></router-link>
+							    </div>
 					  </template>
 					</vuetable>
 					<div class="vuetable-pagination ui basic segment grid">
@@ -48,6 +47,32 @@
 					</div>
 					</div>
 				</div>
+				<div class="card">
+					<div class="header">
+						<modal v-model="showModal">
+						    <p slot="header">Doctor Information</p>
+						 
+						  	<div slot="content">
+								<img :src="modalData.image" alt="No Image">
+						    </div>
+						    <div slot="content">
+						    	<br>
+							    <strong>Name: </strong><span>{{modalData.first_name + ' ' + modalData.last_name}}</span><br>
+							    <strong>Address: </strong><span>{{modalData.address}}</span><br>
+							    <strong>Country: </strong><span>{{modalData.country}}</span><br>
+							    <strong>State: </strong><span>{{modalData.state}}</span><br>
+							    <strong>City: </strong><span>{{modalData.city}}</span><br>
+							    <strong>Phone Number: </strong><span>{{modalData.phone_number}}</span><br>
+						    </div>
+						 
+						    <template slot="actions">
+						        <div class="ui button red" @click="showModal=false">
+						          Cancel
+						        </div>
+						    </template>
+						</modal>
+					</div>
+				</div>
             </div>
         </div>
 </template>
@@ -57,27 +82,39 @@
 	import Vuetable from 'vuetable-2/src/components/Vuetable'
 	import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
 	import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
-	//import CustomActions from './CustomActions'
-	//import DetailRow from './DetailRow'
 	import FilterBar from '@/components/Pages/Admin/import_details/FilterBar'
 	import { FieldsDef_patients } from '@/components/Pages/Admin/import_details/FieldsDef_patients'
+	import { apiDomain } from '@/components/Pages/Authentication/config'
+	import modal from 'vue-semantic-modal'
+	import Swal from 'sweetalert2'
 
 	Vue.use(VueEvents)
-	//Vue.component('custom-actions', CustomActions)
-	//Vue.component('my-detail-row', DetailRow)
 	Vue.component('filter-bar', FilterBar)
 
 	export default {
 		  components: {
 		    Vuetable,
 		    VuetablePagination,
-		    VuetablePaginationInfo
+		    VuetablePaginationInfo,
+		    modal
 		  },
 		  data () {
 		    return {
-		      fields: FieldsDef_patients,
-		      sortOrder: [],
-		      moreParams: {}
+		    	modalData: {
+			      	first_name: '',
+			      	last_name: '',
+			      	image: '',
+			      	address: '',
+			      	country: '',
+			      	state: '',
+			      	city: '',
+			      	phone_number: ''
+			     },
+		      	fields: FieldsDef_patients,
+		      	sortOrder: [],
+		      	moreParams: {},
+		      	apiURL: '',
+		      	showModal: false
 		    }
 		  },
 		  mounted () {
@@ -109,12 +146,67 @@
 		      this.$refs.vuetable.changePage(page)
 		    },
 		    onAction (action, data, index) {
-		      console.log('slot action: ' + action, data.name, index)
+		    	var self = this
+		      // console.log('slot action: ' + action, data.name, index)
+		      	if(action === 'show-items'){
+			      	this.$http.post(apiDomain + 'api/singleDoctorInfo',{rowID: data.id})
+			      		.then(response => {
+			      			console.log(response)
+			      			self.modalData.first_name = response.body.single_doc_info[0].first_name
+			      			self.modalData.last_name = response.body.single_doc_info[0].last_name
+			      			self.modalData.image = response.body.single_doc_info[0].image
+			      			self.modalData.address = response.body.single_doc_info[0].address
+			      			self.modalData.country = response.body.single_doc_info[0].country
+			      			self.modalData.state = response.body.single_doc_info[0].state
+			      			self.modalData.city = response.body.single_doc_info[0].city
+			      			self.modalData.phone_number = response.body.single_doc_info[0].phone_number
+			      		}).catch((e) => {
+			      			console.log(e)
+			      		})
+			      	this.showModal = true
+		      	}
+		      	else if(action === 'delete-items'){
+			      	Swal.fire({
+	                    title: 'Are you sure?',
+	                    text: "You won't be able to revert this!",
+	                    type: 'warning',
+	                    showCancelButton: true,
+	                    confirmButtonColor: '#3085d6',
+	                    cancelButtonColor: '#d33',
+	                    confirmButtonText: 'Ok'
+	                }).then((result) => {
+	                      if (result.value) {
+	                            self.deletePatient(data.id);     
+	                      }
+	                });
+		      	}
 		    },
-		    // onCellClicked (data, field, event) {
-		    //   console.log('cellClicked: ', field.name)
-		    //   this.$refs.vuetable.toggleDetailRow(data.id)
-		    // },
+		    deletePatient(id){
+		    	var self = this
+		    	this.$http.post(apiDomain + 'api/deletePatient',{rowID: id})
+		    		.then(response => {
+		    			console.log(response)
+		    			self.successModal()
+		    			Vue.nextTick( () => self.$refs.vuetable.refresh() )
+		    		}).catch((e)=>{
+		    			self.failedModal()
+		    			console.log(e)
+		    		})
+		    },
+		    successModal(){
+		    	Swal.fire(
+				    'Deleted!',
+				    'Successfully Deleted!',
+				    'success'
+				)
+		    },
+		    failedModal(){
+		    	Swal.fire({
+				  type: 'error',
+				  title: 'Oops...',
+				  text: 'Something went wrong!'
+				})
+		    },
 		    onFilterSet (filterText) {
 		      this.moreParams.filter = filterText
 		      Vue.nextTick( () => this.$refs.vuetable.refresh() )
@@ -123,6 +215,21 @@
 		      delete this.moreParams.filter
 		      Vue.nextTick( () => this.$refs.vuetable.refresh() )
 		    }
+		  },
+		  created () {
+		  	this.apiURL = apiDomain + 'api/getPatientInfo'
+		  	this.$http.get(apiDomain + 'api/getPatientInfo')
+		  		.then(response => {
+		  			console.log(response)
+		  		}).catch((e) => {
+		  			console.log(e)
+		  		})
 		  }
 		}
 </script>
+<style scoped>
+	.spanStyle{
+		font-size: 16px;
+		color: green;
+	}
+</style>

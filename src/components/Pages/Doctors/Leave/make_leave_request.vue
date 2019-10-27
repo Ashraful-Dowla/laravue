@@ -3,7 +3,7 @@
 		<div class="content">
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2">
-					<h4 class="page-title">Make Leave Request</h4>
+					<h4 class="page-title">Add Leave</h4>
 				</div>
 			</div>
 			<div class="row">
@@ -18,9 +18,9 @@
 							<div class="col-md-6">
 								<div class="form-group">
 				                    <div class="borderBottom">
-					                    <select class="form-control show-tick">
-					                        <option>Select Leave Type</option>
-											<option>Casual Leave 12 Days</option>
+				                    	<p><b>Select Leave Type</b></p>
+					                    <select class="form-control show-tick" v-model="manualLeave.leave_type">
+					                        <option v-for="lvt in leaveTypes" :value="lvt.leave_type">{{lvt.leave_type}}</option>
 					                    </select>
 					                </div>
 				                </div>
@@ -30,21 +30,18 @@
 							<div class="col-md-5">
 								<div class="form-group">
 				                    <div class="borderBottom">
-					                    <select class="form-control show-tick">
-					                        <option>Select Department</option>
-											<option>Department 1</option>
-											<option>Department 2</option>
-											<option>Department 3</option>
-											<option>Department 4</option>
-											<option>Department 5</option>
+				                    	<p><b>Select Department</b></p>
+					                    <select class="form-control show-tick" v-model="manualLeave.department" disabled>
+					                        <option :value="manualLeave.department">{{manualLeave.department}}</option>
 					                    </select>
 					                </div>
 				                </div>
 							</div>
 							<div class="col-md-5">
 								<div class="form-group">
+									<p><b>Put Doctor ID</b></p>
 				                    <div class="borderBottom">
-				                    	<input type="text" class="form-control"  placeholder="Your ID: DR-XXXXXXXXXX" />
+				                    	<input type="text" class="form-control"  placeholder="Doctor ID: DR-XXXXXXXXXX" v-model="manualLeave.doctor_id" disabled/>
 				                    </div>
 				                </div>
 				            </div>
@@ -52,15 +49,17 @@
 						<div class="row">
 							<div class="col-md-6">
                         		<div class="form-group">
+                        			<p><b>Time From</b></p>
                         			<div class="borderBottom">
-                        				<date-picker :bootstrap-styling="true" class="datepicker form-control" placeholder="Date: From"></date-picker>
+                        				<date-picker :bootstrap-styling="true" class="datepicker form-control" placeholder="Date: From" v-model="manualLeave.time_from"></date-picker>
                         			</div>
                         		</div>
                         	</div>
 							<div class="col-md-6">
                         		<div class="form-group">
+                        			<p><b>Time To</b></p>
                         			<div class="borderBottom">
-                        				<date-picker :bootstrap-styling="true" class="datepicker form-control" placeholder="Date: To"></date-picker>
+                        				<date-picker :bootstrap-styling="true" class="datepicker form-control" placeholder="Date: To" v-model="manualLeave.time_to" @selected="dateSelected()"></date-picker>
                         			</div>
                         		</div>
                         	</div>
@@ -70,17 +69,17 @@
                         		<div class="form-group">
                         			<p><b>Number of days</b></p>
                         			<div class="borderBottom">
-                        				<input type="text" class="form-control"  value="2"/>
+                        				<input type="text" class="form-control"  v-model="manualLeave.number_of_days"/>
                         			</div>
                         		</div>
                         	</div>
 						</div>
 						<div class="row">
-							<div class="col-sm-6">
+							<div class="col-sm-12">
                         		<div class="form-group">
                         			<p><b>Leave Reason</b></p>
                         			<div class="borderBottom">
-                        				<textarea rows="4" cols="5" class="form-control"></textarea>
+                        				<textarea rows="4" cols="5" class="form-control" v-model="manualLeave.leave_reason"></textarea>
                         			</div>
                         		</div>
                         	</div>
@@ -91,7 +90,7 @@
 			<div class="row">
 				<div class="col-md-10">
 					<div class="m-t-20 text-center">
-						<button type="button" class="btn  btn-raised btn-success waves-effect">Make Leave Request</button>
+						<button type="button" class="ui button positive" @click="addLeaveManually()">Add Leave</button>
 					</div>
 				</div>
 			</div>
@@ -100,9 +99,100 @@
 </template>
 <script>
 	import Datepicker from 'vuejs-datepicker';
+	import { apiDomain } from '@/components/Pages/Authentication/config'
+	import Swal from 'sweetalert2'
 	export default {
 		components: {
 			'date-picker': Datepicker
+		},
+		data(){
+			return{
+				leaveTypes: [],
+				departments: [],
+				manualLeave:{
+					leave_type: '',
+					department: '',
+					doctor_id: '',
+					time_from: '',
+					time_to: '',
+					number_of_days: '',
+					leave_reason: '',
+				}
+			}
+		},
+		created(){
+			const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+    		this.manualLeave.AD_id = tokenData.id
+    		this.manualLeave.doctor_id = tokenData.doctor_id
+    		this.manualLeave.department = tokenData.department
+			var self = this
+			this.$http.get(apiDomain + 'api/adminGetLeaveTypeInfo')
+				.then(response => {
+					self.leaveTypes = response.body.leaveTypeInfo
+					console.log(response)
+				}).catch((e) =>{
+					console.log(e)
+				})
+			this.$http.get(apiDomain + 'api/getDepartmentInfo')
+			    .then(response => {
+			        self.departments = response.body.departmentsInfo
+			    }).catch((e) => {
+			        console.log(e)
+			    })
+		},
+		methods:{
+			addLeaveManually(){
+				var self = this
+		    		Swal.fire({
+	                    title: 'Are you sure?',
+	                    text: "You won't be able to revert this!",
+	                    type: 'warning',
+	                    showCancelButton: true,
+	                    confirmButtonColor: '#3085d6',
+	                    cancelButtonColor: '#d33',
+	                    confirmButtonText: 'Ok'
+	                }).then((result) => {
+	                      if (result.value) {
+	                            self.sendAddLeaveManuallyData();     
+	                      }
+	                });
+	        },
+	        sendAddLeaveManuallyData(){
+	        	var self = this
+	        	this.$http.post(apiDomain + 'api/addLeaveByDoctor',self.manualLeave)
+	        		.then(response => {
+	        			if (response.status === 200) {
+	        				console.log(response)
+	        				self.successModal()
+	        			}
+	        		}).catch((e) => {
+	        			console.log(e)
+	        			self.failedModal()
+	        		})
+	        },
+	        dateSelected(){
+	        	this.$nextTick(function(){
+	        		var date1 = new Date(this.manualLeave.time_from); 
+					var date2 = new Date(this.manualLeave.time_to);
+					var Difference_In_Time = date2.getTime() - date1.getTime();
+					var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+					this.manualLeave.number_of_days = Difference_In_Days + 1;
+	        	})
+	        },
+	        successModal(){
+	            Swal.fire(
+	                  'Success!',
+	                  'Manually Leave Added!',
+	                  'success'
+	            )
+	        },
+	          failedModal(){
+	            Swal.fire({
+	                  type: 'error',
+	                  title: 'Oops...',
+	                  text: 'Something went wrong! '
+	            })
+	        },
 		}
 	}
 </script>

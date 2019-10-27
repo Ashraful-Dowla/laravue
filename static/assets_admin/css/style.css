@@ -60,9 +60,14 @@ Version      : 1.0
 html {
 	height: 100%;
 }
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
 body {
-	font-family: 'Rubik', sans-serif;
-	font-size: 0.875rem;
+	font-family: sans-serif;
+	font-size: 15px;
 	color: #666;
 	background-color: #ffffff;
 	overflow-x: hidden;
@@ -702,13 +707,13 @@ textarea.form-control {
 -----------------------*/
 
 .header {
-	background-color: #009efb;
+	background-color: #0392CE;
 	left: 0;
 	position: fixed;
 	right: 0;
 	top: 0;
 	z-index: 1039;
-	height: 50px;
+	height: 60px;
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 .header .header-left {
@@ -815,14 +820,59 @@ textarea.form-control {
 	background-color: #faa937;
 }
 
+/*--------------------------
+	Custom Button CSS Ajmal
+--------------------------*/
+
+.ajmal-custom-btn{
+	float: right;
+	background:#1AAB8A;
+	color:#fff;
+	border:none;
+	position:relative;
+	height:25px;
+	font-size:14px;
+	padding:0 2em;
+	cursor:pointer;
+	transition:800ms ease all;
+	outline:none
+}
+
+.ajmal-custom-btn:hover{
+  background:#fff;
+  color:#1AAB8A;
+}
+
+.ajmal-custom-btn:before,.ajmal-custom-btn:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #1AAB8A;
+  transition:400ms ease all;
+}
+
+.ajmal-custom-btn:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+.ajmal-custom-btn:hover:before,.ajmal-custom-btn:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
+
 /*-----------------
 	6. Sidebar
 -----------------------*/
 
 .sidebar {
 	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
-	top: 50px;
-	width: 230px;
+	top: 60px;
+	width: 240px;
 	z-index: 1039;
 	background-color: #fff;
 	bottom: 0;
@@ -1039,14 +1089,14 @@ textarea.form-control {
 .page-wrapper {
 	left: 0;
 	margin-left: 230px;
-	padding-top: 50px;
+	padding-top: 60px;
 	position: relative;
 	-webkit-transition: all 0.4s ease;
 	-moz-transition: all 0.4s ease;
 	transition: all 0.4s ease;
 }
 .page-wrapper > .content {
-	padding: 30px;
+	padding: 40px;
 }
 
 /*-----------------
@@ -4921,3 +4971,91 @@ blockquote p {
 		margin-bottom: 10px;
 	}
 }
+
+
+/*================================================================*/
+/* 						Home Page CSS							  */
+/*================================================================*/
+#app{
+	background-image:url(background5.jpg);
+	background-size: cover;
+	background-position: center;
+	font-family: sans-serif;
+}
+.main-div{
+	background-color: #0392CE;
+	/*text-align: center;*/
+	background-image: linear-gradient(right, #2874A6, #2874A6 20%, transparent 20%, transparent 100%);
+    background-image: -webkit-linear-gradient(right, #2874A6, #2874A6 20%, transparent 20%, transparent 100%)
+}
+.main-div a{
+	color: #fff;
+	text-decoration: none;
+}
+.main-div ul{
+	display: inline-flex;
+	list-style: none;
+	color: #fff;
+}
+.main-div ul li{
+	width: 128px;
+	margin: 13px;
+	padding: 12px;
+}
+.main-div ul li a{
+	text-decoration: none;
+	color: #fff;
+}
+.home-active, .main-div ul li:hover{
+	background-color: #50B0F7;
+	border-radius: 3px;
+}
+.main-div .fa{
+	margin-right: 8px;
+}
+.home-sub-menu-1{
+	display: none;
+}
+.main-div ul li:hover .home-sub-menu-1{
+	display: block;
+	position: absolute;
+	background: #0392CE;
+	margin-top: 15px;
+	margin-left: -15px;
+}
+.main-div ul li:hover .home-sub-menu-1 ul{
+	display: block;
+	margin: 10px;
+}
+.main-div ul li:hover .home-sub-menu-1 ul li{
+	width: 150px;
+	padding: 10px;
+	border-bottom: 1px solid #50B0F7; 
+	background: transparent;
+	border-radius: 0px;
+	text-align: left;
+}
+.main-div ul li:hover .home-sub-menu-1 ul li::last-child{
+	border-bottom: none;
+}
+.main-div ul li:hover .home-sub-menu-1 ul li a:hover{
+	color: #50B0F7;
+}
+.fa-angle-right{
+	float: right;
+}
+.home-sub-menu-2{
+	display: none;
+}
+.home-hover-me:hover .home-sub-menu-2{
+	position: absolute;
+	display: block;
+	margin-top: -30px;
+	margin-left: 140px;
+	background: #0392CE;
+}
+
+
+
+
+

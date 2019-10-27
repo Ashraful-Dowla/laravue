@@ -8,7 +8,7 @@
 						<h4 class="page-title">Departments</h4>
 					</div>
 					<div class="col-md-4 text-right m-b-30">
-						<router-link class="btn  btn-raised bg-blue-grey waves-effect fa fa-plus" to="/admin/departments/add_departments"><strong>Add Department</strong></router-link>
+						<router-link class="ui button positive" to="/admin/departments/add_departments"><i class="plus icon"></i><strong>Add Department</strong></router-link>
 					</div>
 				</div>
 				<div class="row">
@@ -168,7 +168,7 @@
 		  	statusCall(value){
 		  		return value === '1'
 		  						  ? '<span class="ui green label">Active</span>'
-		  						  : '<span class="ui red label">Not Active</span>'
+		  						  : '<span class="ui red label">Inactive</span>'
 		  	},
 		    onPaginationData (paginationData) {
 		      this.$refs.pagination.setPaginationData(paginationData)

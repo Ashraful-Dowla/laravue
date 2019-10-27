@@ -36,6 +36,7 @@ import SeeReports from '@/components/Pages/Admin/Others/See_Reports'
 import RefillAccount from '@/components/Pages/Admin/Others/Refill_Account'
 import ExpenditureDetails from '@/components/Pages/Admin/Others/Expenditure_details'
 import Payments from '@/components/Pages/Admin/Others/Payments'
+import LeaveType from '@/components/Pages/Admin/Others/LeaveType'
 import AdminProfile from '@/components/Pages/Admin/Profile/Admin_Profile'
 import EditAdminProfile from '@/components/Pages/Admin/Profile/Edit_Admin_Profile'
 import Receptionist from '@/components/Pages/Admin/Receptionist/Receptionist'
@@ -55,6 +56,8 @@ import DocDoctorProfile from '@/components/Pages/Doctors/Profile/Doctor_Profile'
 import EditDocDoctorProfile from '@/components/Pages/Doctors/Profile/Edit_Doctor_Profile'
 import MakeLeaveRequest from '@/components/Pages/Doctors/Leave/make_leave_request'
 import LeaveRequestApproval from '@/components/Pages/Doctors/Leave/Leave_request_approval'
+import AddDoctorEducation from '@/components/Pages/Doctors/Profile/Add_Education'
+import AddDoctorExperience from '@/components/Pages/Doctors/Profile/experience'
 
 
 /*==================Patient===========================*/
@@ -89,7 +92,10 @@ import Login from '@/components/Pages/Authentication/Login'
 import Register from '@/components/Pages/Authentication/Register'
 import EmailConfirmation from '@/components/Pages/Authentication/emailConfirmationSuccess'
 
+import Swal from 'sweetalert2';
 Vue.use(Router)
+const authUser = JSON.parse(window.localStorage.getItem('authUser'))
+var roleshash = {1: 'admin', 2: 'doctor', 3: 'receptionist', 4: 'patient'}
 
 export default new Router({
   routes: [
@@ -116,9 +122,27 @@ export default new Router({
     {
     	path: '/admin', //sidebar
     	component: Sidebar,
+        afterEnter: (to, from, next) => {
+            if (authUser.role === '1') {
+              next();
+            }
+            else {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Access Denied!',
+                    text: 'Unauthorized access occured'
+                })
+                next({ path: '/' + roleshash[authUser.role] })
+            }
+        },
     	children: [
 
-    		{path: '', component: Dashboard,name: 'dashboard',meta: {requiresAuth: true}},
+    		{
+                path: '',
+                component: Dashboard,
+                name: 'dashboard',
+                meta: {requiresAuth: true}
+            },
 
             /*=============Admin Profile==============*/
             {path: '/admin/admin_profile', component: AdminProfile,name: 'admin_profile',meta: {requiresAuth: true}},
@@ -127,24 +151,24 @@ export default new Router({
             /*==============Doctors============*/
             {path: '/admin/doctors', component: Doctors, name: 'doctors',meta: {requiresAuth: true}},
             {path: '/admin/doctors/adddoctor', component: AddDoctor, name: 'adddoctor',meta: {requiresAuth: true}},
-            {path: '/admin/doctors/editdoctor', component: EditDoctor, name: 'editdoctor',meta: {requiresAuth: true}},
+            {path: '/admin/doctors/editdoctor/:id', component: EditDoctor, name: 'editdoctor',meta: {requiresAuth: true}},
             {path: '/admin/doctors/profile', component: DoctorProfile, name: 'doctorProfile',meta: {requiresAuth: true}},
             {path: '/admin/doctors/edit_profile', component: EditProfile, name: 'editProfile',meta: {requiresAuth: true}},
 
             /*==============Schedule============*/
             {path: '/admin/doctors_schedule', component: Schedule, name: 'schedule',meta: {requiresAuth: true}},
             {path: '/admin/doctors_schedule/addschedule', component: AddSchedule, name: 'addschedule',meta: {requiresAuth: true}},
-            {path: '/admin/doctors_schedule/editschedule', component: EditSchedule, name: 'editschedule',meta: {requiresAuth: true}},
+            {path: '/admin/doctors_schedule/editschedule/:id', component: EditSchedule, name: 'editschedule',meta: {requiresAuth: true}},
 
             /*==============Patients============*/
             {path: '/admin/patients', component: Patients, name: 'patients',meta: {requiresAuth: true}},
             {path: '/admin/patients/add_patients', component: AddPatients, name: 'addPatients',meta: {requiresAuth: true}},
-            {path: '/admin/patients/edit_patients', component: EditPatients, name: 'editPatients',meta: {requiresAuth: true}},
+            {path: '/admin/patients/edit_patients/:id', component: EditPatients, name: 'editPatients',meta: {requiresAuth: true}},
 
             /*==============Appointments============*/
             {path: '/admin/appointments', component: Appointments, name: 'appointments',meta: {requiresAuth: true}},
             {path: '/admin/appointments/add_appointments', component: AddAppointments, name: 'addAppointments',meta: {requiresAuth: true}},
-            {path: '/admin/appointments/edit_appointments', component: EditAppointments, name: 'editAppointments',meta: {requiresAuth: true}},
+            {path: '/admin/appointments/edit_appointments/:id', component: EditAppointments, name: 'editAppointments',meta: {requiresAuth: true}},
 
             /*==============Departments============*/
             {path: '/admin/departments', component: Departments, name: 'departments',meta: {requiresAuth: true}},  
@@ -167,22 +191,37 @@ export default new Router({
             {path: '/admin/refill_account', component: RefillAccount, name: 'refill_account',meta: {requiresAuth: true}},
             {path: '/admin/expenditure_details', component: ExpenditureDetails, name: 'expenditure_details',meta: {requiresAuth: true}},
             {path: '/admin/payments', component: Payments, name: 'payments',meta: {requiresAuth: true}},
+            {path: '/admin/Leave_type', component: LeaveType, name: 'Leave_type',meta: {requiresAuth: true}},
 
             /*==============RECEPTIONIST============*/
             {path: '/admin/receptionist', component: Receptionist, name: 'receptionist',meta: {requiresAuth: true}},
             {path: '/admin/receptionist/add_receptionist', component: AddReceptionist, name: 'add_receptionist',meta: {requiresAuth: true}},
-            {path: '/admin/receptionist/edit_receptionist', component: EditReceptionist, name: 'edit_receptionist',meta: {requiresAuth: true}},
+            {path: '/admin/receptionist/edit_receptionist/:id', component: EditReceptionist, name: 'edit_receptionist',meta: {requiresAuth: true}},
     	]
     },
     {
         path: '/doctor',
         component: Doctor,
+        afterEnter: (to, from, next) => {
+            if (authUser.role === '2') {
+              next();
+            } else {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Access Denied!',
+                    text: 'Unauthorized access occured'
+                })
+                next({ path: '/' + roleshash[authUser.role] })
+            }
+        },
         children: [
             {path: '', component: DashboardDoctor,name: 'dashboardDoctor',meta: {requiresAuth: true}},
 
             /*=============Doctor Profile===============*/
             {path: '/doctor/doctor_profile', component: DocDoctorProfile,name: 'doctor_profile',meta: {requiresAuth: true}},
             {path: '/doctor/edit_doctor_profile', component: EditDocDoctorProfile,name: 'edit_doctor_profile',meta: {requiresAuth: true}},
+            {path: '/doctor/add_education/:doctor_id/:id', component: AddDoctorEducation,name: 'add_education',meta: {requiresAuth: true}},
+            {path: '/doctor/add_experience/:doctor_id/:id', component: AddDoctorExperience,name: 'add_experience',meta: {requiresAuth: true}},
 
             /*=============Today Patient List============*/
             {path: '/doctor/today_patients_list', component: TodayPatientList,name: 'today_patients_list',meta: {requiresAuth: true}},
@@ -208,6 +247,18 @@ export default new Router({
     {
         path: '/patient',
         component: Dash,
+        afterEnter: (to, from, next) => {
+            if (authUser.role === '4') {
+              next();
+            } else {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Access Denied!',
+                    text: 'Unauthorized access occured'
+                })
+                next({ path: '/' + roleshash[authUser.role] })
+            }
+        },
         children: [
             {
                 path: '',
@@ -269,6 +320,18 @@ export default new Router({
         path:'/receptionist',
         component: DashReceptionist,
         meta: {requiresAuth: true},
+        afterEnter: (to, from, next) => {
+            if (authUser.role === '3') {
+              next();
+            } else {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Access Denied!',
+                    text: 'Unauthorized access occured'
+                })
+                next({ path: '/' + roleshash[authUser.role] })
+            }
+        },
         children: [
             {
                 path:'',

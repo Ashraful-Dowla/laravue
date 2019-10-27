@@ -16,7 +16,7 @@
             <div class="ui container">
                 <filter-bar></filter-bar>
                 <vuetable ref="vuetable"
-                api-url="https://vuetable.ratiw.net/api/users"
+                :api-url="apiURL"
                 :fields="fields"
                 pagination-path=""
                 :per-page="5"
@@ -28,20 +28,33 @@
                 <template slot="actions" slot-scope="props">
                   <div class="custom-actions">
                     <button class="ui button positive"
-                    @click="onAction('view-item', props.rowData, props.rowIndex)">
-                    <i class="zoom icon"></i>
-                  </button>
-                  <button class="ui button yellow"
-                  @click="onAction('edit-item', props.rowData, props.rowIndex)">
-                  <i class="edit icon"></i>
-                </button>
-                <button class="ui button red"
-                @click="onAction('delete-item', props.rowData, props.rowIndex)">
-                <i class="trash alternate icon"></i>
-              </button>
+                      @click="onAction('view-item', props.rowData, props.rowIndex)">
+                      <i class="zoom icon"></i>
+                    </button>
             </div>
           </template>
         </vuetable>
+        <div class="card">
+            <div class="header">
+                <modal v-model="showModal">
+                    <p slot="header">Patient Short Info</p>
+                    <div slot="content">
+                        <div class="form-group">
+                            <label><b>Patient Name:</b> {{patient_info.first_name+' '+patient_info.last_name}}</label><br>
+                            <label><b>Address:</b> {{patient_info.address}}</label><br>
+                            <label><b>Gender:</b> {{patient_info.gender}}</label><br>
+                            <label><b>Age:</b> {{calculate_age(patient_info.birthday)}}</label><br>
+                            <label><b>Phone Number:</b> {{patient_info.phone_number}}</label><br>
+                        </div>
+                    </div>
+                    <template slot="actions">
+                        <div class="ui button red" @click="showModal=false">
+                            Cancel
+                        </div>
+                    </template>
+                </modal>
+            </div>
+        </div>
         <div class="vuetable-pagination ui basic segment grid">
           <vuetable-pagination-info ref="paginationInfo"
           ></vuetable-pagination-info>
@@ -62,33 +75,31 @@ import VueEvents from 'vue-events'
 import Vuetable from 'vuetable-2/src/components/Vuetable'
 import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
 import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
-//import CustomActions from './CustomActions'
-//import DetailRow from './DetailRow'
 import FilterBar from '@/components/Pages/Doctors/import_details/FilterBar'
 import { FieldsDef_today_patient_list } from '@/components/Pages/Doctors/import_details/FieldsDef_today_patient_list'
+import { apiDomain } from '@/components/Pages/Authentication/config'
+import Swal from 'sweetalert2'
+import modal from 'vue-semantic-modal'
 
 Vue.use(VueEvents)
-//Vue.component('custom-actions', CustomActions)
-//Vue.component('my-detail-row', DetailRow)
 Vue.component('filter-bar', FilterBar)
 
 export default {
   components: {
     Vuetable,
     VuetablePagination,
-    VuetablePaginationInfo
+    VuetablePaginationInfo,
+    modal
   },
   data () {
     return {
       fields: FieldsDef_today_patient_list,
-      sortOrder: [
-        {
-          field: 'id',
-          sortField: 'id',
-          direction: 'asc'
-        }
-      ],
-      moreParams: {}
+      sortOrder: [],
+      moreParams: {},
+      doctor_id: '',
+      showModal: false,
+      apiURL: '',
+      patient_info: []
     }
   },
   mounted () {
@@ -96,22 +107,22 @@ export default {
     this.$events.$on('filter-reset', e => this.onFilterReset())
   },
   methods: {
-    // allcap (value) {
-    //   return value.toUpperCase()
-    // },
-    // genderLabel (value) {
-    //   return value === 'M'
-    //     ? '<span class="ui teal label"><i class="large man icon"></i>Male</span>'
-    //     : '<span class="ui pink label"><i class="large woman icon"></i>Female</span>'
-    // },
-    // formatNumber (value) {
-    //   return accounting.formatNumber(value, 2)
-    // },
-    // formatDate (value, fmt = 'D MMM YYYY') {
-    //   return (value == null)
-    //     ? ''
-    //     : moment(value, 'YYYY-MM-DD').format(fmt)
-    // },
+    calculate_age(BD){
+        var today = new Date();
+        var birthDate = new Date(BD);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
+        {
+            age--;
+        }
+        return age
+    },
+    statusCall(value){
+      return value === 'online'
+                    ? '<span class="ui green label">Active</span>'
+                    : '<span class="ui red label">Inactive</span>'
+    },
     onPaginationData (paginationData) {
       this.$refs.pagination.setPaginationData(paginationData)
       this.$refs.paginationInfo.setPaginationData(paginationData)
@@ -120,12 +131,20 @@ export default {
       this.$refs.vuetable.changePage(page)
     },
     onAction (action, data, index) {
-      console.log('slot action: ' + action, data.name, index)
+        var self = this
+        if(action === 'view-item'){
+            this.showModal = true
+            this.$http.post(apiDomain + 'api/getSinglePatientInfo',{patient_id: data.patient_id})
+                .then(response => {
+                    if(response.status === 200){
+                        console.log(response)
+                        self.patient_info = response.body.patient_info[0]
+                    }
+                }).catch((e) => {
+                    console.log(e)
+                })
+        }
     },
-    // onCellClicked (data, field, event) {
-    //   console.log('cellClicked: ', field.name)
-    //   this.$refs.vuetable.toggleDetailRow(data.id)
-    // },
     onFilterSet (filterText) {
       this.moreParams.filter = filterText
       Vue.nextTick( () => this.$refs.vuetable.refresh() )
@@ -134,6 +153,16 @@ export default {
       delete this.moreParams.filter
       Vue.nextTick( () => this.$refs.vuetable.refresh() )
     }
+  },
+  created(){
+    var self = this
+    const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+    this.doctor_id = tokenData.id
+    this.apiURL = apiDomain + 'api/getTodayPatientList/' + tokenData.id
+    this.$http.get(self.apiURL)
+      .then(response => {
+        console.log(response)
+      })
   }
 }
 </script>
