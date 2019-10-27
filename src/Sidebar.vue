@@ -24,15 +24,6 @@
 						</div>
 					</li>
 				</ul>
-				<!--<div class="dropdown mobile-user-menu float-right">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-					<div class="dropdown-menu dropdown-menu-right">
-						<a class="dropdown-item" href="profile.html">My Profile</a>
-						<a class="dropdown-item" href="edit-profile.html">Edit Profile</a>
-						<a class="dropdown-item" href="settings.html">Settings</a>
-						<a class="dropdown-item" href="login.html">Logout</a>
-					</div>
-				</div>-->
 			</div>
 			<div class="sidebar laravue-back-color" id="sidebar">
 				<div class="sidebar-inner slimscroll">
@@ -78,6 +69,7 @@
 								<a href="#"><i class="fa fa-user"></i> <span> Ptn's Acnt Summary </span> <span class="menu-arrow"></span></a>
 								<ul style="display: none;">
 									<li><router-link to="/admin/refill_account">Refill Account</router-link></li>
+									<li><router-link to="/admin/refill_account">Wallet Management</router-link></li>
 									<li><router-link to="/admin/expenditure_details">Expenditure History</router-link></li>
 								</ul>
 							</li>
@@ -86,6 +78,7 @@
 								<ul style="display: none;">
 									<li><router-link to="/admin/employees/leaves">Leave Requests</router-link></li>
 									<li><router-link to="/admin/add_leave">Add Leave manually</router-link></li>
+									<li><router-link to="/admin/Leave_type">Add Leave Type</router-link></li>
 								</ul>
 							</li>
 						</ul>
@@ -96,4 +89,3 @@
 		</div>
 	</div>
 </template>
-</style>

@@ -30,7 +30,7 @@
 				<div class="col-md-2">
 					<div class="form-group">
 						<div>
-							<button type="button" class="btn  btn-raised btn-success waves-effect" @click="create_test()">Create Test</button>
+							<button type="button" class="ui button positive" @click="create_test()">Create Test</button>
 						</div>
 					</div>
 				</div>

@@ -337,7 +337,7 @@
             	<div class="col-md-5">
             		<div class="form-group">
             			<div class="borderBottom" :class="{error: validation.hasError('patient.postalCode')}">
-            				<input type="password" class="form-control" placeholder="POSTAL CODE" v-model="patient.postalCode"/>
+            				<input type="text" class="form-control" placeholder="POSTAL CODE" v-model="patient.postalCode"/>
             			</div>
             			<div class="message" style="color: red;">{{ validation.firstError('patient.postalCode') }}</div>
             		</div>
@@ -421,7 +421,8 @@
 					phoneNumber: '',
 					nid_no: '',
 					nid_image: null,
-					status: ''
+					status: '',
+                              id: null
 				},
 				pass: this.password,
 				confirmPassword: '',

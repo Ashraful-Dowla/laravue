@@ -6,35 +6,35 @@
           <div class="dash-widget">
            <span class="dash-widget-bg1"><i class="fa fa-stethoscope" aria-hidden="true"></i></span>
            <div class="dash-widget-info text-right">
-             <h3>98</h3>
+             <h3>{{doctors}}</h3>
              <span class="widget-title1">Doctors <i class="fa fa-check" aria-hidden="true"></i></span>
            </div>
          </div>
        </div>
        <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
         <div class="dash-widget">
-          <span class="dash-widget-bg2"><i class="fa fa-user-o"></i></span>
+          <span class="dash-widget-bg2"><i class="fa fa-wheelchair"></i></span>
           <div class="dash-widget-info text-right">
-            <h3>1072</h3>
+            <h3>{{patient}}</h3>
             <span class="widget-title2">Patients <i class="fa fa-check" aria-hidden="true"></i></span>
           </div>
         </div>
       </div>
       <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
         <div class="dash-widget">
-          <span class="dash-widget-bg3"><i class="fa fa-user-md" aria-hidden="true"></i></span>
+          <span class="dash-widget-bg3"><i class="fa fa-user-o" aria-hidden="true"></i></span>
           <div class="dash-widget-info text-right">
-            <h3>72</h3>
-            <span class="widget-title3">Attend <i class="fa fa-check" aria-hidden="true"></i></span>
+            <h3>{{receptionist}}</h3>
+            <span class="widget-title3">Receptionist <i class="fa fa-check" aria-hidden="true"></i></span>
           </div>
         </div>
       </div>
       <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
         <div class="dash-widget">
-          <span class="dash-widget-bg4"><i class="fa fa-heartbeat" aria-hidden="true"></i></span>
+          <span class="dash-widget-bg4"><i class="fa fa-calendar" aria-hidden="true"></i></span>
           <div class="dash-widget-info text-right">
-            <h3>618</h3>
-            <span class="widget-title4">Pending <i class="fa fa-check" aria-hidden="true"></i></span>
+            <h3>{{apt_no}}</h3>
+            <span class="widget-title4">Appointments <i class="fa fa-check" aria-hidden="true"></i></span>
           </div>
         </div>
       </div>
@@ -42,104 +42,30 @@
     <div class="row">
       <div class="col-12 col-md-6 col-lg-8 col-xl-8">
         <div class="card">
-          <div class="card-header">
+          <div class="card-header" style="background-color: #76D7C4">
             <h4 class="card-title d-inline-block">Upcoming Appointments</h4> <a class="btn btn-primary float-right"><router-link to="/admin/appointments" style="color: white;">View all</router-link></a>
           </div>
           <div class="card-body p-0">
             <div class="table-responsive">
               <table class="table mb-0">
-                <thead class="d-none">
-                  <tr>
-                    <th>Patient Name</th>
-                    <th>Doctor Name</th>
-                    <th>Timing</th>
-                    <th class="text-right">Status</th>
-                  </tr>
-                </thead>
                 <tbody>
-                  <tr>
+                  <tr v-for="app in appointments">
                     <td style="min-width: 200px;">
-                      <a class="avatar" href="profile.html">B</a>
-                      <h2><a href="profile.html">Bernardo Galaviz <span>New York, USA</span></a></h2>
+                      <!-- <a class="avatar" href="profile.html">B</a> -->
+                      <h5 class="time-title p-0">Patinet Name</h5>
+                      <h2><a href="">{{app.patient_name}}</a></h2>
                     </td>                 
                     <td>
                       <h5 class="time-title p-0">Appointment With</h5>
-                      <p>Dr. Cristina Groves</p>
+                      <p>{{app.doctor_name}}</p>
                     </td>
                     <td>
-                      <h5 class="time-title p-0">Timing</h5>
-                      <p>7.00 PM</p>
-                    </td>
-                    <td class="text-right">
-                      <a href="appointments.html" class="btn btn-outline-primary take-btn">Take up</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="min-width: 200px;">
-                      <a class="avatar" href="profile.html">B</a>
-                      <h2><a href="profile.html">Bernardo Galaviz <span>New York, USA</span></a></h2>
-                    </td>                 
-                    <td>
-                      <h5 class="time-title p-0">Appointment With</h5>
-                      <p>Dr. Cristina Groves</p>
+                      <h5 class="time-title p-0">Date</h5>
+                      <p>{{app.appointment_date}}</p>
                     </td>
                     <td>
-                      <h5 class="time-title p-0">Timing</h5>
-                      <p>7.00 PM</p>
-                    </td>
-                    <td class="text-right">
-                      <a href="appointments.html" class="btn btn-outline-primary take-btn">Take up</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="min-width: 200px;">
-                      <a class="avatar" href="profile.html">B</a>
-                      <h2><a href="profile.html">Bernardo Galaviz <span>New York, USA</span></a></h2>
-                    </td>                 
-                    <td>
-                      <h5 class="time-title p-0">Appointment With</h5>
-                      <p>Dr. Cristina Groves</p>
-                    </td>
-                    <td>
-                      <h5 class="time-title p-0">Timing</h5>
-                      <p>7.00 PM</p>
-                    </td>
-                    <td class="text-right">
-                      <a href="appointments.html" class="btn btn-outline-primary take-btn">Take up</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="min-width: 200px;">
-                      <a class="avatar" href="profile.html">B</a>
-                      <h2><a href="profile.html">Bernardo Galaviz <span>New York, USA</span></a></h2>
-                    </td>                 
-                    <td>
-                      <h5 class="time-title p-0">Appointment With</h5>
-                      <p>Dr. Cristina Groves</p>
-                    </td>
-                    <td>
-                      <h5 class="time-title p-0">Timing</h5>
-                      <p>7.00 PM</p>
-                    </td>
-                    <td class="text-right">
-                      <a href="appointments.html" class="btn btn-outline-primary take-btn">Take up</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="min-width: 200px;">
-                      <a class="avatar" href="profile.html">B</a>
-                      <h2><a href="profile.html">Bernardo Galaviz <span>New York, USA</span></a></h2>
-                    </td>                 
-                    <td>
-                      <h5 class="time-title p-0">Appointment With</h5>
-                      <p>Dr. Cristina Groves</p>
-                    </td>
-                    <td>
-                      <h5 class="time-title p-0">Timing</h5>
-                      <p>7.00 PM</p>
-                    </td>
-                    <td class="text-right">
-                      <a href="appointments.html" class="btn btn-outline-primary take-btn">Take up</a>
+                      <h5 class="time-title p-0">Time</h5>
+                      <p>{{app.time}}</p>
                     </td>
                   </tr>
                 </tbody>
@@ -150,74 +76,17 @@
       </div>
       <div class="col-12 col-md-6 col-lg-4 col-xl-4">
         <div class="card member-panel">
-          <div class="card-header bg-white">
+          <div class="card-header" style="background-color: #76D7C4">
             <h4 class="card-title mb-0">Doctors</h4>
           </div>
           <div class="card-body">
             <ul class="contact-list">
-              <li>
+              <li v-for="doc in doctor_list">
                 <div class="contact-cont">
-                  <div class="float-left user-img m-r-10">
-                    <a href="profile.html" title="John Doe"><img src="assets/img/user.jpg" alt="" class="w-40 rounded-circle"><span class="status online"></span></a>
-                  </div>
                   <div class="contact-info">
-                    <span class="contact-name text-ellipsis">John Doe</span>
-                    <span class="contact-date">MBBS, MD</span>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="contact-cont">
-                  <div class="float-left user-img m-r-10">
-                    <a href="profile.html" title="Richard Miles"><img src="assets/img/user.jpg" alt="" class="w-40 rounded-circle"><span class="status offline"></span></a>
-                  </div>
-                  <div class="contact-info">
-                    <span class="contact-name text-ellipsis">Richard Miles</span>
-                    <span class="contact-date">MD</span>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="contact-cont">
-                  <div class="float-left user-img m-r-10">
-                    <a href="profile.html" title="John Doe"><img src="assets/img/user.jpg" alt="" class="w-40 rounded-circle"><span class="status away"></span></a>
-                  </div>
-                  <div class="contact-info">
-                    <span class="contact-name text-ellipsis">John Doe</span>
-                    <span class="contact-date">BMBS</span>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="contact-cont">
-                  <div class="float-left user-img m-r-10">
-                    <a href="profile.html" title="Richard Miles"><img src="assets/img/user.jpg" alt="" class="w-40 rounded-circle"><span class="status online"></span></a>
-                  </div>
-                  <div class="contact-info">
-                    <span class="contact-name text-ellipsis">Richard Miles</span>
-                    <span class="contact-date">MS, MD</span>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="contact-cont">
-                  <div class="float-left user-img m-r-10">
-                    <a href="profile.html" title="John Doe"><img src="assets/img/user.jpg" alt="" class="w-40 rounded-circle"><span class="status offline"></span></a>
-                  </div>
-                  <div class="contact-info">
-                    <span class="contact-name text-ellipsis">John Doe</span>
-                    <span class="contact-date">MBBS</span>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="contact-cont">
-                  <div class="float-left user-img m-r-10">
-                    <a href="profile.html" title="Richard Miles"><img src="assets/img/user.jpg" alt="" class="w-40 rounded-circle"><span class="status away"></span></a>
-                  </div>
-                  <div class="contact-info">
-                    <span class="contact-name text-ellipsis">Richard Miles</span>
-                    <span class="contact-date">MBBS, MD</span>
+                    <span class="contact-name text-ellipsis">{{doc.first_name+' '+doc.last_name}}</span>
+                    <span class="contact-date">Department: </span><span class="contact-date">{{doc.department}}</span><br>
+                    <span class="contact-date">Phone: </span><span class="contact-date">{{doc.phone_number}}</span>
                   </div>
                 </div>
               </li>
@@ -232,48 +101,17 @@
     <div class="row">
       <div class="col-12 col-md-6 col-lg-8 col-xl-8">
         <div class="card">
-          <div class="card-header">
+          <div class="card-header" style="background-color: #76D7C4">
             <h4 class="card-title d-inline-block">New Patients </h4> <a class="btn btn-primary float-right"><router-link to="/admin/patients" style="color: white;">View all</router-link></a>
           </div>
           <div class="card-block">
             <div class="table-responsive">
               <table class="table mb-0 new-patient-table">
                 <tbody>
-                  <tr>
-                    <td>
-                      <img width="28" height="28" class="rounded-circle" src="assets/img/user.jpg" alt=""> 
-                      <h2>John Doe</h2>
-                    </td>
-                    <td>Johndoe21@gmail.com</td>
-                    <td>+1-202-555-0125</td>
-                    <td><button class="btn btn-primary btn-primary-one float-right">Fever</button></td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img width="28" height="28" class="rounded-circle" src="assets/img/user.jpg" alt=""> 
-                      <h2>Richard</h2>
-                    </td>
-                    <td>Richard123@yahoo.com</td>
-                    <td>202-555-0127</td>
-                    <td><button class="btn btn-primary btn-primary-two float-right">Cancer</button></td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img width="28" height="28" class="rounded-circle" src="assets/img/user.jpg" alt=""> 
-                      <h2>Villiam</h2>
-                    </td>
-                    <td>Richard123@yahoo.com</td>
-                    <td>+1-202-555-0106</td>
-                    <td><button class="btn btn-primary btn-primary-three float-right">Eye</button></td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img width="28" height="28" class="rounded-circle" src="assets/img/user.jpg" alt=""> 
-                      <h2>Martin</h2>
-                    </td>
-                    <td>Richard123@yahoo.com</td>
-                    <td>776-2323 89562015</td>
-                    <td><button class="btn btn-primary btn-primary-four float-right">Fever</button></td>
+                  <tr v-for="pat in new_patient">
+                    <td>{{pat.first_name+' '+pat.last_name}}</td>
+                    <td>{{pat.email}}</td>
+                    <td>{{pat.phone_number}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -282,8 +120,8 @@
         </div>
       </div>
       <div class="col-12 col-md-6 col-lg-4 col-xl-4">
-        <div class="hospital-barchart">
-          <h4 class="card-title d-inline-block">Hospital Management</h4>
+        <div class="card-header" style="background-color: #76D7C4">
+          <h4 class="card-title mb-0" style="text-align: center;">Hospital Management</h4>
         </div>
         <div class="bar-chart">
           <div class="legend">
@@ -349,3 +187,38 @@
   </div>
 </div>
 </template>
+<script>
+  import { apiDomain } from '@/components/Pages/Authentication/config'
+  import Swal from 'sweetalert2'
+  export default{
+    data(){
+      return{
+        doctors: '',
+        patient: '',
+        receptionist: '',
+        appointments: [],
+        doctor_list: [],
+        new_patient: [],
+        apt_no: ''
+      }
+    },
+    created(){
+      var self = this
+      this.$http.get(apiDomain + 'api/getInfoForAdminDashboard')
+        .then(response => {
+          if(response.status === 200){
+            console.log(response)
+            self.doctors = response.body.dashBoardDocInfo
+            self.patient = response.body.dashBoardPatInfo
+            self.receptionist = response.body.dashBoardRecInfo
+            self.appointments = response.body.dashBoardAppInfo.data
+            self.doctor_list = response.body.dashBoardDoctorListInfo
+            self.new_patient = response.body.new_patient.data
+            self.apt_no = response.body.numberOfAppointment
+          }
+        }).catch((e) => {
+          console.log(e)
+        })
+    }
+  }
+</script>

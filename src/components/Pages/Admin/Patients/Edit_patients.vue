@@ -3,7 +3,7 @@
         <div class="container" style="margin-top: 25px;margin-left: 50px;">
             <div class="row">
                 <div class="col-md-8">
-                    <h4 class="page-title">Edit Patient</h4>
+                    <h4 class="page-title">Edit Patient Info</h4>
                 </div>
                 <div class="col-md-2 text-right m-b-30">
                     <router-link class="btn  btn-raised bg-grey waves-effect fa fa-chevron-circle-left" to="/admin/patients"><strong>BACK</strong></router-link>
@@ -17,77 +17,57 @@
            <div class="row">
             <div class="col-md-5">
               <div class="form-group">
-                 <div class="borderBottom">
-                    <input type="text" class="form-control" placeholder="FIRST NAME" />
+                <p><b>First Name</b></p>
+                 <div class="borderBottom" :class="{error: validation.hasError('editFields.firstName')}">
+                    <input type="text" class="form-control" placeholder="FIRST NAME" v-model="editFields.firstName"/>
                 </div>
+                <div class="message" style="color: red;">{{ validation.firstError('editFields.updated_test_name') }}</div>
             </div>
         </div>
         <div class="col-md-5">
           <div class="form-group">
-             <div class="borderBottom">
-                <input type="text" class="form-control" placeholder="LAST NAME" />
+            <p><b>Last Name</b></p>
+             <div class="borderBottom" :class="{error: validation.hasError('editFields.lastName')}">
+                <input type="text" class="form-control" placeholder="LAST NAME" v-model="editFields.lastName"/>
             </div>
+            <div class="message" style="color: red;">{{ validation.firstError('editFields.lastName') }}</div>
         </div>
     </div>
     <div class="col-md-5">
       <div class="form-group">
-         <div class="borderBottom">
-            <input type="text" class="form-control" placeholder="USERNAME" />
+        <p><b>Username</b></p>
+         <div class="borderBottom" :class="{error: validation.hasError('editFields.username')}">
+            <input type="text" class="form-control" placeholder="USERNAME" v-model="editFields.username"/>
         </div>
+        <div class="message" style="color: red;">{{ validation.firstError('editFields.username') }}</div>
     </div>
 </div>
 <div class="col-md-5">
   <div class="form-group">
-     <div class="borderBottom">
-        <input type="email" class="form-control" placeholder="EMAIL" />
+    <p><b>Email</b></p>
+     <div class="borderBottom" :class="{error: validation.hasError('editFields.email')}">
+        <input type="email" class="form-control" placeholder="EMAIL" v-model="editFields.email"/>
     </div>
+    <div class="message" style="color: red;">{{ validation.firstError('editFields.email') }}</div>
 </div>
 </div>
-<div class="col-md-5">
-  <div class="form-group">
-     <div class="borderBottom">
-        <input type="password" class="form-control" placeholder="PASSWORD" />
-    </div>
-</div>
-</div>
-                <!-- <div class="col-md-5">
-                    <div class="form-group">
-                        <div class="borderBottom">
-                            <input type="password" class="form-control" placeholder="CONFIRM PASSWORD" />
-                        </div>
-                    </div>
-                </div> -->
-                <div class="col-md-5">
-                  <div class="form-group">
-                     <div class="borderBottom">
-                        <date-picker :bootstrap-styling="true" class="datepicker form-control" placeholder="Admission Date"></date-picker>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-5">
-               <p>Gender</p>
-               <div class="demo-radio-button form-group">
-                  <input name="group1" type="radio" id="radio_6" class="with-gap" />
-                  <label for="radio_6">Male</label>
-                  <input name="group1" type="radio" id="radio_7" class="with-gap" />
-                  <label for="radio_7">Female</label>
-              </div>
-          </div>
 
           <div class="col-md-10">
            <div class="row">
               <div class="col-md-10">
                   <div class="form-group">
-                      <div class="borderBottom">
-                          <input type="text" class="form-control" placeholder="ADDRESS" />
+                    <p><b>Address</b></p>
+                      <div class="borderBottom" :class="{error: validation.hasError('editFields.address')}">
+                          <input type="text" class="form-control" placeholder="ADDRESS" v-model="editFields.address"/>
                       </div>
+                      <div class="message" style="color: red;">{{ validation.firstError('editFields.address') }}</div>
                   </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                    <div class="borderBottom">
-                        <select id="country" name="country" class="form-control select">
+                    <p><b>Countery</b></p>
+                    <div class="borderBottom" :class="{error: validation.hasError('editFields.country')}">
+                        <select id="country" name="country" class="form-control select" v-model="editFields.country">
                             <option value="" selected="selected">Select Country</option>
                             <option value="Afghanistan">Afghanistan</option>
                             <option value="Albania">Albania</option>
@@ -285,69 +265,62 @@
                             <option value="Zimbabwe">Zimbabwe</option>
                         </select>
                     </div>
+                    <div class="message" style="color: red;">{{ validation.firstError('editFields.country') }}</div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <div class="borderBottom">
-                        <input type="text" class="form-control" placeholder="Enter State" />
+                    <p><b>State</b></p>
+                    <div class="borderBottom" :class="{error: validation.hasError('editFields.state')}">
+                        <input type="text" class="form-control" placeholder="Enter State" v-model="editFields.state"/>
                     </div>
+                    <div class="message" style="color: red;">{{ validation.firstError('editFields.state') }}</div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <div class="borderBottom">
-                        <input type="text" class="form-control" placeholder="Enter City" />
+                    <p><b>City</b></p>
+                    <div class="borderBottom" :class="{error: validation.hasError('editFields.city')}">
+                        <input type="text" class="form-control" placeholder="Enter City" v-model="editFields.city"/>
                     </div>
+                    <div class="message" style="color: red;">{{ validation.firstError('editFields.city') }}</div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <div class="borderBottom">
-                        <input type="password" class="form-control" placeholder="POSTAL CODE" />
+                    <p><b>Postal Code</b></p>
+                    <div class="borderBottom" :class="{error: validation.hasError('editFields.postalCode')}">
+                        <input type="text" class="form-control" placeholder="POSTAL CODE" v-model="editFields.postalCode"/>
                     </div>
+                    <div class="message" style="color: red;">{{ validation.firstError('editFields.postalCode') }}</div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <div class="borderBottom">
-                        <input type="text" class="form-control" placeholder="PHONE NUMBER" />
+                    <p><b>Phone Number</b></p>
+                    <div class="borderBottom" :class="{error: validation.hasError('editFields.phoneNumber')}">
+                        <input type="text" class="form-control" placeholder="PHONE NUMBER" v-model="editFields.phoneNumber"/>
                     </div>
+                    <div class="message" style="color: red;">{{ validation.firstError('editFields.phoneNumber') }}</div>
                 </div>
             </div>
-            <div class="col-md-5">
-              <div class="form-group">
-                  <div class="borderBottom">
-                      <input type="text" class="form-control" placeholder="NID NO" />
-                  </div>
-              </div>
-          </div>
-          <div class="col-md-5">
-           <div class="form-group">
-            <label>UPLOAD NID CARD IMAGE</label>
-            <div class="profile-upload borderBottom">
-               <div class="upload-input">
-                  <input type="file" class="form-control">
-              </div>
-          </div>
-      </div>
-  </div>
 </div>
 </div>
 <div class="col-md-5">
-   <p>Status</p>
-   <div class="demo-radio-button form-group">
-      <input name="group1" type="radio" id="radio_6" class="with-gap" />
+   <p><b>Status</b></p>
+   <div class="demo-radio-button form-group" :class="{error: validation.hasError('editFields.status')}">
+      <input name="group1" type="radio" id="radio_6" class="with-gap" value="1" v-model="editFields.status"/>
       <label for="radio_6">Active</label>
-      <input name="group1" type="radio" id="radio_7" class="with-gap" />
+      <input name="group1" type="radio" id="radio_7" class="with-gap" value="0" v-model="editFields.status"/>
       <label for="radio_7">Inactive</label>
   </div>
+  <div class="message" style="color: red;">{{ validation.firstError('editFields.status') }}</div>
 </div>
 </div>
 <div class="row">
     <div class="col-md-10">
        <div class="m-t-20 text-center">
-          <button type="button" class="btn  btn-raised btn-success waves-effect">Save Changes</button>
+          <button type="button" class="ui button positive" @click="saveEdits()">Save Changes</button>
       </div>
   </div>
 </div>
@@ -361,10 +334,147 @@
 </template>
 <script>
 import Datepicker from 'vuejs-datepicker';
+import { apiDomain } from '@/components/Pages/Authentication/config'
+import SimpleVueValidation from 'simple-vue-validator';
+import Swal from 'sweetalert2';
+const Validator = SimpleVueValidation.Validator; 
+
 export default {
-  components: {
-     'date-picker': Datepicker
- }
+    components: {
+        'date-picker': Datepicker
+    },
+    data(){
+        return{
+            editFields: {
+                firstName: '',
+                lastName: '',
+                username: '',
+                email: '',
+                address: '',
+                country: '',
+                state: '',
+                city: '',
+                postalCode: '',
+                phoneNumber: '',
+                status: '',
+                id: '',
+                AD_id: null
+            },
+            submitted: false
+        }
+    },
+    methods: {
+        saveEdits(){
+            var self = this
+            this.submitted = true
+            this.$validate()
+              .then( function(success) {
+                if (success) {
+                        Swal.fire({
+                            title: 'Are you sure?',
+                            text: "You won't be able to revert this!",
+                            type: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Ok'
+                        }).then((result) => {
+                              if (result.value) {
+                                    self.sendData()     
+                              }
+                        });
+                  }
+            }).catch((e)=>{
+              console.log(e)
+            })
+        },
+        sendData(){
+            var self = this
+            this.$http.post(apiDomain + 'api/savePatientEdits',self.editFields)
+                .then(response => {
+                    if(response.status === 200){
+                        console.log(response)
+                        self.successModal()
+                    }
+                }).catch((e)=>{
+                    console.log(e)
+                    self.failedModal()
+                })
+        },
+        successModal(){
+            Swal.fire(
+                  'Success!',
+                  'Successfully Edited!',
+                  'success'
+            )
+        },
+        failedModal(){
+            Swal.fire({
+                  type: 'error',
+                  title: 'Oops...',
+                  text: 'Something went wrong! '
+            })
+        }
+    },
+    created () {
+
+        const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+        this.editFields.AD_id = tokenData.id
+
+        var self = this
+        this.editFields.id = this.$route.params.id
+        this.$http.post(apiDomain + 'api/initiateEditPatientInfo',{pt_id: self.editFields.id})
+            .then(response => {
+                self.editFields.firstName = response.body.edit_patient_info[0].first_name
+                self.editFields.lastName = response.body.edit_patient_info[0].last_name
+                self.editFields.username = response.body.edit_patient_info[0].username
+                self.editFields.email = response.body.edit_patient_info[0].email
+                self.editFields.address = response.body.edit_patient_info[0].address
+                self.editFields.country = response.body.edit_patient_info[0].country
+                self.editFields.state = response.body.edit_patient_info[0].state
+                self.editFields.city = response.body.edit_patient_info[0].city
+                self.editFields.postalCode = response.body.edit_patient_info[0].postal_code
+                self.editFields.phoneNumber = response.body.edit_patient_info[0].phone_number
+                self.editFields.status = response.body.edit_patient_info[0].status
+            }).catch((e) => {
+                console.log(e)
+            })
+    },
+    validators: {
+        'editFields.firstName': function (value) {
+            return Validator.value(value).required();
+        },
+        'editFields.lastName': function (value) {
+            return Validator.value(value).required();
+        },
+        'editFields.email': function (value) {
+            return Validator.value(value).required();
+        },
+        'editFields.username': function (value) {
+            return Validator.value(value).required();
+        },
+        'editFields.address': function (value) {
+            return Validator.value(value).required();
+        },
+        'editFields.country': function (value) {
+            return Validator.value(value).required();
+        },
+        'editFields.state': function (value) {
+            return Validator.value(value).required();
+        },
+        'editFields.city': function (value) {
+            return Validator.value(value).required();
+        },
+        'editFields.postalCode': function (value) {
+            return Validator.value(value).required();
+        },
+        'editFields.phoneNumber': function (value) {
+            return Validator.value(value).required();
+        },
+        'editFields.status': function (value) {
+            return Validator.value(value).required();
+        }
+    }
 }
 </script>
 <style scoped>

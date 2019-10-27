@@ -9,7 +9,7 @@
 				</div>
 				<a id="toggle_btn" href="#"><i class="fa fa-bars"></i></a>
 				<a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
-				<ul class="nav user-menu float-right">   
+				<!-- <ul class="nav user-menu float-right">   
 					<li class="nav-item dropdown has-arrow">
 						<a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
 							<span class="user-img">
@@ -23,7 +23,7 @@
 							<a class="dropdown-item" href="login.html">Logout</a>
 						</div>
 					</li>
-				</ul>
+				</ul> -->
 			</div>
 			<div class="sidebar" id="sidebar">
 				<div class="sidebar-inner slimscroll">

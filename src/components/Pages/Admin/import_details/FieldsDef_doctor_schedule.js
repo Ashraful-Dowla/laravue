@@ -1,28 +1,28 @@
 export const FieldsDef_doctor_schedule = [
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Doctor Name',
-			sortField: 'name'
+			name:'__slot:doctor_name',
+			title:'Doctor Name',
 		},
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Department',
-			sortField: 'name'
+			name:'doctor_id',
+			title: 'doctor ID',
+			sortField: 'doctor_id',
+			visible: false
 		},
 		{
-			name:'age',
-			title: '<i class="fa fa-tag"></i> Available Days',
-			sortField: 'name'
+			name:'department',
+			title: 'Department',
+			sortField: 'department'
 		},
 		{
-			name:'age',
-			title: '<i class="fa fa-tag"></i> Available Time',
-			sortField: 'name'
+			name:'__slot:availableTimes',
+			title:'Available Time',
 		},
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Status',
-			sortField: 'name'
+			name:'status',
+			title: 'Status',
+		    dataClass: 'center aligned',
+		    callback: 'statusCall'
 		},
 		{
             name: '__slot:actions',

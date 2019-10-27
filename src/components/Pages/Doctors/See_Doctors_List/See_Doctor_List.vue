@@ -12,11 +12,8 @@
 					<div class="form-group">
 	                    <p><b>Select Department</b></p>
 	                    <div class="borderBottom">
-		                    <select class="form-control show-tick">
-		                        <option>Sergiology</option>
-		                        <option>Nurology</option>
-		                        <option>Cardiology</option>
-		                        <option>Pathodology</option>
+		                    <select class="form-control show-tick" v-model="department" @change="departmentChange()">
+		                    	<option v-for="dept in depatrments" :value="dept.department_name">{{dept.department_name}}</option>
 		                    </select>
 		                </div>
 	                </div>
@@ -27,7 +24,7 @@
 					<div class="ui container">
 				        <h3 style="text-align: center;">Doctors Details</h3>
 				        <vuetable ref="vuetable"
-				        api-url="https://vuetable.ratiw.net/api/users"
+				        :api-url="apiURL"
 				        :fields="fields"
 				        pagination-path=""
 				        :per-page="5"
@@ -36,6 +33,9 @@
 				        :append-params="moreParams"
 				        @vuetable:pagination-data="onPaginationData"
 				        >
+				        <template slot="doctor_name" slot-scope="props">
+							{{props.rowData.first_name+' '+props.rowData.last_name}}
+				      	</template>
 						</vuetable>
 						<div class="vuetable-pagination ui basic segment grid">
 						  <vuetable-pagination-info ref="paginationInfo"
@@ -56,14 +56,11 @@
 	import Vuetable from 'vuetable-2/src/components/Vuetable'
 	import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
 	import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
-	//import CustomActions from './CustomActions'
-	//import DetailRow from './DetailRow'
 	import FilterBar from '@/components/Pages/Doctors/import_details/FilterBar'
 	import { FieldsDef_see_doctors_list } from '@/components/Pages/Doctors/import_details/FieldsDef_see_doctors_list'
+	import { apiDomain } from '@/components/Pages/Authentication/config'
 
 	Vue.use(VueEvents)
-	//Vue.component('custom-actions', CustomActions)
-	//Vue.component('my-detail-row', DetailRow)
 	Vue.component('filter-bar', FilterBar)
 
 	export default {
@@ -76,7 +73,10 @@
 		    return {
 		      fields: FieldsDef_see_doctors_list,
 		      sortOrder: [],
-		      moreParams: {}
+		      moreParams: {},
+		      depatrments: [],
+		      department: '',
+		      apiURL: ''
 		    }
 		  },
 		  mounted () {
@@ -84,22 +84,24 @@
 		    this.$events.$on('filter-reset', e => this.onFilterReset())
 		  },
 		  methods: {
-		    // allcap (value) {
-		    //   return value.toUpperCase()
-		    // },
-		    // genderLabel (value) {
-		    //   return value === 'M'
-		    //     ? '<span class="ui teal label"><i class="large man icon"></i>Male</span>'
-		    //     : '<span class="ui pink label"><i class="large woman icon"></i>Female</span>'
-		    // },
-		    // formatNumber (value) {
-		    //   return accounting.formatNumber(value, 2)
-		    // },
-		    // formatDate (value, fmt = 'D MMM YYYY') {
-		    //   return (value == null)
-		    //     ? ''
-		    //     : moment(value, 'YYYY-MM-DD').format(fmt)
-		    // },
+		  	deptCall(){
+		  		return this.department
+		  	},
+		  	departmentChange(){
+		  		this.$nextTick(function(){
+		  			var self = this
+		  			this.apiURL = apiDomain + 'api/getDepartmentwiseDoctorInfo/' + self.department
+		  			Vue.nextTick( () => self.$refs.vuetable.refresh() )
+		  			this.$http.get(self.apiURL)
+		  				.then(response => {
+		  					if(response.status === 200){
+		  						console.log(response)
+		  					}
+		  				}).catch((e) => {
+		  					console.log(e)
+		  				})
+		  		})
+		  	},
 		    onPaginationData (paginationData) {
 		      this.$refs.pagination.setPaginationData(paginationData)
 		      this.$refs.paginationInfo.setPaginationData(paginationData)
@@ -110,10 +112,6 @@
 		    onAction (action, data, index) {
 		      console.log('slot action: ' + action, data.name, index)
 		    },
-		    // onCellClicked (data, field, event) {
-		    //   console.log('cellClicked: ', field.name)
-		    //   this.$refs.vuetable.toggleDetailRow(data.id)
-		    // },
 		    onFilterSet (filterText) {
 		      this.moreParams.filter = filterText
 		      Vue.nextTick( () => this.$refs.vuetable.refresh() )
@@ -122,7 +120,18 @@
 		      delete this.moreParams.filter
 		      Vue.nextTick( () => this.$refs.vuetable.refresh() )
 		    }
-		  }
+		  },
+		created () {
+		    var self = this
+		    // const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+		    // this.appointment.patient_id = tokenData.patient_id
+		    this.$http.get(apiDomain + 'api/getDepartmentInfo')
+			    .then(response => {
+			        self.depatrments = response.body.departmentsInfo
+			    }).catch((e) => {
+			        console.log(e)
+			    })
+		}
 		}
 </script>
 <style scoped>

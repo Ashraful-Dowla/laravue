@@ -16,7 +16,7 @@
 					<div class="ui container">
 				        <filter-bar></filter-bar>
 				        <vuetable ref="vuetable"
-				        api-url="https://vuetable.ratiw.net/api/users"
+				        :api-url="apiURL"
 				        :fields="fields"
 				        pagination-path=""
 				        :per-page="5"
@@ -26,17 +26,16 @@
 				        @vuetable:pagination-data="onPaginationData"
 				        >
 				        <template slot="actions" slot-scope="props">
-				          <div class="custom-actions">
-				          <button class="ui button positive"
-							@click="onAction('view-item', props.rowData, props.rowIndex)">
-							<i class="check circle icon"></i>
-						</button>
-				        <button class="ui button red"
-				        @click="onAction('delete-item', props.rowData, props.rowIndex)">
-				        <i class="trash alternate icon"></i>
-				      </button>
-				    </div>
-				  </template>
+						    <div class="custom-actions">
+						      	<router-link to=""><i class="check circle icon" @click="onAction('accept-request', props.rowData, props.rowIndex)"></i></router-link>/
+
+						      	<router-link to=""><i class="trash alternate icon" @click="onAction('delete-request', props.rowData, props.rowIndex)"></i></router-link>
+
+						    </div>
+						</template>
+						<template slot="doctor_name" slot-scope="props">
+							{{props.rowData.first_name+' '+props.rowData.last_name}}
+						</template>
 				</vuetable>
 				<div class="vuetable-pagination ui basic segment grid">
 				  <vuetable-pagination-info ref="paginationInfo"
@@ -57,14 +56,12 @@
 	import Vuetable from 'vuetable-2/src/components/Vuetable'
 	import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
 	import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
-	//import CustomActions from './CustomActions'
-	//import DetailRow from './DetailRow'
 	import FilterBar from '@/components/Pages/Admin/import_details/FilterBar'
 	import { FieldsDef_leaves } from '@/components/Pages/Admin/import_details/FieldsDef_leaves'
+	import { apiDomain } from '@/components/Pages/Authentication/config'
+	import Swal from 'sweetalert2'
 
 	Vue.use(VueEvents)
-	//Vue.component('custom-actions', CustomActions)
-	//Vue.component('my-detail-row', DetailRow)
 	Vue.component('filter-bar', FilterBar)
 
 	export default {
@@ -77,7 +74,8 @@
 		    return {
 		      fields: FieldsDef_leaves,
 		      sortOrder: [],
-		      moreParams: {}
+		      moreParams: {},
+		      apiURL: apiDomain+'api/getLeaveRequests'
 		    }
 		  },
 		  mounted () {
@@ -85,22 +83,11 @@
 		    this.$events.$on('filter-reset', e => this.onFilterReset())
 		  },
 		  methods: {
-		    // allcap (value) {
-		    //   return value.toUpperCase()
-		    // },
-		    // genderLabel (value) {
-		    //   return value === 'M'
-		    //     ? '<span class="ui teal label"><i class="large man icon"></i>Male</span>'
-		    //     : '<span class="ui pink label"><i class="large woman icon"></i>Female</span>'
-		    // },
-		    // formatNumber (value) {
-		    //   return accounting.formatNumber(value, 2)
-		    // },
-		    // formatDate (value, fmt = 'D MMM YYYY') {
-		    //   return (value == null)
-		    //     ? ''
-		    //     : moment(value, 'YYYY-MM-DD').format(fmt)
-		    // },
+		  	statusCall(value){
+		  		return value === '1'
+		  						  ? '<span class="ui green label">Approved</span>'
+		  						  : '<span class="ui red label">Not Approved</span>'
+		  	},
 		    onPaginationData (paginationData) {
 		      this.$refs.pagination.setPaginationData(paginationData)
 		      this.$refs.paginationInfo.setPaginationData(paginationData)
@@ -109,12 +96,87 @@
 		      this.$refs.vuetable.changePage(page)
 		    },
 		    onAction (action, data, index) {
-		      console.log('slot action: ' + action, data.name, index)
+		    	var self = this
+		      	if(action === 'accept-request'){
+			      	Swal.fire({
+	                    title: 'Are you sure?',
+	                    text: "You won't be able to revert this!",
+	                    type: 'warning',
+	                    showCancelButton: true,
+	                    confirmButtonColor: '#3085d6',
+	                    cancelButtonColor: '#d33',
+	                    confirmButtonText: 'Ok'
+	                }).then((result) => {
+	                      if (result.value) {
+	                            self.acceptRequest(data.id);     
+	                      }
+	                });
+		      	}
+		      	else if(action === 'delete-request'){
+		      		Swal.fire({
+	                    title: 'Are you sure?',
+	                    text: "You won't be able to revert this!",
+	                    type: 'warning',
+	                    showCancelButton: true,
+	                    confirmButtonColor: '#3085d6',
+	                    cancelButtonColor: '#d33',
+	                    confirmButtonText: 'Deny'
+	                }).then((result) => {
+	                      if (result.value) {
+	                            self.denyLeaveRequest(data.id);     
+	                      }
+	                });
+		      	}
 		    },
-		    // onCellClicked (data, field, event) {
-		    //   console.log('cellClicked: ', field.name)
-		    //   this.$refs.vuetable.toggleDetailRow(data.id)
-		    // },
+		    denyLeaveRequest(id){
+		    	var self = this
+		    	this.$http.post(apiDomain + 'api/denyLeaveRequest',{id: id})
+		    		.then(response => {
+		    			if(response.status === 200){
+		    				console.log(response)
+		    				self.denySuccessModal()
+		    				Vue.nextTick( () => self.$refs.vuetable.refresh() )
+		    			}
+		    		}).catch((e) => {
+		    			console.log(e)
+		    			self.failedModal()
+		    		})
+		    },
+		    acceptRequest(id){
+		    	var self = this
+		    	this.$http.post(apiDomain + 'api/acceptLeaveRequest',{id: id})
+		    		.then(response => {
+		    			if (response.status === 200) {
+		    				console.log(response)
+		    				self.successModal()
+		    				Vue.nextTick( () => self.$refs.vuetable.refresh() )
+		    			}
+		    		}).catch((e) => {
+		    			console.log(e)
+		    			self.failedModal()
+		    		})
+		    },
+		    denySuccessModal(){
+	            Swal.fire(
+	                  'Success!',
+	                  'Successfully Accepted!',
+	                  'success'
+	            )
+	        },
+		    successModal(){
+	            Swal.fire(
+	                  'Success!',
+	                  'Successfully Accepted!',
+	                  'success'
+	            )
+	        },
+	        failedModal(){
+	            Swal.fire({
+	                  type: 'error',
+	                  title: 'Oops...',
+	                  text: 'Something went wrong! '
+	            })
+	        },
 		    onFilterSet (filterText) {
 		      this.moreParams.filter = filterText
 		      Vue.nextTick( () => this.$refs.vuetable.refresh() )
@@ -123,6 +185,12 @@
 		      delete this.moreParams.filter
 		      Vue.nextTick( () => this.$refs.vuetable.refresh() )
 		    }
+		  },
+		  created(){
+		  	this.$http.get(this.apiURL)
+		  		.then(response => {
+		  			console.log(response)
+		  		})
 		  }
 		}
 </script>

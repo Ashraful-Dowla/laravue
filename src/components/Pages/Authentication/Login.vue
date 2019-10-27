@@ -1,53 +1,27 @@
 <template>
-    <div class="theme-orange">
-        <div class="authentication">
-            <div class="row">
-                <div class="col-md-10 text-right m-b-30" style="margin-top: 30px;">
-                    <router-link class="btn  btn-raised bg-grey waves-effect fa fa-chevron-circle-left" to="/"><strong>BACK</strong></router-link>
-                </div>
-            </div>
-            <div class="card">
-                <div class="body">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="header slideDown">
-                                <div class="logo"><img src="static/assets/images/logo.png" alt="Nexa"></div>
-                                <h1>User Login</h1>
-                            </div>                        
-                        </div>
-                        <form class="col-lg-12" id="sign_in" method="POST">
-                            <h5 class="title">Sign in to your Account</h5>
-                            <div class="form-group form-float">
-                                <div class="form-line" :class="{error: validation.hasError('login.email')}">
-                                    <input type="text" class="form-control" v-model="login.email">
-                                    <label class="form-label">Email</label>
-                                </div>
-                                <div class="message" style="color: red;">{{ validation.firstError('login.email') }}</div>
-                            </div>
-                            <div class="form-group form-float">
-                                <div class="form-line" :class="{error: validation.hasError('login.password')}">
-                                    <input type="password" class="form-control" v-model="login.password">
-                                    <label class="form-label">Password</label>
-                                </div>
-                                <div class="message" style="color: red;">{{ validation.firstError('login.password') }}</div>
-                            </div>
-                            <div>
-                                <input type="checkbox" name="rememberme" id="rememberme" class="filled-in chk-col-cyan">
-                                <label for="rememberme">Remember Me</label>
-                            </div>                        
-                        </form>
-                        <div class="col-lg-12">
-                            <a  class="btn btn-raised btn-primary waves-effect" @click="signin">SIGN IN</a>
-                            <router-link class="btn btn-raised btn-default waves-effect" to="/register">SIGN UP</router-link>               
-                        </div>
-                        <div class="col-lg-12 m-t-20">
-                            <a><router-link to="">Forgot password?</router-link></a>
-                        </div>                    
-                    </div>
-                </div>
-            </div>
+    <!-- <div id="app"> -->
+      <div id="login">
+        <div id="description">
+          <h1>Login</h1>
+          <p>By logging in you agree to the ridiculously long terms that you didn't bother to read.</p>
         </div>
-    </div>
+        <div id="form">
+          <form @submit.prevent="signin">
+            <label for="email">Email</label>
+            <input type="text" id="email" v-model="login.email" placeholder="Enter Your Email " autocomplete="off">
+
+            <label for="password">Password</label>&nbsp;
+            <i class="fas" :class="[passwordIcon]" @click="hidePassword = !hidePassword"></i>
+            <input :type="passwordType" id="password" v-model="login.password" placeholder="Enter Password">
+
+            <button type="submit" style="color: black;">Sign In</button>
+            <br>
+            <br>
+            <router-link to="/register">Sing Up </router-link>
+            <router-link to=""> | Forgot password?</router-link>
+          </form>
+        </div>
+      </div>
 </template>
 <script>    
     import { loginUrl, getHeader, userUrl } from './config';
@@ -58,11 +32,21 @@
 	export default{
         data(){
             return{
+                hidePassword: true,
                 login: {
-                    email: '',
-                    password: ''
+
+                    email: 'kamal@gamil.com',
+                    password: '123456'
                 }
             }
+        },
+        computed: {
+          passwordType() {
+            return this.hidePassword ? 'password' : 'text'
+          },
+          passwordIcon() {
+            return this.hidePassword ? 'fa-eye' : 'fa-eye-slash'
+          }
         },
 		methods: {
 			signin(){
@@ -82,11 +66,14 @@
                             access_token: '',
                             refresh_token: '',
                             email: '',
-                            patient_id: ''
+                            patient_id: '',
+                            receptionist_id: '',
+                            id: '',
+                            role: ''
                         }
                         self.$http.post(loginUrl, postData)
-                            .then(response => {
-                                if(response.status === 200){
+                        .then(response => {
+                            if(response.status === 200){
                                     // console.log('Oauth Token',response)
 
                                     authUser.access_token = response.data.access_token
@@ -98,19 +85,34 @@
 
                                         if(response.body.email_verified_at == null){
                                             // console.log('User object',response)
-                                            authUser.email = response.body.email
-                                            authUser.patient_id = response.body.patient_id
-                                            window.localStorage.setItem('authUser', JSON.stringify(authUser))
                                             if(response.body.role === '1'){
+                                                authUser.id = response.body.id
+                                                authUser.email = response.body.email
+                                                authUser.role = '1'
+                                                window.localStorage.setItem('authUser', JSON.stringify(authUser))
                                                 window.location.href = 'admin'
                                             }
                                             else if(response.body.role === '2'){
+                                                authUser.doctor_id = response.body.doctor_id
+                                                authUser.id = response.body.id
+                                                authUser.email = response.body.email
+                                                authUser.department = response.body.department
+                                                authUser.role = '2' 
+                                                window.localStorage.setItem('authUser', JSON.stringify(authUser))
                                                 window.location.href = 'doctor'
                                             }
                                             else if(response.body.role === '3'){
-                                                window.location.href = 'receptionist'
+                                                authUser.role = '3'
+                                                authUser.id = response.body.id
+                                                authUser.receptionist_id = response.body.receptionist_id
+                                                window.localStorage.setItem('authUser', JSON.stringify(authUser))
+                                                self.$router.push({path: 'receptionist'})
                                             }
                                             else if(response.body.role === '4'){
+                                                authUser.id = response.body.id
+                                                authUser.patient_id = response.body.patient_id
+                                                authUser.role = '4'
+                                                window.localStorage.setItem('authUser', JSON.stringify(authUser))
                                                 self.$router.push({ path: 'patient'})
                                             }
                                         }
@@ -126,11 +128,11 @@
                                 console.log(e)
                                 self.failedModal()
                             })
-                    }
-                }).catch((e)=>{
-                    console.log(e)
-                })
-			},
+                        }
+                    }).catch((e)=>{
+                        console.log(e)
+                    })
+                },
             failedModal(){
                 Swal.fire({
                   type: 'error',

@@ -1,32 +1,27 @@
 export const FieldsDef_patients = [
 	{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Name',
-			sortField: 'name'
-		},
-		{
-			name:'age',
-			title: '<i class="fa fa-tag"></i> Age',
-			sortField: 'name'
-		},
-		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Address',
-			sortField: 'name'
-		},
-		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> phone',
-			sortField: 'name'
-		},
-		{
-			name:'email',
-			title: '<i class="fa fa-tag"></i> Email',
-			sortField: 'name'
-		},
-		{
-            name: '__slot:actions',
-            title: 'Actions',
-            dataClass: 'center aligned'
-        }
+		name:'id',
+		title: 'ID',
+		sortField: 'id'
+	},
+	{
+		name:'first_name',
+		title: 'Name',
+		sortField: 'first_name'
+	},
+	{
+		name:'joining_date',
+		title:'Admission Date',
+		sortField:'joining_date'
+	},
+	{
+		name:'phone_number',
+		title: 'Phone',
+		sortField: 'phone_number'
+	},
+	{
+        name: '__slot:actions',
+        title: 'Actions',
+        dataClass: 'center aligned'
+    }
 ]

@@ -1,22 +1,21 @@
 export const FieldsDef_see_doctors_list = [
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Department',
-			sortField: 'name'
+			name:'__slot:doctor_name',
+			title: 'Name',
 		},
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Doctor Name',
-			sortField: 'name'
+			name:'depratment',
+			title: 'Department Name',
+			callback:'deptCall'
 		},
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Speciality',
-			sortField: 'name'
+			name:'gender',
+			title: 'Gender',
+			sortField: 'gender'
 		},
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Mobile Number',
-			sortField: 'name'
+			name:'phone_number',
+			title: 'Mobile Number',
+			sortField: 'phone_number'
 		}
 ]

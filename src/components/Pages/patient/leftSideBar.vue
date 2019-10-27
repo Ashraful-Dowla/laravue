@@ -30,7 +30,7 @@
 					<div id="sidebar-menu" class="sidebar-menu">
 						<ul style="padding-top: 10px;">
 							<li class="active">
-								<a class="fa fa-dashboard"><router-link to=""><span>Dashboard</span></router-link></a>
+								<a class="fa fa-dashboard"><router-link to="/patient"><span>Dashboard</span></router-link></a>
 							</li>
 							<li class="submenu">
 								<a href=""><i class="fa fa-user"></i> <span> Appointment </span> <span class="menu-arrow"></span></a>

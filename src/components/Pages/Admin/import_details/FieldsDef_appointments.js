@@ -1,43 +1,38 @@
 export const FieldsDef_appointments = [
 		{
 			name:'id',
-			title: '<i class="fa fa-tag"></i> Appointment ID',
-			sortField: 'name'
+			title: 'ID',
+			sortField: 'id'
 		},
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Patient Name',
-			sortField: 'name'
+			name:'patient_name',
+			title: 'Patient Name',
+			sortField: 'patient_name'
 		},
 		{
-			name:'age',
-			title: '<i class="fa fa-tag"></i> Age',
-			sortField: 'name'
+			name:'doctor_name',
+			title: 'Doctor Name',
+			sortField: 'doctor_name'
 		},
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Doctor Name',
-			sortField: 'name'
+			name:'department',
+			title: 'Department',
+			sortField: 'department'
 		},
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Department',
-			sortField: 'name'
+			name:'appointment_date',
+			title: 'Appointment Date',
+			sortField: 'appointment_date'
 		},
 		{
-			name:'age',
-			title: '<i class="fa fa-tag"></i> Appointment Date',
-			sortField: 'name'
+			name:'time',
+			title: 'Appointment Time',
+			sortField: 'time'
 		},
 		{
-			name:'age',
-			title: '<i class="fa fa-tag"></i> Appointment Time',
-			sortField: 'name'
-		},
-		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Status',
-			sortField: 'name'
+			name:'status',
+			title: 'Status',
+			callback:'appointmentStatus'
 		},
 		{
             name: '__slot:actions',

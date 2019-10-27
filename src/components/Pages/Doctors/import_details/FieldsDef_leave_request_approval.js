@@ -1,28 +1,33 @@
 export const FieldsDef_leave_request_approval = [
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Leave Type',
+			name:'id',
+			title:'ID',
+			sortField: 'id'
+		},
+		{
+			name:'request_type',
+			title: 'Leave Type',
 			sortField: 'name'
 		},
 		{
-			name:'age',
-			title: '<i class="fa fa-tag"></i> From',
+			name:'date_from',
+			title: 'From',
 			sortField: 'name'
 		},
 		{
-			name:'age',
-			title: '<i class="fa fa-tag"></i> To',
+			name:'date_to',
+			title: 'To',
 			sortField: 'name'
 		},
 		{
-			name:'age',
-			title: '<i class="fa fa-tag"></i> Total days',
+			name:'number_of_days',
+			title: 'Total days',
 			sortField: 'name'
 		},
 		{
-			name:'name',
-			title: '<i class="fa fa-tag"></i> Status',
-			sortField: 'name'
+			name:'status',
+			title: 'Status',
+			callback: 'statusCall'
 		},
 		{
             name: '__slot:actions',
