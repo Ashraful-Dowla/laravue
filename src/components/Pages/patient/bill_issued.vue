@@ -77,12 +77,15 @@ export default {
       moreParams: {},
       data: [],
       apiUrl: '',
-      id: '1',
+      id: '',
       bill_id: '',
       show: false
     }
   },
   created(){
+      const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+      this.id = tokenData.id
+      console.log(this.id)
       this.apiUrl = apiDomain + 'api/getPatientBillIssuedData/' + this.id 
   },
   mounted () {

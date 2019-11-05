@@ -4976,12 +4976,12 @@ blockquote p {
 /*================================================================*/
 /* 						Home Page CSS							  */
 /*================================================================*/
-#app{
+/*#app{
 	background-image:url(background5.jpg);
 	background-size: cover;
 	background-position: center;
 	font-family: sans-serif;
-}
+}*/
 .main-div{
 	background-color: #0392CE;
 	/*text-align: center;*/

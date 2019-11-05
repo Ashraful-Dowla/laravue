@@ -73,7 +73,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <button type="button" v-if="tableRows.length" class="btn  btn-raised btn-primary waves-effect" @click="proceedToPayment">Proceed to Payment</button>
+                                <button type="button" v-if="tableRows.length" class="ui button positive waves-effect" @click="proceedToPayment">Proceed to Payment</button>
                             </div>
                         </div>
                     </div>
@@ -114,7 +114,7 @@
                 chkTest: [],
                 patient_id: '',
                 doctor_id: '',
-                id: '2',
+                id: '',
                 suc: false,
                 bill_id: '',
                 created_at: ''
@@ -123,6 +123,10 @@
         created(){
             var self = this
             this.bill_id = this.$route.params.id
+
+            const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+            this.id = tokenData.id
+
             this.$http.get(apiDomain+'api/getTestData')
                 .then((response)=>{
                     self.options = response.data
@@ -214,9 +218,9 @@
                         bill_id: self.bill_id,
                         created_at: self.created_at
                     }).then((response)=>{
-                        console.log(response)
+                        //console.log(response)
                         self.successModal()
-                        
+                        self.$router.push('/receptionist/bill_issued')
                     }).catch((e)=>{
                         console.log(e)
                         self.failedModal()

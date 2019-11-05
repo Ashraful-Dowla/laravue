@@ -22,7 +22,7 @@
                                         </div>
                                         <div class="message" style="color: red;">{{ validation.firstError('recharge_amount') }}</div>
                                     </div>
-                                    <button type="button" @click="func" class="btn btn-raised btn-info m-t-15 waves-effect" style="float: right;">Recharge</button>
+                                    <button type="button" @click="func" class="ui button blue waves-effect" style="float: right;">Recharge</button>
                                     </form>
                                 </div>
                             </div>
@@ -48,9 +48,14 @@
 			return{
 				user_id: '',
 				recharge_amount: '',
-				id: '2',
+				id: '',
 			};
 		},
+        created(){
+            var self = this
+            const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+            this.id = tokenData.id
+        },
 		methods:{
             func(){
             	var self = this
@@ -82,6 +87,8 @@
             		id: self.id
             	}).then((response)=>{
             		console.log(response)
+                    self.user_id = ''
+                    self.recharge_amount = ''
             		self.successModal()
             	}).catch((e)=>{
             		console.log(e)

@@ -22,7 +22,7 @@
 				<div class="col-md-10" >
 					<div class="form-group" :class="{error: validation.hasError('editor_text')}">
 						<ckeditor type="classic" v-model="editor_text">CKEDITOR</ckeditor><br>
-						<button style="float: right;" type="button" class="btn  btn-raised bg-blue-grey waves-effect" @click="sendData"><strong>PRESCRIBE</strong></button>
+						<button style="float: right;" type="button" class="ui button blue" @click="sendData"><strong>PRESCRIBE</strong></button>
 					</div>
 					 <div class="message" style="color: red;">{{ validation.firstError('editor_text') }}</div>
 				</div>
@@ -43,8 +43,13 @@
 			return {
 				editor_text: '',
 				patient_id: '',
-				id: '2'
+				id: ''
 			}
+		},
+		created(){
+			const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+		    this.id = tokenData.id
+		    console.log(this.id)
 		},
 		methods:{
 			sendData(){
@@ -81,6 +86,9 @@
 				}).then((response)=>{
 					console.log(response)
 					self.successModal()
+
+					self.patient_id = ''
+					self.editor_text = ''
 				}).catch((e)=>{
 					console.log(e)
 					self.failedModal()
