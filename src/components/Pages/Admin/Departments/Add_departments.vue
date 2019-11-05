@@ -6,7 +6,7 @@
 					<h4 class="page-title">Add Department</h4>
 				</div>
 				<div class="col-md-2 text-right m-b-30">
-                    <router-link class="btn  btn-raised bg-grey waves-effect fa fa-chevron-circle-left" to="/admin/departments"><strong>BACK</strong></router-link>
+                    <router-link class="ui black deny button" to="/admin/departments"><strong>BACK</strong></router-link>
                 </div>
 			</div>
 			<div class="row">
@@ -77,13 +77,14 @@
 				department_name: '',
 				description: '',
 				status: '1',
-
-				suc: false,
-
-
-				id: '2'
-
+				id: ''
 			};
+		},
+		created(){
+			 var self = this
+		     const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+		     this.id = tokenData.id
+		     //console.log(this.id)
 		},
 		methods:{
 			createDepartment(){
@@ -152,10 +153,6 @@
 			'status': function(value){
 				return Validator.value(value).required();
 			}
-		},
-		created(){
-			const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
-    		this.id = tokenData.id
 		}
 	}
 </script>

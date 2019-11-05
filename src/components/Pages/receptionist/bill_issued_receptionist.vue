@@ -80,13 +80,17 @@ export default {
       ],
       moreParams: {},
       apiUrl: '',
-      id: '2',
+      id: '',
       data: []
     }
   },
   created(){
+
+     const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+     this.id = tokenData.id
+
      this.apiUrl = apiDomain + 'api/getBillIssuedData/' + this.id
-     console.log(this.apiUrl) 
+     //console.log(this.apiUrl) 
   },
   mounted () {
     this.$events.$on('filter-set', eventData => this.onFilterSet(eventData))

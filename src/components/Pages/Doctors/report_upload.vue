@@ -51,9 +51,15 @@
 				patient_id:'',
 				doctor_id: '',
 				reportUrl: '',
-				id: '2',
+				id: '',
 				report_name: '',
 			}
+		},
+		created(){
+			 var self = this
+		     const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+		     this.id = tokenData.id
+		     //console.log(this.id)
 		},
 		methods:{
 			sendData(){
@@ -92,7 +98,7 @@
 				}
 
 				this.report_name = document.getElementById('abc').files[0].name
-				console.log(this.report_name)
+				//console.log(this.report_name)
 			},
 			snd(){
 				var self = this

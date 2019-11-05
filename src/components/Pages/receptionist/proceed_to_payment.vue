@@ -2,7 +2,7 @@
     <div class="page-wrapper">
         <div class="content">
         <div class="container-fluid" align="left">
-            <button type="button" class="btn btn-raised btn-info m-t-15 waves-effect" @click="goBack" style="float: right;">Back</button>
+            <button type="button" class="ui button blue waves-effect" @click="goBack" style="float: right;">Back</button>
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <h2>Payment Section</h2>
                 <v-select v-model="selected" :options="options" :reduce="mark=>mark.mark" label="name" @input="chk"></v-select>
@@ -23,7 +23,7 @@
                                     <input type="text" id="paid" class="form-control" v-model="paid">
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-raised btn-info m-t-15 waves-effect" @click="showModal">My Wallet</button>
+                            <button type="button" class="ui button blue waves-effect" @click="showModal">My Wallet</button>
                         </form>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                                     <input type="text" id="paid" class="form-control" v-model="paid">
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-raised btn-success m-t-15 waves-effect" @click="showModal">Card Payment</button>
+                            <button type="button" class="ui button positive waves-effect" @click="showModal">Card Payment</button>
                         </form>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                                     <input type="text" id="paid" class="form-control" v-model="paid">
                                 </div>
                             </div>
-                            <button type="button" @click="showModal" class="btn btn-raised btn-danger m-t-15 waves-effect">Cash Payment</button>
+                            <button type="button" @click="showModal" class="ui button red waves-effect">Cash Payment</button>
                         </form>
                     </div>
                 </div>
@@ -99,7 +99,7 @@ export default{
     name: 'proceed_to_payment',
     data(){
         return {
-            mark: '1',
+            mark: '',
             options: [
                 { name: 'My Wallet', mark: 1 },
                 { name: 'Card Payment', mark: 2 },
@@ -109,7 +109,7 @@ export default{
             bill_id: '',
             net_payable: '',
             paid: '',
-            id: '2',
+            id: '',
             card_number: ''
         }
     },
@@ -117,6 +117,9 @@ export default{
         var self = this
 
         this.bill_id = this.$route.params.bill_id
+
+        const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+        this.id = tokenData.id
 
         this.$http.get(apiDomain + 'api/getProceedToPaymentData/' + self.bill_id)
                 .then((response)=>{

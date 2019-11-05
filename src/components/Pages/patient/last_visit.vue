@@ -61,7 +61,7 @@ export default {
       moreParams: {},
       apiURL: '',
       data: [],
-      id: '2'
+      id: ''
     }
   },
   mounted () {
@@ -92,6 +92,11 @@ export default {
     //const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
     //this.apiURL = apiDomain + 'api/patient_visit_history/' + tokenData.patient_id
     //console.log(this.apiURL)
+
+    const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+    this.id = tokenData.id
+
+    //console.log(this.id)
 
     this.apiURL = apiDomain + 'api/patient_visit_history/' + this.id
 

@@ -208,8 +208,6 @@ export default new Router({
             {path: '/admin/receptionist/add_receptionist', component: AddReceptionist, name: 'add_receptionist',meta: {requiresAuth: true}},
 
             {path: '/admin/receptionist/edit_receptionist/:id', component: EditReceptionist, name: 'edit_receptionist',meta: {requiresAuth: true}},
-    	]
-
             {path: '/admin/receptionist/edit_receptionist', component: EditReceptionist, name: 'edit_receptionist',meta: {requiresAuth: true}},
     	    {
                 path: 'report_upload',
@@ -300,7 +298,7 @@ export default new Router({
         },
         children: [
             {
-                path: '',
+                path: 'dashboard',
                 name: 'DashboardPatient',
                 component: DashboardPatient,
                 meta: { requiresAuth: true }
@@ -373,7 +371,7 @@ export default new Router({
         },
         children: [
             {
-                path:'',
+                path:'dashboard',
                 name:'DashboardReceptionist',
                 component: DashboardReceptionist,
                 meta: {requiresAuth: true}

@@ -145,7 +145,7 @@
 		      data: [],
 		      test_name:'',
 		      price:'',
-		      id: '2',
+		      id: '',
 		      fields: FieldsDef_test_management,
 		      sortOrder: [],
 		      moreParams: {},
@@ -162,6 +162,12 @@
 		      filtered: []
 		    }
 		  },
+		  created(){
+		  	 var self = this
+		     const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+		     this.id = tokenData.id
+		     this.modalForm.updated_by = tokenData.id
+		  },
 		  mounted () {
 		    this.$events.$on('filter-set', eventData => this.onFilterSet(eventData))
 		    this.$events.$on('filter-reset', e => this.onFilterReset())
@@ -173,9 +179,6 @@
 		    },
 		    onChangePage (page) {
 		      this.$refs.vuetable.changePage(page)
-		    },
-		    doFilter(){
-		    	
 		    },
 		    onAction (action, data, index) {
 		      	console.log('slot action: ' + action, data.id, index)

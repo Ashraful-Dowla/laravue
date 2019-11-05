@@ -86,14 +86,14 @@ export default {
       moreParams: {},
       apiURL: '',
       data: [],
-      id: '2',
+      id: '',
       prescription: ''
     }
   },
   created () {
-    // const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
-    // this.apiURL = apiDomain + 'api/prescription_view/' + tokenData.patient_id
-    // console.log(this.apiURL)
+      var self = this
+      const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+      this.id = tokenData.id
 
       this.apiURL = apiDomain + 'api/prescription_view/'+ this.id
   },
