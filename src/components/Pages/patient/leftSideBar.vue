@@ -13,15 +13,15 @@
 					<li class="nav-item dropdown has-arrow">
 						<a href="javascript:void(0);" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
 							<span class="user-img">
-								<img class="rounded-circle" src="static/assets_admin/img/pic.JPG" width="24" alt="Admin">
+								<img class="rounded-circle" :src="url+'patientImage/'+image" width="24" alt="Admin">
 								<span class="status online"></span>
 							</span>
 							<span>Patient</span>
 						</a>
 						<div class="dropdown-menu">
-							<a class="dropdown-item"><router-link to="">My Profile</router-link></a>
+							<a class="dropdown-item" href="" ><router-link to="/patient">My Profile</router-link></a>
 							<a class="dropdown-item">My Wallet {{ amount }}</a>
-							<a class="dropdown-item" href="login.html">Logout</a>
+							<a class="dropdown-item" href="" @click="logOut()">Logout</a>
 						</div>
 					</li>
 				</ul>
@@ -71,10 +71,13 @@
 		data(){
 			return {
 				amount: '',
-				id:''
+				id:'',
+				image: '',
+				url: ''
 			}
 		},
 		created(){
+			this.url = apiDomain
 			const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
             this.id = tokenData.id
 
@@ -86,10 +89,17 @@
             		console.log(e)
             		self.amount = 0
             	})
+            this.$http.post(apiDomain + 'api/getPatientImageForDropdown',{id: tokenData.id})
+            	.then(response => {
+            		self.image = response.body[0].image
+            	})
 
 		},
 		methods:{
-
+			logOut(){
+				window.localStorage.removeItem('authUser')
+				this.$router.push({path: 'login'})
+			}
 		}
 	}
 </script>

@@ -13,14 +13,14 @@
 					<li class="nav-item dropdown has-arrow">
 						<a href="javascript:void(0);" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
 							<span class="user-img">
-								<img class="rounded-circle" src="static/assets_admin/img/pic.JPG" width="24" alt="Admin">
+								<img class="rounded-circle" :src="url+'receptionistImage/'+image" width="24" alt="Admin">
 								<span class="status online"></span>
 							</span>
 							<span>Receptionist</span>
 						</a>
 						<div class="dropdown-menu">
-							<a class="dropdown-item"><router-link to="">My Profile</router-link></a>
-							<a class="dropdown-item" href="login.html">Logout</a>
+							<a class="dropdown-item"><router-link to="/receptionist">My Profile</router-link></a>
+							<a class="dropdown-item" href="" @click="logOut()">Logout</a>
 						</div>
 					</li>
 				</ul>
@@ -65,6 +65,32 @@
 		</div>
 	</div>
 </template>
+<script>
+	import { apiDomain } from '@/components/Pages/Authentication/config'
+	export default{
+		data(){
+			return{
+				image: '',
+				url: ''
+			}
+		},
+		methods:{
+			logOut(){
+				window.localStorage.removeItem('authUser')
+				this.$router.push({path: 'login'})
+			}
+		},
+		created(){
+			this.url = apiDomain
+			var self = this
+			const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+			this.$http.post(apiDomain + 'api/getReceptionistImageForDropdown',{id: tokenData.id})
+				.then(response => {
+					self.image = response.body[0].image
+				})
+		}
+	}
+</script>
 <style>
 	#sidebar-menu ul li:hover{
 		background: #FCFAFA;
