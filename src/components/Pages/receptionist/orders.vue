@@ -1,6 +1,10 @@
 <template>
 	<div class="page-wrapper">
 		<div class="content">
+		<loading :active.sync="isLoading" 
+            :can-cancel="true" 
+            :is-full-page="fullPage">
+        </loading>
         <div class="container-fluid" align="left">
         	<div class="col-lg-12 col-md-12 col-sm-12">
                 <h2>Order Section</h2>
@@ -138,7 +142,9 @@ export default{
                 show: false,
                 label: 'Loading.....',
                 showDataTable: false,
-                patient_id: ''
+                patient_id: '',
+                isLoading: false,
+                fullPage: true
             };
         },
         methods:{
@@ -153,6 +159,7 @@ export default{
 	        },
 	        searchFunction(){
 	        	var self = this
+	        	this.isLoading = true
 	        	this.$validate()
 	        		.then((response)=>{
 	        			if(response){
@@ -172,12 +179,14 @@ export default{
 
 
 					        	self.show = true
+					        	self.isLoading = false
 					        	window.setTimeout(()=> self.sTable() ,5000)
 					        	
 				        	}).catch((e)=>{
 
 				        		self.show = true
 				        		self.showDataTable = false
+				        		self.isLoading = false
 				        		window.setTimeout(()=>self.mk() ,5000)
 				        	})      				
 	        			}
@@ -209,7 +218,7 @@ export default{
 </script>
 <style scoped>
     .borderBottom{
-        border-bottom: 2px solid #607D8B;
+        border-bottom: 2px solid #0392CE;
     }
 </style>
 

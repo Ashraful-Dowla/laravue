@@ -1,6 +1,10 @@
 <template>
 	<div class="page-wrapper">
 		<div class="container" style="margin-top: 25px;margin-left: 50px;">
+			<loading :active.sync="isLoading" 
+                :can-cancel="true" 
+                :is-full-page="fullPage">
+            </loading>
 			<div class="row">
 				<div class="col-md-10">
 					<h3>Prescription</h3>
@@ -22,7 +26,7 @@
 				<div class="col-md-10" >
 					<div class="form-group" :class="{error: validation.hasError('editor_text')}">
 						<ckeditor type="classic" v-model="editor_text">CKEDITOR</ckeditor><br>
-						<button style="float: right;" type="button" class="btn  btn-raised bg-blue-grey waves-effect" @click="sendData"><strong>PRESCRIBE</strong></button>
+						<button style="float: right;" type="button" class="ui button positive" @click="sendData"><strong>Prescribe</strong></button>
 					</div>
 					 <div class="message" style="color: red;">{{ validation.firstError('editor_text') }}</div>
 				</div>
@@ -43,7 +47,9 @@
 			return {
 				editor_text: '',
 				patient_id: '',
-				id: '2'
+				id: '2',
+				isLoading: false,
+				fullPage: true
 			}
 		},
 		methods:{
@@ -69,6 +75,7 @@
                         }).then((result) => {
                           if (result.value) {
                               self.send()
+                              self.isLoading = true
                           }
                     }) 
 			},
@@ -81,9 +88,11 @@
 				}).then((response)=>{
 					console.log(response)
 					self.successModal()
+					self.isLoading = false
 				}).catch((e)=>{
 					console.log(e)
 					self.failedModal()
+					self.isLoading = false
 				})
 			},
             successModal(){
@@ -113,6 +122,6 @@
 </script>
 <style scoped>
 	.borderBottom{
-		border-bottom: 2px solid #607D8B;
+		border-bottom: 2px solid #0392CE;
 	}
 </style>

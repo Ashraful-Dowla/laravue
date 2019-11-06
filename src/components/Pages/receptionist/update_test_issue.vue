@@ -1,11 +1,22 @@
 <template>
     <div class="page-wrapper">
         <div class="container" style="margin-top: 25px;margin-left: 50px;">
+            <loading :active.sync="isLoading" 
+                :can-cancel="true" 
+                :is-full-page="fullPage">
+            </loading>
             <div class="container-fluid" align="left">
                 <div class="row clearfix">
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="card">
-                            <h2>Update Test Issue</h2>
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <h3>Update Test Issue</h3>
+                                </div>
+                                <div class="col-md-3">
+                                    <router-link to="/receptionist/bill_issued" style="float: right;"><i class="arrow alternate circle left outline icon"></i>Previous</router-link>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-md-10">
                                     <hr>
@@ -117,7 +128,9 @@
                 id: '2',
                 suc: false,
                 bill_id: '',
-                created_at: ''
+                created_at: '',
+                isLoading: false,
+                fullPage: true
             };
         },
         created(){
@@ -196,6 +209,7 @@
                         }).then((result) => {
                           if (result.value) {
                               self.sendData()
+                              self.isLoading = true
                           }
                     }) 
                 }
@@ -216,10 +230,12 @@
                     }).then((response)=>{
                         console.log(response)
                         self.successModal()
+                        self.isLoading = false
                         
                     }).catch((e)=>{
                         console.log(e)
                         self.failedModal()
+                        self.isLoading = false
                     })
             },
             errorCheck(){
@@ -261,6 +277,6 @@
 </script>
 <style scoped>
     .borderBottom{
-        border-bottom: 2px solid #607D8B;
+        border-bottom: 2px solid #0392CE;
     }
 </style>

@@ -1,6 +1,10 @@
 <template>
 	<div class="page-wrapper">
 		<div class="container" style="margin-top: 25px;margin-left: 50px;">
+			<loading :active.sync="isLoading" 
+                :can-cancel="true" 
+                :is-full-page="fullPage">
+            </loading>
 			<div class="row">
 				<div class="col-md-8">
 					<h4 class="page-title">Leave Request Approvals</h4>
@@ -73,7 +77,9 @@
 		      fields: FieldsDef_leave_request_approval,
 		      sortOrder: [],
 		      moreParams: {},
-		      apiURL: ''
+		      apiURL: '',
+		      isLoading: false,
+		      fullPage: true
 		    }
 		  },
 		  mounted () {
@@ -114,6 +120,7 @@
 			              if (result.value) {
 			              	//console.log(data.id)
 			                self.deleteData(data.id)
+			                self.isLoading = true
 			              }
 			         });
 		    	}
@@ -125,11 +132,13 @@
 		    			if(response.status === 200){
 		    				console.log(response)
 		    				self.successdModal()
+		    				self.isLoading = false
 		    				Vue.nextTick( () => this.$refs.vuetable.refresh() )
 		    			}
 		    		}).catch((e) => {
 		    			console.log(e)
 		    			self.failedModal()
+		    			self.isLoading = false
 		    		})
 		    },
 		    successdModal(){

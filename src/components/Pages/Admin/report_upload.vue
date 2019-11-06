@@ -3,6 +3,10 @@
 		<div class="content">
 	        <div class="container-fluid" align="left">
 	        	<div class="col-lg-12 col-md-12 col-sm-12">
+	        		<loading :active.sync="isLoading" 
+                        :can-cancel="true" 
+                        :is-full-page="fullPage">
+                    </loading>
 	                <h2>Report Upload</h2>
 		        	<form>
 		                 <p><b>Patient ID</b></p>
@@ -53,6 +57,8 @@
 				reportUrl: '',
 				id: '2',
 				report_name: '',
+				isLoading: false,
+				fullPage: true
 			}
 		},
 		methods:{
@@ -72,6 +78,7 @@
                                 }).then((result) => {
                                   if (result.value) {
                                       self.snd()
+                                      self.isLoading = true
                                   }
                             })	
 	        			}
@@ -105,6 +112,7 @@
 				}).then((response)=>{
 					console.log(response)
 				 	self.successModal()
+				 	self.isLoading = false
 
 				 	self.patient_id = ''
 				 	self.doctor_id = ''
@@ -113,6 +121,7 @@
 				}).catch((e)=>{
 					console.log(e)
 					self.failedModal()
+					self.isLoading = false
 				})
 			},
             successModal(){

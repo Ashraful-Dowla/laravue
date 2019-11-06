@@ -1,6 +1,10 @@
 <template>
     <div class="page-wrapper">
         <div class="container" style="margin-top: 25px;margin-left: 50px;">
+            <loading :active.sync="isLoading" 
+                :can-cancel="true" 
+                :is-full-page="fullPage">
+            </loading>
             <div class="row">
                 <div class="col-md-8">
                     <h4 class="page-title">Register Here</h4>
@@ -423,7 +427,9 @@
                 },
                 pass: this.password,
                 confirmPassword: '123456',
-                        submitted: false
+                submitted: false,
+                isLoading: false,
+                fullPage: true
             }
         },
         methods: {
@@ -435,28 +441,29 @@
                 }
             },
             signUp () {
-                        var self = this
-                        this.submitted = true;
+                var self = this
+                this.submitted = true;
                 this.$validate()
-                          .then( function(success) {
-                            if (success) {
-                                    Swal.fire({
-                                        title: 'Are you sure?',
-                                        text: "You won't be able to revert this!",
-                                        type: 'warning',
-                                        showCancelButton: true,
-                                        confirmButtonColor: '#3085d6',
-                                        cancelButtonColor: '#d33',
-                                        confirmButtonText: 'Ok'
-                                    }).then((result) => {
-                                          if (result.value) {
-                                                self.sendData()     
-                                          }
-                                    });
-                              }
-                        }).catch((e)=>{
-                          console.log(e)
-                        })
+                .then( function(success) {
+                    if (success) {
+                        Swal.fire({
+                            title: 'Are you sure?',
+                            text: "You won't be able to revert this!",
+                            type: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Ok'
+                        }).then((result) => {
+                          if (result.value) {
+                            self.sendData() 
+                            self.isLoading = true    
+                        }
+                    });
+                    }
+                }).catch((e)=>{
+                  console.log(e)
+                })
 
             },
                   sendData(){
@@ -466,10 +473,12 @@
                               if(response.status === 200){
                                     console.log(response)
                                     self.successModal()
+                                    self.isLoading = false
                               }
                         }).catch((e)=>{
                           console.log(e)
                           self.failedModal()
+                          self.isLoading = false
                         })
                   },
                   successModal(){
@@ -557,6 +566,6 @@
 </script>
 <style scoped>
 .borderBottom{
-    border-bottom: 2px solid #607D8B;
+    border-bottom: 2px solid #0392CE;
 }
 </style>

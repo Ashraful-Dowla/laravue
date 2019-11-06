@@ -1,6 +1,10 @@
 <template>
 	<div class="page-wrapper">
 		<div class="content">
+			<loading :active.sync="isLoading" 
+                :can-cancel="true"
+                :is-full-page="fullPage">
+            </loading>
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2">
 					<h4 class="page-title">Add Leave</h4>
@@ -109,6 +113,8 @@
 			return{
 				leaveTypes: [],
 				departments: [],
+				isLoading: false,
+				fullPage: true,
 				manualLeave:{
 					leave_type: '',
 					department: '',
@@ -152,7 +158,8 @@
 	                    confirmButtonText: 'Ok'
 	                }).then((result) => {
 	                      if (result.value) {
-	                            self.sendAddLeaveManuallyData();     
+	                            self.sendAddLeaveManuallyData(); 
+	                            self.isLoading = true    
 	                      }
 	                });
 	        },
@@ -163,10 +170,12 @@
 	        			if (response.status === 200) {
 	        				console.log(response)
 	        				self.successModal()
+	        				self.isLoading = false
 	        			}
 	        		}).catch((e) => {
 	        			console.log(e)
 	        			self.failedModal()
+	        			self.isLoading = false
 	        		})
 	        },
 	        dateSelected(){
@@ -197,6 +206,6 @@
 </script>
 <style scoped>
 	.borderBottom{
-		border-bottom: 2px solid #607D8B;
+		border-bottom: 2px solid #0392CE;
 	}
 </style>

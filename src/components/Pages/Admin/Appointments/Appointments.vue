@@ -1,6 +1,10 @@
 <template>
 	<div class="page-wrapper">
 		<div class="container" style="margin-top: 25px;margin-left: 50px;">
+			<loading :active.sync="isLoading" 
+                :can-cancel="true" 
+                :is-full-page="fullPage">
+            </loading>
 			<div class="row">
 				<div class="col-md-11">
 					<hr>
@@ -81,7 +85,9 @@
 		      fields: FieldsDef_appointments,
 		      sortOrder: [],
 		      moreParams: {},
-		      apiURL: ''
+		      apiURL: '',
+		      isLoading: false,
+		      fullPage: true
 		    }
 		  },
 		  mounted () {
@@ -114,7 +120,8 @@
 	                    confirmButtonText: 'Ok'
 	                }).then((result) => {
 	                      if (result.value) {
-	                            self.deleteAppointment(data.id);     
+	                            self.deleteAppointment(data.id); 
+	                            self.isLoading = true    
 	                      }
 	                });
 		    	}
@@ -126,11 +133,13 @@
 	    				console.log(response)
 	    				if(response.status === 200){
 	    					self.successModal();
+	    					self.isLoading = false
 	    					Vue.nextTick( () => self.$refs.vuetable.refresh() )
 	    				}
 	    			}).catch((e) => {
 	    				console.log(e)
 	    				self.failedModal();
+	    				self.isLoading = false
 	    			})
 		    },
 		    onFilterSet (filterText) {

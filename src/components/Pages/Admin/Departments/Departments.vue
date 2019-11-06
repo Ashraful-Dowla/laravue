@@ -4,6 +4,10 @@
 			<div class="content">
 			<div class="container" align="left">
 				<div class="row">
+					<loading :active.sync="isLoading" 
+		                :can-cancel="true"
+		                :is-full-page="fullPage">
+		            </loading>
 					<div class="col-md-7">
 						<h4 class="page-title">Departments</h4>
 					</div>
@@ -147,6 +151,8 @@
 		  },
 		  data () {
 		    return {
+		      isLoading: false,
+		      fullPage: true,
 		      fields: FieldsDef_departments,
 		      sortOrder: [],
 		      moreParams: {},
@@ -160,7 +166,7 @@
 		      	 updated_description: '',
 		      	 updated_by:'',
 		      	 update_id:''
-		      }
+		      },
 		    }
 		  },
 		  methods: {
@@ -200,6 +206,7 @@
 			              if (result.value) {
 			              	//console.log(data.id)
 			                self.deleteData(data.id)
+			                self.isLoading = true
 			              }
 			         });
 		      	}
@@ -217,7 +224,8 @@
 				            }).then((result) => {
 				              if (result.value) {
 				              	//console.log('xxxx')
-				                self.sendUpdateData()	
+				                self.sendUpdateData()
+				                self.isLoading = true	
 				              }
 				         });
 		    },
@@ -236,6 +244,7 @@
 
 			    		this.successUpdatedModal()
 			    		this.showModal = false
+			    		self.isLoading = false
 			    		Vue.nextTick( () => this.$refs.vuetable.refresh() )
 
 			    	}).catch((e)=>{
@@ -243,6 +252,7 @@
 			    		console.log(e)
 			    		this.failedModal()
 			    		this.showModal = false
+			    		self.isLoading = false
 			    		Vue.nextTick( () => this.$refs.vuetable.refresh() )
 			    	})
 		    },
@@ -268,9 +278,11 @@
 		    		console.log(response)
 		    		this.successDeletedModal()
 		    		Vue.nextTick( () => this.$refs.vuetable.refresh() )
+		    		self.isLoading = false
 		    	}).catch((e)=>{
 		    		console.log(e)
 		    		this.failedModal()
+		    		self.isLoading = false
 		    	})
 		    },
 		    successDeletedModal(){

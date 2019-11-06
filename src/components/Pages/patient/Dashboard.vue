@@ -1,6 +1,10 @@
 <template>
 	<div class="page-wrapper">
 		<div class="container" style="margin-top: 25px;margin-left: 50px;">
+			<loading :active.sync="isLoading" 
+                :can-cancel="true" 
+                :is-full-page="fullPage">
+            </loading>
 			<div class="row">
 				<div class="col-md-8">
 					<h4 class="page-title">My Profile</h4>
@@ -74,7 +78,7 @@
 				</div>
 			</div>
 			<br>
-			<div class="row">
+			<!-- <div class="row">
 				<div class="col-md-10">
 					<div class="card-box profile-header">
 						<div class="row">
@@ -99,7 +103,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </template>
@@ -117,7 +121,9 @@
 				no_profile_pic: false,
 				id: '',
 				profile_pic: '',
-				url: ''
+				url: '',
+				isLoading: false,
+				fullPage: true
 			}
 		},
 		created () {
@@ -132,9 +138,13 @@
 					if (response.status === 200) {
 						console.log(response)
 						self.patientInfo = response.body.patient_info
-						self.acnt_summary = response.body.acnt_summary
 						if(self.patientInfo[0].image === null){
 							self.no_profile_pic = true
+						}
+						if(response.body.acnt_summary.length == 0){
+							console.log('empty')
+						}else {
+							self.acnt_summary = response.body.acnt_summary
 						}
 					}
 				}).catch((e) => {
@@ -142,6 +152,9 @@
 				})
 		},
 		methods: {
+			editGeneralRowInfo(){
+
+			},
 			doctorImageSelected (event) {
 	            var reader = new FileReader();
                 reader.readAsDataURL(event.target.files[0]);
@@ -151,15 +164,19 @@
 	        },
 	        goToUploadImage(){
 	        	var self = this
+	        	this.isLoading = true
 	        	this.$http.post(apiDomain + 'api/savePatientProfilePicture',{image: self.image, id: self.id})
 	        	.then(response => {
 	        		if(response.status === 200){
 	        			console.log(response)
 	        			self.successModal();
+	        			self.isLoading = false
+	        			location.reload()
 	        		}
 	        	}).catch((e) => {
 	        		console.log(e)
 	        		self.failedModal();
+	        		self.isLoading = false
 	        	})
 	        },
 	        successModal(){

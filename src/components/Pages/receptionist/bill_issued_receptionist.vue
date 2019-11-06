@@ -1,6 +1,10 @@
 <template>
 <div class="page-wrapper">
     <div class="content">
+      <loading :active.sync="isLoading" 
+          :can-cancel="true" 
+          :is-full-page="fullPage">
+      </loading>
   <div class="ui container">
     <h1>Bill Issued</h1>
     <!-- <filter-bar></filter-bar> -->
@@ -81,7 +85,9 @@ export default {
       moreParams: {},
       apiUrl: '',
       id: '2',
-      data: []
+      data: [],
+      isLoading: false,
+      fullPage: true
     }
   },
   created(){
@@ -113,18 +119,19 @@ export default {
         }else if(action == 'delete-item'){
             //console.log(data.id)
             Swal.fire({
-                          title: 'Are you sure?',
-                          text: "You won't be able to revert this!",
-                          type: 'warning',
-                          showCancelButton: true,
-                          confirmButtonColor: '#3085d6',
-                          cancelButtonColor: '#d33',
-                          confirmButtonText: 'Are you sure?'
-                        }).then((result) => {
-                          if (result.value) {
-                              self.deleteData(data.id)
-                          }
-                    }) 
+                  title: 'Are you sure?',
+                  text: "You won't be able to revert this!",
+                  type: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Are you sure?'
+                }).then((result) => {
+                  if (result.value) {
+                      self.deleteData(data.id)
+                      self.isLoading = true
+                  }
+            }) 
         }else if(action == 'pay-item'){
             this.$router.push('/receptionist/proceed_to_payment/' + data.id)
         }
@@ -137,9 +144,11 @@ export default {
             console.log(response)
             Vue.nextTick( () => this.$refs.vuetable.refresh() )
             self.successModal()
+            self.isLoading = false
        }).catch((e)=>{
             console.log(e)
             self.failedModal()
+            self.isLoading = false
        })
     },
     successModal(){

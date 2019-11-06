@@ -3,6 +3,10 @@
         <div class="content">
         <div class="container-fluid" align="left">
             <div class="col-lg-12 col-md-12 col-sm-12">
+                <loading :active.sync="isLoading" 
+                    :can-cancel="true" 
+                    :is-full-page="fullPage">
+                </loading>
                 <h2>Payment Zone</h2>
                 <form>
                     <label for="patient_id">Bill ID</label>
@@ -125,7 +129,9 @@ export default{
             id: '2',
             card_number: '',
             show: false,
-            suc: false
+            suc: false,
+            isLoading: false,
+            fullPage: true
         }
     },
     methods: {
@@ -164,6 +170,7 @@ export default{
             }).then((result) => {
               if (result.value) {
                 self.sendData()
+                self.isLoading = true
               }
             })
         },
@@ -179,9 +186,11 @@ export default{
                 console.log(response)
                 self.successModal()
                 self.$router.push('/receptionist/bill_issued')
+                self.isLoading = false
             }).catch((e)=>{
                 console.log(e)
                 self.failedModal()
+                self.isLoading = false
             })
         },
         successModal(){

@@ -2,6 +2,10 @@
 	<div id="schedule">
 		<div class="page-wrapper">
 			<div class="container" style="margin-top: 25px;margin-left: 50px;">
+				<loading :active.sync="isLoading" 
+	                :can-cancel="true"
+	                :is-full-page="fullPage">
+	            </loading>
 				<div class="row">
 					<div class="col-md-7">
 						<h4 class="page-title">Schedule</h4>
@@ -90,7 +94,9 @@
 		      fields: FieldsDef_doctor_schedule,
 		      sortOrder: [],
 		      moreParams: {},
-		      apiURL: ''
+		      apiURL: '',
+		      isLoading: false,
+		      fullPage: true
 		    }
 		  },
 		  mounted () {
@@ -123,7 +129,8 @@
 	                    confirmButtonText: 'Ok'
 	                }).then((result) => {
 	                      if (result.value) {
-	                            self.deleteDoctorSchedule(data.doctor_id);     
+	                            self.deleteDoctorSchedule(data.doctor_id); 
+	                            self.isLoading = true    
 	                      }
 	                });
 		      	}
@@ -135,11 +142,13 @@
 	      				if(response.status === 200){
 	      					console.log(response)
 	      					self.successModal();
+	      					self.isLoading = false
 	      					Vue.nextTick( () => self.$refs.vuetable.refresh() )
 	      				}
 	      			}).catch((e) => {
 	      				self.failedModal()
 	      				console.log(e)
+	      				self.isLoading = false
 	      			})
 		    },
 		    successModal(){

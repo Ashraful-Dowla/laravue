@@ -5,9 +5,8 @@ export const FieldsDef_Receptionist = [
 		sortField: 'id'
 	},
 	{
-		name:'first_name',
+		name:'__slot:receptionist_name',
 		title: 'Receptionist Name',
-		sortField: 'first_name'
 	},
 	{
 		name:'phone_number',

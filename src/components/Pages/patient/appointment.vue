@@ -1,6 +1,10 @@
 <template>
     <div class="page-wrapper">
         <div class="container" style="margin-top: 25px;margin-left: 50px;">
+            <loading :active.sync="isLoading" 
+                :can-cancel="true" 
+                :is-full-page="fullPage">
+            </loading>
             <div class="row">
                 <div class="col-md-8">
                     <h4 class="page-title">Book Appointment</h4>
@@ -11,6 +15,9 @@
                     <hr>
                 </div>
             </div>
+            <!-- <div>
+                <img src="/static/assets_admin/img/Eclipse-1s-200px.gif">
+            </div> -->
             <div class="container-fluid" align="left">
                 <div class="row ">
                     <div class="col-md-10">
@@ -87,9 +94,12 @@
                                 <div class="col-md-2">
                                     <button  type="button" class="btn btn-raised btn-primary m-t-15 waves-effect fa fa-send-o" @click="sunbmitAppointment()">Submit</button>
                                 </div>
-                                <div class="col-md-2">
+                                <!-- <div class="col-md-2">
                                     <button type="button" class="btn btn-raised btn-danger m-t-15 waves-effect fa fa-money" @click="showModalMyWallet">Wallet Pay</button>
-                                </div>
+                                    <div v-if="wallet_loading">
+                                        <img src="/static/assets_admin/img/Spinner-small.gif">
+                                    </div>
+                                </div> -->
                             </div>
                         </form>
                     </div>
@@ -126,7 +136,11 @@ export default {
             availableDates: [],
             time1: false,
             time2: false,
-            checkTimeForSelectedDate: ''
+            checkTimeForSelectedDate: '',
+            submit_loading: false,
+            wallet_loading: false,
+            isLoading: false,
+            fullPage: true
         }
     },
     components: {
@@ -151,6 +165,7 @@ export default {
                             confirmButtonText: 'Ok'
                         }).then((result) => {
                               if (result.value) {
+                                    self.isLoading = true
                                     self.sendData()     
                               }
                         });
@@ -166,10 +181,12 @@ export default {
                 console.log(response)
                 if(response.status === 200){
                     self.successModal()
+                    self.isLoading = false;
                 }
             }).catch((e) => {
                 self.failedModal();
                 console.log(e)
+                self.isLoading = false;
             })
         },
         successModal(){
@@ -231,45 +248,7 @@ export default {
             }
             this.time2 = true
             this.time1 = false
-        },
-        showModal () {
-            Swal.fire({
-              title: 'Are you sure?',
-              text: "You won't be able to revert this!",
-              type: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Are you sure?'
-            }).then((result) => {
-                if (result.value) {
-                    Swal.fire(
-                      'Ok!',
-                      'Appointment Submitted Successfully',
-                      'success'
-                    )
-                }
-            })
-      },
-      showModalMyWallet(){
-        Swal.fire({
-          title: 'Are you sure?',
-          text: "You won't be able to revert this!",
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Are you sure?'
-      }).then((result) => {
-          if (result.value) {
-            Swal.fire(
-              'Paid!',
-              'Successfully Paid from My Wallet',
-              'success'
-              )
         }
-    })
-  }
 },
 created () {
     var self = this

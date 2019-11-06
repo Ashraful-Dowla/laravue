@@ -5,9 +5,8 @@ export const FieldsDef_patients = [
 		sortField: 'id'
 	},
 	{
-		name:'first_name',
-		title: 'Name',
-		sortField: 'first_name'
+		name:'__slot:patient_name',
+		title: 'Patient Name',
 	},
 	{
 		name:'joining_date',

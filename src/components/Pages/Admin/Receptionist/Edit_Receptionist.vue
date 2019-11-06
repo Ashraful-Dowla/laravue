@@ -1,12 +1,16 @@
 <template>
     <div class="page-wrapper">
         <div class="container" style="margin-top: 25px;margin-left: 50px;">
+            <loading :active.sync="isLoading" 
+                :can-cancel="true"
+                :is-full-page="fullPage">
+            </loading>
             <div class="row">
                 <div class="col-md-8">
                     <h4 class="page-title">Edit Receptionist</h4>
                 </div>
                 <div class="col-md-2 text-right m-b-30">
-                    <router-link class="btn  btn-raised bg-grey waves-effect fa fa-chevron-circle-left" to="/admin/receptionist"><strong>BACK</strong></router-link>
+                    <router-link to="/admin/receptionist"><i class="arrow alternate circle left outline icon"></i>Previous</router-link>
                 </div>
             </div>
             <div class="row">
@@ -371,7 +375,9 @@ import Swal from 'sweetalert2';
                     status: '',
                     id: '',
                     AD_id: null
-                }
+                },
+                isLoading: false,
+                fullPage: true
             }
         },
         methods: {
@@ -391,7 +397,8 @@ import Swal from 'sweetalert2';
                             confirmButtonText: 'Ok'
                         }).then((result) => {
                                 if (result.value) {
-                                    self.sendData()     
+                                    self.sendData()
+                                    self.isLoading = true     
                               }
                         });
                     }
@@ -406,10 +413,12 @@ import Swal from 'sweetalert2';
                         if (response.status === 200) {
                             console.log(response)
                             self.successModal();
+                            self.isLoading = false
                         }
                     }).catch((e) => {
                         console.log(e)
                         self.failedModal();
+                        self.isLoading = false
                     })
             },
             successModal(){
@@ -496,6 +505,6 @@ import Swal from 'sweetalert2';
 </script>
 <style scoped>
 .borderBottom{
-  border-bottom: 2px solid #607D8B;
+  border-bottom: 2px solid #0392CE;
 }
 </style>

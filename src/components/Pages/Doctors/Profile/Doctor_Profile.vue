@@ -1,14 +1,14 @@
 <template>
 	<div class="page-wrapper">
 		<div class="container" style="margin-top: 25px;margin-left: 50px;">
+			<loading :active.sync="isLoading" 
+                :can-cancel="true" 
+                :is-full-page="fullPage">
+            </loading>
 			<div class="row">
 				<div class="col-md-8">
 					<h4 class="page-title">My Profile</h4>
 				</div>
-
-				<!-- <div class="col-md-2 text-right m-b-30">
-					<router-link class="btn  btn-raised bg-blue-grey waves-effect fa fa-plus" to="/doctor/edit_doctor_profile"><strong>EDIT PROFILE</strong></router-link>
-				</div> -->
 			</div>
 			<div class="row">
 				<div class="col-md-10">
@@ -295,6 +295,8 @@
 		},
 		data(){
 			return{
+				isLoading: false,
+				fullPage: true,
 				url: '',
 				doctorInfo: [],
 				doctorEduInfo: [],
@@ -409,7 +411,8 @@
 					confirmButtonText: 'Ok'
 				}).then((output) => {
 					if (output.value) {
-						self.sendEduUpdateData()     
+						self.sendEduUpdateData() 
+						self.isLoading = true    
 					}
 				});
 			},
@@ -425,7 +428,8 @@
 					confirmButtonText: 'Ok'
 				}).then((output) => {
 					if (output.value) {
-						self.sendExpUpdateData()     
+						self.sendExpUpdateData()
+						self.isLoading = true     
 					}
 				});
 			},
@@ -441,7 +445,8 @@
 					confirmButtonText: 'Ok'
 				}).then((output) => {
 					if (output.value) {
-						self.sendGeneralUpdateData()     
+						self.sendGeneralUpdateData()
+						self.isLoading = true     
 					}
 				});
 			},
@@ -452,10 +457,12 @@
 						if(response.status === 200){
 							console.log(response)
 							self.EduUpdateSuccessModal()
+							self.isLoading = false
 						}
 					}).catch((e) => {
 						console.log(e)
 						self.failedModal()
+						self.isLoading = false
 					})
 			},
 			sendExpUpdateData(){
@@ -465,10 +472,12 @@
 						if(response.status === 200){
 							console.log(response)
 							self.EduUpdateSuccessModal()
+							self.isLoading = false
 						}
 					}).catch((e) => {
 						console.log(e)
 						self.failedModal()
+						self.isLoading = false
 					})
 			},
 			sendGeneralUpdateData(){
@@ -478,10 +487,12 @@
 						if(response.status === 200){
 							console.log(response)
 							self.EduUpdateSuccessModal()
+							self.isLoading = false
 						}
 					}).catch((e) => {
 						console.log(e)
 						self.failedModal()
+						self.isLoading = false
 					})
 			},
 			saveData(){
@@ -499,7 +510,8 @@
 							confirmButtonText: 'Ok'
 						}).then((output) => {
 							if (output.value) {
-								self.sendData()     
+								self.sendData()
+								self.isLoading = true     
 							}
 						});
 					}
@@ -514,10 +526,12 @@
 						if (response.status === 200) {
 							console.log(response)
 							self.successModal()
+							self.isLoading = false
 						}
 					}).catch((e) => {
 						console.log(e)
 						self.failedModal()
+						self.isLoading = false
 					})
 			},
 			successModal(){
@@ -554,6 +568,6 @@
 		color: #1AAB8A;
 	}
 	.borderBottom{
-		border-bottom: 2px solid #607D8B;
+		border-bottom: 2px solid #0392CE;
 	}
 </style>
