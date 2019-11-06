@@ -80,6 +80,6 @@
 </script>
 <style scoped>
 	.borderBottom{
-		border-bottom: 2px solid #607D8B;
+		border-bottom: 2px solid #0392CE;
 	}
 </style>

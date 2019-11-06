@@ -2,7 +2,11 @@
     <div class="page-wrapper">
         <div class="content">
         <div class="container-fluid" align="left">
-            <button type="button" class="ui button blue waves-effect" @click="goBack" style="float: right;">Back</button>
+            <loading :active.sync="isLoading" 
+                :can-cancel="true" 
+                :is-full-page="fullPage">
+            </loading>
+            <router-link to="/receptionist/bill_issued" style="float: right;"><i class="arrow alternate circle left outline icon"></i>Previous</router-link>
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <h2>Payment Section</h2>
                 <v-select v-model="selected" :options="options" :reduce="mark=>mark.mark" label="name" @input="chk"></v-select>
@@ -109,8 +113,10 @@ export default{
             bill_id: '',
             net_payable: '',
             paid: '',
-            id: '',
-            card_number: ''
+            id: '2',
+            card_number: '',
+            isLoading: false,
+            fullPage: true
         }
     },
     created(){
@@ -151,6 +157,7 @@ export default{
             }).then((result) => {
               if (result.value) {
                 self.sendData()
+                self.isLoading = true
               }
             })
         },
@@ -166,9 +173,11 @@ export default{
                 console.log(response)
                 self.successModal()
                 self.$router.push('/receptionist/bill_issued')
+                self.isLoading = false
             }).catch((e)=>{
                 console.log(e)
                 self.failedModal()
+                self.isLoading = false
             })
         },
         successModal(){

@@ -1,6 +1,10 @@
 <template>
 	<div class="page-wrapper">
 		<div class="container" style="margin-top: 25px;margin-left: 50px;">
+			<loading :active.sync="isLoading" 
+                :can-cancel="true" 
+                :is-full-page="fullPage">
+            </loading>
 			<div class="row">
 				<div class="col-md-10">
 					<h3>Next Appointment</h3>
@@ -152,7 +156,9 @@
 				successIcon: false,
 				failedIcon: false,
 				patient_list: [],
-				checkTimeForAvailableDateSelected: ''
+				checkTimeForAvailableDateSelected: '',
+				isLoading: false,
+				fullPage: true
 		    }
 		  },
 		  mounted () {
@@ -175,7 +181,8 @@
 	                            confirmButtonText: 'Ok'
 	                        }).then((result) => {
 	                              if (result.value) {
-	                                    self.sendData()     
+	                                    self.sendData()  
+	                                    self.isLoading = true   
 	                              }
 	                        });
 	                  }
@@ -195,10 +202,12 @@
 		  			if(response.status === 200){
 		  				console.log(response)
 		  				self.successModal()
+		  				self.isLoading = false
 		  			}
 		  		}).catch((e) => {
 		  			console.log(e)
 		  			self.failedModal()
+		  			self.isLoading = false
 		  		})
 		  	},
 		  	successModal(){
@@ -367,6 +376,6 @@
 		background-color: #E8EAED;
 	}
 	.borderBottom{
-		border-bottom: 2px solid #607D8B;
+		border-bottom: 2px solid #0392CE;
 	}
 </style>

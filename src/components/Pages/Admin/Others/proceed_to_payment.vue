@@ -2,6 +2,10 @@
     <div class="page-wrapper">
         <div class="content">
         <div class="container-fluid" align="left">
+            <loading :active.sync="isLoading" 
+                :can-cancel="true"
+                :is-full-page="fullPage">
+            </loading>
             <button type="button" class="btn btn-raised btn-info m-t-15 waves-effect" @click="goBack" style="float: right;">Back</button>
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <h2>Payment Section</h2>
@@ -110,7 +114,9 @@ export default{
             net_payable: '',
             paid: '',
             id: '2',
-            card_number: ''
+            card_number: '',
+            isLoading: false,
+            fullPage: true
         }
     },
     created(){
@@ -148,6 +154,7 @@ export default{
             }).then((result) => {
               if (result.value) {
                 self.sendData()
+                self.isLoading = true
               }
             })
         },
@@ -162,10 +169,12 @@ export default{
             }).then((response)=>{
                 console.log(response)
                 self.successModal()
+                self.isLoading = false
                 self.$router.push('/admin/payments')
             }).catch((e)=>{
                 console.log(e)
                 self.failedModal()
+                self.isLoading = false
             })
         },
         successModal(){

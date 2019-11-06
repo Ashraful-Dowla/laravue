@@ -1,10 +1,14 @@
 <template>
-<div class="page-wrapper">
+  <div class="page-wrapper">
     <div class="content">
-  <div class="ui container">
-    <h1>Bill Issued</h1>
-    <!-- <filter-bar></filter-bar> -->
-    <vuetable ref="vuetable"
+    <loading :active.sync="isLoading" 
+      :can-cancel="true"
+      :is-full-page="fullPage">
+    </loading>
+    <div class="ui container">
+      <h1>Bill Issued</h1>
+      <!-- <filter-bar></filter-bar> -->
+      <vuetable ref="vuetable"
       :api-url="apiUrl"
       :fields="fields"
       pagination-path=""
@@ -13,34 +17,34 @@
       :sort-order="sortOrder"
       :append-params="moreParams"
       @vuetable:pagination-data="onPaginationData"
-    >
+      >
       <template slot="actions" slot-scope="props">
         <div class="custom-actions">
-           <button class="ui button green"
-            @click="onAction('pay-item', props.rowData, props.rowIndex)">
-            <i class="payment icon"></i>
-          </button>
-          <button class="ui button yellow"
-            @click="onAction('edit-item', props.rowData, props.rowIndex)">
-            <i class="edit icon"></i>
-          </button>
-          <button class="ui button red"
-            @click="onAction('delete-item', props.rowData, props.rowIndex)">
-            <i class="trash alternate icon"></i>
-          </button>
-        </div>
-      </template>
-    </vuetable>
-    <div class="vuetable-pagination ui basic segment grid">
-      <vuetable-pagination-info ref="paginationInfo"
-      ></vuetable-pagination-info>
-      <vuetable-pagination ref="pagination"
-        @vuetable-pagination:change-page="onChangePage"
-      ></vuetable-pagination>
-    </div>
-  </div>
-  </div>
-  </div>
+         <button class="ui button green"
+         @click="onAction('pay-item', props.rowData, props.rowIndex)">
+         <i class="payment icon"></i>
+       </button>
+       <button class="ui button yellow"
+       @click="onAction('edit-item', props.rowData, props.rowIndex)">
+       <i class="edit icon"></i>
+     </button>
+     <button class="ui button red"
+     @click="onAction('delete-item', props.rowData, props.rowIndex)">
+     <i class="trash alternate icon"></i>
+   </button>
+ </div>
+</template>
+</vuetable>
+<div class="vuetable-pagination ui basic segment grid">
+  <vuetable-pagination-info ref="paginationInfo"
+  ></vuetable-pagination-info>
+  <vuetable-pagination ref="pagination"
+  @vuetable-pagination:change-page="onChangePage"
+  ></vuetable-pagination>
+</div>
+</div>
+</div>
+</div>
 </template>
 
 <script>
@@ -81,7 +85,9 @@ export default {
       moreParams: {},
       apiUrl: '',
       id: '2',
-      data: []
+      data: [],
+      isLoading: false,
+      fullPage: true
     }
   },
   created(){
@@ -123,6 +129,7 @@ export default {
                         }).then((result) => {
                           if (result.value) {
                               self.deleteData(data.id)
+                              self.isLoading = true
                           }
                     }) 
         }else if(action == 'pay-item'){
@@ -137,9 +144,11 @@ export default {
             console.log(response)
             Vue.nextTick( () => this.$refs.vuetable.refresh() )
             self.successModal()
+            self.isLoading = false
        }).catch((e)=>{
             console.log(e)
             self.failedModal()
+            self.isLoading = false
        })
     },
     successModal(){

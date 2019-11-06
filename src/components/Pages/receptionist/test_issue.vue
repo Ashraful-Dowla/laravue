@@ -1,6 +1,10 @@
 <template>
     <div class="page-wrapper">
         <div class="container" style="margin-top: 25px;margin-left: 50px;">
+            <loading :active.sync="isLoading" 
+                :can-cancel="true" 
+                :is-full-page="fullPage">
+            </loading>
             <div class="container-fluid" align="left">
                 <div class="row clearfix">
                     <div class="col-lg-12 col-md-12 col-sm-12">
@@ -114,8 +118,10 @@
                 chkTest: [],
                 patient_id: '',
                 doctor_id: '',
-                id: '',
-                suc: false
+                id: '2',
+                suc: false,
+                isLoading: false,
+                fullPage: true
             };
         },
         created(){
@@ -174,6 +180,7 @@
                                 }).then((result) => {
                                   if (result.value) {
                                       self.sendData()
+                                      self.isLoading = true
                                   }
                             }) 
                         }
@@ -193,11 +200,13 @@
                     }).then((response)=>{
                         //console.log(response)
                         self.successModal()
+                        self.isLoading = false
                         //self.$router.push({ path: '/receptionist/proceed_to_payment'})
 
                     }).catch((e)=>{
                         //console.log(e)
                         self.failedModal()
+                        self.isLoading = false
                     })
             },
             errorCheck(){
@@ -238,6 +247,6 @@
 </script>
 <style scoped>
     .borderBottom{
-        border-bottom: 2px solid #607D8B;
+        border-bottom: 2px solid #0392CE;
     }
 </style>

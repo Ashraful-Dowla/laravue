@@ -7,7 +7,7 @@
                 </div>
 
                 <div class="col-md-3 text-right m-b-30">
-                    <router-link class="btn  btn-raised bg-grey waves-effect fa fa-chevron-circle-left" to="/admin/doctors"><strong>BACK</strong></router-link>
+                    <router-link to="/admin/doctors"><i class="arrow alternate circle left outline icon"></i>Previous</router-link>
                     <router-link class="btn  btn-raised bg-blue-grey waves-effect fa fa-plus" to="/admin/doctors/edit_profile"><strong>EDIT PROFILE</strong></router-link>
                 </div>
             </div>

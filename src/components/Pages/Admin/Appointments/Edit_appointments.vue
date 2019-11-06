@@ -1,12 +1,16 @@
 <template>
     <div class="page-wrapper">
         <div class="container" style="margin-top: 25px;margin-left: 50px;">
+            <loading :active.sync="isLoading" 
+                :can-cancel="true"
+                :is-full-page="fullPage">
+            </loading>
             <div class="row">
                 <div class="col-md-8">
                     <h4 class="page-title">Book Appointment</h4>
                 </div>
                 <div class="col-md-2 text-right m-b-30">
-                    <router-link class="btn  btn-raised bg-grey waves-effect fa fa-chevron-circle-left" to="/admin/appointments"><strong>BACK</strong></router-link>
+                    <router-link to="/admin/appointments"><i class="arrow alternate circle left outline icon"></i>Previous</router-link>
                 </div>
             </div>
             <div class="row">
@@ -127,7 +131,9 @@ export default {
             availableDates: [],
             time1: false,
             time2: false,
-            checkTimeForSelectedDate: ''
+            checkTimeForSelectedDate: '',
+            isLoading: false,
+            fullPage: true
         }
     },
     components: {
@@ -152,7 +158,8 @@ export default {
                             confirmButtonText: 'Ok'
                         }).then((result) => {
                               if (result.value) {
-                                    self.sendData()     
+                                    self.sendData()
+                                    self.isLoading = true     
                               }
                         });
                   }
@@ -167,9 +174,11 @@ export default {
                 console.log(response)
                 if(response.status === 200){
                     self.successModal()
+                    self.isLoading = false
                 }
             }).catch((e) => {
                 self.failedModal();
+                self.isLoading = false
                 console.log(e)
             })
         },

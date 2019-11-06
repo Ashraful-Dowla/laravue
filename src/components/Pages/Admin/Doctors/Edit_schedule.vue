@@ -1,12 +1,16 @@
 <template>
 	<div class="page-wrapper">
 		<div class="container" style="margin-top: 25px;margin-left: 50px;">
+			<loading :active.sync="isLoading" 
+                :can-cancel="true"
+                :is-full-page="fullPage">
+            </loading>
 			<div class="row">
 				<div class="col-md-8">
 					<h4 class="page-title">Edit Schedule</h4>
 				</div>
 				<div class="col-md-2 text-right m-b-30">
-					<router-link class="btn  btn-raised bg-grey waves-effect fa fa-chevron-circle-left" to="/admin/doctors_schedule"><strong>BACK</strong></router-link>
+					<router-link to="/admin/doctors_schedule"><i class="arrow alternate circle left outline icon"></i>Previous</router-link>
 				</div>
 			</div>
 			<div class="row">
@@ -43,19 +47,21 @@
 				<div class="col-sm-3">
 					<div class="form-group">
 						<h5>Present start time: {{presentStartingTime}}</h5>
-						<div>
+						<div :class="{error: validation.hasError('timeFrom')}">
 							<label><strong>Start Time</strong></label>
 							<vue-timepicker format="HH:mm" v-model="timeFrom"></vue-timepicker>
 						</div>
+						<div class="message" style="color: red;">{{ validation.firstError('timeFrom') }}</div>
 					</div>
 				</div>
 				<div class="col-sm-3">
 					<div class="form-group">
 						<h5>Present end time: {{presentEndingTime}}</h5>
-						<div>
+						<div :class="{error: validation.hasError('timeTo')}">
 							<label><strong>End Time</strong></label>
 							<vue-timepicker format="HH:mm" v-model="timeTo"></vue-timepicker>
 						</div>
+						<div class="message" style="color: red;">{{ validation.firstError('timeTo') }}</div>
 					</div>
 				</div>
 				<div class="col-md-3">
@@ -145,6 +151,8 @@ import VueTimepicker from 'vue2-timepicker'
 import 'vue2-timepicker/dist/VueTimepicker.css'
 import { apiDomain } from '@/components/Pages/Authentication/config'
 import Swal from 'sweetalert2'
+import SimpleVueValidation from 'simple-vue-validator';
+const Validator = SimpleVueValidation.Validator;
 
 
 export default {
@@ -162,7 +170,9 @@ export default {
 			presentStartingTime: '',
 			presentEndingTime: '',
 			timeFrom: null,
-			timeTo: null
+			timeTo: null,
+			isLoading: false,
+			fullPage: true
 		}
 	},
 	methods: {
@@ -181,19 +191,27 @@ export default {
 		},
 		updateSingleScheduleInfo(){
 			var self = this
-			Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ok'
-            }).then((result) => {
-                  if (result.value) {
-                        self.sendUpdateSingleScheduleData();     
-                  }
-            });
+			this.$validate()
+                .then( function(success) {
+                	if (success) {
+                		Swal.fire({
+							title: 'Are you sure?',
+							text: "You won't be able to revert this!",
+							type: 'warning',
+							showCancelButton: true,
+							confirmButtonColor: '#3085d6',
+							cancelButtonColor: '#d33',
+							confirmButtonText: 'Ok'
+						}).then((result) => {
+							if (result.value) {
+								self.sendUpdateSingleScheduleData()
+								self.isLoading = true  
+							}
+						});
+                	}
+                }).catch((e) => {
+                	console.log(e)
+                })
 		},
 		sendUpdateSingleScheduleData(){
 			var self = this
@@ -206,10 +224,12 @@ export default {
 					if (response.status === 200) {
 						console.log(response)
 						self.editSuccessModal()
+						self.isLoading = false
 					}
 				}).catch((e) => {
 					console.log(e)
 					self.failedModal()
+					self.isLoading = false
 				})
 		},
 		deleteSingleScheduleInfo(){
@@ -224,7 +244,8 @@ export default {
                 confirmButtonText: 'Ok'
             }).then((result) => {
                   if (result.value) {
-                        self.sendDeleteSingleScheduleData();     
+                        self.sendDeleteSingleScheduleData();
+                        self.isLoading = true     
                   }
             });
 		},
@@ -235,10 +256,12 @@ export default {
 					if (response.status === 200) {
 						console.log(response)
 						self.successModal()
+						self.isLoading = false
 					}
 				}).catch((e) => {
 					console.log(e)
 					self.failedModal()
+					self.isLoading = false
 				})
 		},
 		editSuccessModal(){
@@ -279,12 +302,20 @@ export default {
 			}).catch((e) =>{
 				console.log(e)
 			})
-	}
+	},
+	validators: {
+        'timeFrom': function (value) {
+            return Validator.value(value).required();
+        },
+        'timeTo': function (value) {
+            return Validator.value(value).required();
+        }
+    }
 }
 </script>
 <style scoped>
 	.borderBottom{
-		border-bottom: 2px solid #607D8B;
+		border-bottom: 2px solid #0392CE;
 	}
 	.divStyling{
 		border: 1px solid gray;

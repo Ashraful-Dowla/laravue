@@ -6,7 +6,7 @@
 					<h4 class="page-title">Edit Profile</h4>
 				</div>
 				<div class="col-md-2 text-right m-b-30">
-                    <router-link class="btn  btn-raised bg-grey waves-effect fa fa-chevron-circle-left" to="/doctor"><strong>BACK</strong></router-link>
+                    <router-link to="/doctor"><i class="arrow alternate circle left outline icon"></i>Previous</router-link>
                 </div>
 			</div>
 			<div class="row">
@@ -239,6 +239,6 @@ export default {
 </script>
 <style scoped>
 .borderBottom{
-	border-bottom: 2px solid #607D8B;
+	border-bottom: 2px solid #0392CE;
 }
 </style>

@@ -1,16 +1,20 @@
 <template>
 	<div class="page-wrapper">
 		<div class="container" style="margin-top: 25px;margin-left: 50px;">
+			<loading :active.sync="isLoading" 
+                :can-cancel="true"
+                :is-full-page="fullPage">
+            </loading>
 			<div class="row">
 				<div class="col-md-7">
 					<h4 class="page-title">Receptionists</h4>
 				</div>
-				<div class="col-md-3 text-right m-b-20">
+				<div class="col-md-4 text-right m-b-20">
 					<router-link class="ui button positive" to="/admin/receptionist/add_receptionist"><i class="plus icon"></i><strong>Add Receptionist</strong></router-link>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-10">
+				<div class="col-md-11">
 					<hr>
 				</div>
 			</div>
@@ -35,6 +39,11 @@
 								<router-link to=""><i class="trash alternate icon" @click="onAction('delete-items',props.rowData, props.rowIndex)"></i></router-link>
 				    		</div>
 				  		</template>
+				  		<template slot="receptionist_name" slot-scope="props">
+							<div>
+								{{props.rowData.first_name+' '+props.rowData.last_name}}
+							</div>
+						</template>
 				</vuetable>
 				<div class="card">
 					<div class="header">
@@ -42,7 +51,7 @@
 						    <p slot="header">Receptionist Information</p>
 						 
 						  	<div slot="content">
-								<img :src="modalData.image" alt="No Image">
+								<img :src="url+'receptionistImage/'+modalData.image" alt="No Image" style="height: 100px; width: 100px;">
 						    </div>
 						    <div slot="content">
 						    	<br>
@@ -113,7 +122,10 @@
 		    	sortOrder: [],
 		    	moreParams: {},
 		    	apiURL: '',
-		    	showModal: false
+		    	showModal: false,
+		    	isLoading: false,
+		    	fullPage: true,
+		    	url: ''
 		    }
 		  },
 		  mounted () {
@@ -130,6 +142,7 @@
 		    },
 		    onAction (action, data, index) {
 		    	var self = this
+		    	this.isLoading = true
 		      if(action === 'show-items'){
 		      	this.$http.post(apiDomain + 'api/singleReceptionistInfo',{rowID: data.id})
 			      		.then(response => {
@@ -142,8 +155,10 @@
 			      			self.modalData.state = response.body.single_receptionist_info[0].state
 			      			self.modalData.city = response.body.single_receptionist_info[0].city
 			      			self.modalData.phone_number = response.body.single_receptionist_info[0].phone_number
+			      			self.isLoading = false
 			      		}).catch((e) => {
 			      			console.log(e)
+			      			self.isLoading = false
 			      		})
 		      	this.showModal = true
 		      }
@@ -159,7 +174,8 @@
                     confirmButtonText: 'Ok'
                 }).then((result) => {
                         if (result.value) {
-                            self.sendData(data.id)     
+                            self.sendData(data.id) 
+                            self.isLoading = true    
                       }
                 });
 		      }
@@ -172,10 +188,12 @@
 		      				console.log(response)
 		      				self.successModal();
 		      				Vue.nextTick( () => self.$refs.vuetable.refresh() )
+		      				self.isLoading = false
 		      			}
 		      		}).catch((e)=>{
 		      			console.log(e)
 		      			self.failedModal();
+		      			self.isLoading = false
 		      		})
 		    },
 		    successModal(){
@@ -203,6 +221,7 @@
 		  },
 		  created () {
 		  	this.apiURL = apiDomain + 'api/receptionistList'
+		  	this.url = apiDomain
 		  }
 		}
 </script>

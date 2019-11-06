@@ -8,11 +8,14 @@ import VueCkeditor from 'vue-ckeditor5'
 import VueBootstrapTypeahead from 'vue-bootstrap-typeahead'
 import SimpleVueValidation from 'simple-vue-validator'
 import izitoast from 'izitoast'
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
 
 const Validator = SimpleVueValidation.Validator; 
 
 Vue.use(SimpleVueValidation)
 Vue.component('vue-bootstrap-typeahead', VueBootstrapTypeahead)
+Vue.component('loading', Loading)
 Vue.prototype.$izitoast = izitoast
 
 const options = {

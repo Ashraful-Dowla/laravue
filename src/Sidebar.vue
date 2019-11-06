@@ -33,25 +33,22 @@
 								<a class="fa fa-dashboard"><router-link to="/admin"><span>Dashboard</span></router-link></a>
 							</li>
 							<li>
+								<a class="fa fa-hospital-o"><router-link to="/admin/departments"><span>Departments</span></router-link></a>
+							</li>
+							<li>
 								<a class="fa fa-user-md"><router-link to="/admin/doctors"><span>Doctors</span></router-link></a>
-							</li>
-							<li>
-								<a class="fa fa-wheelchair"><router-link to="/admin/patients"><span>Patients</span></router-link></a>
-							</li>
-							<li>
-								<a class="fa fa-wheelchair"><router-link to="/admin/receptionist"><span>Receptionist</span></router-link></a>
-							</li>
-							<li>
-								<a class="fa fa-calendar"><router-link to="/admin/appointments"><span>Appointments</span></router-link></a>
 							</li>
 							<li>
 								<a class="fa fa-calendar-check-o"><router-link to="/admin/doctors_schedule"><span>Doctor Schedule</span></router-link></a>
 							</li>
 							<li>
-								<a class="fa fa-hospital-o"><router-link to="/admin/departments"><span>Departments</span></router-link></a>
+								<a class="fa fa-wheelchair"><router-link to="/admin/receptionist"><span>Receptionist</span></router-link></a>
 							</li>
 							<li>
-								<a class="fa fa-hospital-o"><router-link to="/admin/test_management"><span>Test Management</span></router-link></a>
+								<a class="fa fa-wheelchair"><router-link to="/admin/patients"><span>Patients</span></router-link></a>
+							</li>
+							<li>
+								<a class="fa fa-calendar"><router-link to="/admin/appointments"><span>Appointments</span></router-link></a>
 							</li>
 							<li>
 								<a class="fa fa-hospital-o"><router-link to="/admin/see_prascriptions"><span>Prescriptions</span></router-link></a>
@@ -79,6 +76,9 @@
 									<li><router-link to="/admin/add_leave">Add Leave manually</router-link></li>
 									<li><router-link to="/admin/Leave_type">Add Leave Type</router-link></li>
 								</ul>
+							</li>
+							<li>
+								<a class="fa fa-hospital-o"><router-link to="/admin/test_management"><span>Test Management</span></router-link></a>
 							</li>
 						</ul>
 					</div>

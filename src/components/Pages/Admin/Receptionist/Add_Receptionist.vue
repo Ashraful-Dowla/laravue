@@ -1,12 +1,16 @@
                 <template>
                  <div class="page-wrapper">
                     <div class="container" style="margin-top: 25px;margin-left: 50px;">
+                        <loading :active.sync="isLoading" 
+                            :can-cancel="true"
+                            :is-full-page="fullPage">
+                        </loading>
                         <div class="row">
                             <div class="col-md-8">
                                 <h4 class="page-title">Register a New Doctor</h4>
                             </div>
                             <div class="col-md-2 text-right m-b-30">
-                                <router-link class="btn  btn-raised bg-grey waves-effect fa fa-chevron-circle-left" to="/admin/receptionist"><strong>BACK</strong></router-link>
+                                <router-link to="/admin/receptionist"><i class="arrow alternate circle left outline icon"></i>Previous</router-link>
                             </div>
                         </div>
                         <div class="row">
@@ -404,30 +408,31 @@ export default {
     data () {
         return {
             receptionistInfo: {
-                firstName: 'Kamal',
-                lastName: 'Khan',
-                username: 'khankamal12',
-                email: 'kamal@gamil.com',
+                firstName: '',
+                lastName: '',
+                username: '',
+                email: '',
                 password: '123456',
-                joiningDate: '2019-09-25',
-                birthday: '2019-09-25',
-                nid_no: '12457890001',
+                joiningDate: '',
+                birthday: '',
+                nid_no: '',
                 nidImage: '',
-                gender: 'male',
-                address: 'Fazila Manjil,chittagong',
-                country: 'Bangladesh',
-                state: 'chittagong',
-                city: 'chittagong',
-                postalCode: '4310',
-                phoneNo: '01856778655',
+                gender: '',
+                address: '',
+                country: '',
+                state: '',
+                city: '',
+                postalCode: '',
+                phoneNo: '',
                 image: '',
-                status: '1',
+                status: '',
                 AD_id: null
             },
             pass: this.password,
             confirmPassword: '123456',
             submitted: false,
-            depatrments: []
+            depatrments: [],
+            isLoading: false
         }
     },
     methods: {
@@ -463,7 +468,8 @@ export default {
                             confirmButtonText: 'Ok'
                         }).then((result) => {
                               if (result.value) {
-                                    self.sendData()     
+                                    self.sendData()   
+                                    self.isLoading = true  
                               }
                         });
                   }
@@ -478,10 +484,12 @@ export default {
                     if(response.status === 200){
                         console.log(response)
                         self.successModal()
+                        self.isLoading = false
                     }
                 }).catch((e) => {
                     console.log(e)
                     self.failedModal()
+                    self.isLoading = false
                 });
         },
         successModal(){
@@ -568,6 +576,6 @@ export default {
 </script>
 <style scoped>
 .borderBottom{
-  border-bottom: 2px solid #607D8B;
+  border-bottom: 2px solid #0392CE;
 }
 </style>

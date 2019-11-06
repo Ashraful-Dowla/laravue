@@ -1,6 +1,10 @@
 <template>
     <!-- <div id="app"> -->
       <div id="login">
+        <loading :active.sync="isLoading" 
+            :can-cancel="true" 
+            :is-full-page="fullPage">
+        </loading>
         <div id="description">
           <h1>Login</h1>
           <p>By logging in you agree to the ridiculously long terms that you didn't bother to read.</p>
@@ -17,7 +21,7 @@
             <button type="submit" style="color: black;">Sign In</button>
             <br>
             <br>
-            <router-link to="/register">Sing Up </router-link>
+            <router-link to="/register">Sign Up </router-link>
             <router-link to=""> | Forgot password?</router-link>
           </form>
         </div>
@@ -35,9 +39,11 @@
                 hidePassword: true,
                 login: {
 
-                    email: 'kamal@gamil.com',
-                    password: '123456'
-                }
+                    email: '',
+                    password: ''
+                },
+                isLoading: false,
+                fullPage: true
             }
         },
         computed: {
@@ -54,6 +60,7 @@
                 this.$validate()
                 .then(function(success) {
                     if (success) {
+                        self.isLoading = true
                         const postData = {
                             grant_type: 'password',
                             client_id: clientId, 
@@ -63,13 +70,7 @@
                             scope: ''
                         }
                         const authUser = {
-                            access_token: '',
-                            refresh_token: '',
-                            email: '',
-                            patient_id: '',
-                            receptionist_id: '',
-                            id: '',
-                            role: ''
+                            
                         }
                         self.$http.post(loginUrl, postData)
                         .then(response => {
@@ -83,50 +84,57 @@
                                     self.$http.get(userUrl, {headers: getHeader()})
                                     .then(response => {
 
-                                        if(response.body.email_verified_at == null){
-                                            // console.log('User object',response)
+                                        if(response.body.email_verified_at !== null){
+                                            
                                             if(response.body.role === '1'){
                                                 authUser.id = response.body.id
                                                 authUser.email = response.body.email
-                                                authUser.role = '1'
+                                                authUser.role = 1
                                                 window.localStorage.setItem('authUser', JSON.stringify(authUser))
-                                                window.location.href = 'admin'
+                                                self.isLoading = false
+                                                self.$router.push({path: 'admin'})
                                             }
                                             else if(response.body.role === '2'){
                                                 authUser.doctor_id = response.body.doctor_id
                                                 authUser.id = response.body.id
                                                 authUser.email = response.body.email
                                                 authUser.department = response.body.department
-                                                authUser.role = '2' 
+                                                authUser.role = 2
                                                 window.localStorage.setItem('authUser', JSON.stringify(authUser))
-                                                window.location.href = 'doctor'
+                                                self.isLoading = false
+                                                self.$router.push({path: 'doctor'})
                                             }
                                             else if(response.body.role === '3'){
-                                                authUser.role = '3'
+                                                authUser.role = 3
                                                 authUser.id = response.body.id
                                                 authUser.receptionist_id = response.body.receptionist_id
                                                 window.localStorage.setItem('authUser', JSON.stringify(authUser))
+                                                self.isLoading = false
                                                 self.$router.push({path: 'receptionist'})
                                             }
                                             else if(response.body.role === '4'){
                                                 authUser.id = response.body.id
                                                 authUser.patient_id = response.body.patient_id
-                                                authUser.role = '4'
+                                                authUser.role = 4
                                                 window.localStorage.setItem('authUser', JSON.stringify(authUser))
+                                                self.isLoading = false
                                                 self.$router.push({ path: 'patient'})
                                             }
                                         }
                                         else{
                                             self.confirmYourEmail()
+                                            self.isLoading = false
                                         }
                                         
                                     }).catch((e)=>{
                                         console.log(response)
+                                        self.isLoading = false
                                     })
                                 }
                             }).catch((e)=>{
                                 console.log(e)
                                 self.failedModal()
+                                self.isLoading = false
                             })
                         }
                     }).catch((e)=>{

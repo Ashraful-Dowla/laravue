@@ -1,6 +1,10 @@
 <template>
 	<div class="page-wrapper">
         <div class="content">
+            <loading :active.sync="isLoading" 
+                :can-cancel="true" 
+                :is-full-page="fullPage">
+            </loading>
             <div class="container-fluid" align="left">
                 <div class="row clearfix">
                     <div class="col-lg-12 col-md-12 col-sm-12">
@@ -48,7 +52,9 @@
 			return{
 				user_id: '',
 				recharge_amount: '',
-				id: '',
+				id: '2',
+        isLoading: false,
+        fullPage: true
 			};
 		},
         created(){
@@ -73,6 +79,7 @@
                                 }).then((result) => {
                                   if (result.value) {
                                       self.sendData()
+                                      self.isLoading = true
                                   }
                             }) 
                         }
@@ -90,9 +97,11 @@
                     self.user_id = ''
                     self.recharge_amount = ''
             		self.successModal()
+                    self.isLoading = false
             	}).catch((e)=>{
             		console.log(e)
             		self.failedModal()
+                    self.isLoading = false
             	})
             },
             successModal(){

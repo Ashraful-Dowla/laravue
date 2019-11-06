@@ -2,6 +2,10 @@
 	<div class="page-wrapper">
 		<div class="content">
 		<div class="container-fluid" align="left">
+			<loading :active.sync="isLoading" 
+                :can-cancel="true"
+                :is-full-page="fullPage">
+            </loading>
 			<h3>Test Management</h3>
 			<div class="row">
 				<div class="col-md-10">
@@ -9,7 +13,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-sm-5">
+				<div class="col-md-5">
 					<div class="form-group" :class="{error: validation.hasError('test_name')}">
 						<p><b>Test Name</b></p>
 						<div class="borderBottom">
@@ -18,7 +22,7 @@
 						<div class="message" style="color: red;">{{ validation.firstError('test_name') }}</div>
 					</div>
 				</div>
-				<div class="col-sm-3">
+				<div class="col-md-3">
 					<div class="form-group" :class="{error: validation.hasError('price')}">
 						<p><b>Price</b></p>
 						<div class="borderBottom">
@@ -159,7 +163,9 @@
 		      suc: false,
 		      apiUrl: apiDomain + "api/getTestManagementData",
 		      filterText: '',
-		      filtered: []
+		      filtered: [],
+		      isLoading: false,
+		      fullPage: true
 		    }
 		  },
 		  created(){
@@ -195,6 +201,7 @@
 			            }).then((result) => {
 			              if (result.value) {
 			                self.deleteData(data.id)
+			                self.isLoading = true
 			              }
 			         });
 		      	}
@@ -228,7 +235,8 @@
 					              confirmButtonText: 'Are you sure?'
 					            }).then((result) => {
 					              if (result.value) {
-					                self.sendData()	
+					                self.sendData()
+					                self.isLoading = true	
 					              }
 					         });
                         }
@@ -246,12 +254,14 @@
 			           	 this.test_name = ''
 			           	 this.price = ''
 			           	 this.successModal()
+			           	 self.isLoading = false
 			           	 Vue.nextTick( () => this.$refs.vuetable.refresh() )
 
 			             }).catch((e)=>{
 
 			             	console.log(e)
 			             	this.failedModal()
+			             	self.isLoading = false
 
 			             })
 		    },
@@ -276,10 +286,12 @@
 		    	}).then((response)=>{
 		    		console.log(response)
 		    		this.successDeletedModal()
+		    		self.isLoading = false
 		    		Vue.nextTick( () => this.$refs.vuetable.refresh() )
 		    	}).catch((e)=>{
 		    		console.log(e)
 		    		this.failedModal()
+		    		self.isLoading = false
 		    	})
 		    },
 		    successDeletedModal(){
@@ -302,7 +314,8 @@
 				            }).then((result) => {
 				              if (result.value) {
 				              	console.log('xxxx')
-				                self.sendUpdateData()	
+				                self.sendUpdateData()
+				                self.isLoading = true	
 				              }
 				         });
 		    },
@@ -321,12 +334,14 @@
 			    		this.successUpdatedModal()
 			    		this.showModal = false
 			    		Vue.nextTick( () => this.$refs.vuetable.refresh() )
+			    		self.isLoading = false
 
 			    	}).catch((e)=>{
 
 			    		console.log(e)
 			    		this.failedModal()
 			    		this.showModal = false
+			    		self.isLoading = false
 			    		Vue.nextTick( () => this.$refs.vuetable.refresh() )
 			    	})
 		    },
@@ -350,6 +365,6 @@
 </script>
 <style scoped>
 	.borderBottom{
-		border-bottom: 2px solid #607D8B;
+		border-bottom: 2px solid #0392CE;
 	}
 </style>

@@ -1,9 +1,16 @@
 <template>
     <div class="page-wrapper">
         <div class="container" style="margin-top: 25px;margin-left: 50px;">
+            <loading :active.sync="isLoading" 
+                :can-cancel="true"
+                :is-full-page="fullPage">
+            </loading>
             <div class="row">
                 <div class="col-md-8">
                     <h4 class="page-title">Book Appointment</h4>
+                </div>
+                <div class="col-md-2 text-right m-b-30">
+                    <router-link to="/admin/appointments"><i class="arrow alternate circle left outline icon"></i>Previous</router-link>
                 </div>
             </div>
             <div class="row">
@@ -96,9 +103,9 @@
                                 <div class="col-md-2">
                                     <button  type="button" class="btn btn-raised btn-primary m-t-15 waves-effect fa fa-send-o" @click="sunbmitAppointment()">Submit</button>
                                 </div>
-                                <div class="col-md-2">
+                                <!-- <div class="col-md-2">
                                     <button type="button" class="btn btn-raised btn-danger m-t-15 waves-effect fa fa-money" @click="showModalMyWallet">Wallet Pay</button>
-                                </div>
+                                </div> -->
                             </div>
                         </form>
                     </div>
@@ -136,7 +143,10 @@ export default {
             availableDates: [],
             time1: false,
             time2: false,
-            checkTimeForSelectedDate: ''
+            checkTimeForSelectedDate: '',
+            loading: false,
+            isLoading: false,
+            fullPage: true
         }
     },
     components: {
@@ -161,7 +171,8 @@ export default {
                             confirmButtonText: 'Ok'
                         }).then((result) => {
                               if (result.value) {
-                                    self.sendData()     
+                                    self.sendData()    
+                                    self.isLoading = true 
                               }
                         });
                   }
@@ -176,10 +187,12 @@ export default {
                 console.log(response)
                 if(response.status === 200){
                     self.successModal()
+                    self.isLoading = false
                 }
             }).catch((e) => {
                 self.failedModal();
                 console.log(e)
+                self.isLoading = false
             })
         },
         successModal(){
@@ -313,6 +326,6 @@ validators: {
 </script>
 <style scoped>
 	.borderBottom{
-		border-bottom: 2px solid #607D8B;
+		border-bottom: 2px solid #0392CE;
 	}
 </style>

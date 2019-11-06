@@ -1,6 +1,10 @@
 <template>
 	<div class="page-wrapper">
 		<div class="container" style="margin-top: 25px;margin-left: 50px;">
+			<loading :active.sync="isLoading" 
+                :can-cancel="true"
+                :is-full-page="fullPage">
+            </loading>
 			<div class="row">
 				<h3>Leave Type Management</h3>
 			</div>
@@ -90,7 +94,9 @@
 		      moreParams: {},
 		      LeaveType: '',
 		      apiURL: apiDomain + 'api/getLeaveTypeInfo',
-		      AD_id: ''
+		      AD_id: '',
+		      isLoading: false,
+		      fullPage: true
 		    }
 		  },
 		  mounted () {
@@ -110,7 +116,8 @@
                     confirmButtonText: 'Ok'
                 }).then((result) => {
                       if (result.value) {
-                            self.addLeaveType();     
+                            self.addLeaveType(); 
+                            self.isLoading = true    
                       }
                 });
 		  	},
@@ -124,11 +131,13 @@
 		  				if(response.status === 200){
 		  					console.log(response)
 		  					self.successModal()
+		  					self.isLoading = false
 		  					Vue.nextTick( () => self.$refs.vuetable.refresh() )
 		  				}
 		  			}).catch((e) => {
 		  				console.log(e)
 		  				self.failedModal();
+		  				self.isLoading = false
 		  			})
 		  	},
 		    onPaginationData (paginationData) {
@@ -151,7 +160,8 @@
 	                    confirmButtonText: 'Ok'
 	                }).then((result) => {
 	                      if (result.value) {
-	                            self.deleteLeaveType(data.id);     
+	                            self.deleteLeaveType(data.id);
+	                            self.isLoading = true     
 	                      }
 	                });
 		    	}
@@ -163,11 +173,13 @@
 		    			if(response.status === 200){
 		    				console.log(response)
 		    				self.deleteLeaveModal();
+		    				self.isLoading = false
 		    				Vue.nextTick( () => self.$refs.vuetable.refresh() )
 		    			}
 		    		}).catch((e)=>{
 		    			console.log(e)
 		    			self.failedModal();
+		    			self.isLoading = false
 		    		})
 		    },
 		    successModal(){
@@ -214,6 +226,6 @@
 </script>
 <style scoped>
 	.borderBottom{
-		border-bottom: 2px solid #607D8B;
+		border-bottom: 2px solid #0392CE;
 	}
 </style>

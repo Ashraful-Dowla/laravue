@@ -35,7 +35,12 @@
 									<router-link :to="{name: 'editPatients', params: { id: props.rowData.id }}"><i class="edit icon"></i></router-link>
 									<router-link to=""><i class="trash alternate icon" @click="onAction('delete-items',props.rowData, props.rowIndex)"></i></router-link>
 							    </div>
-					  </template>
+					  		</template>
+					  		<template slot="patient_name" slot-scope="props">
+								<div>
+									{{props.rowData.first_name+' '+props.rowData.last_name}}
+								</div>
+							</template>
 					</vuetable>
 					<div class="vuetable-pagination ui basic segment grid">
 					  <vuetable-pagination-info ref="paginationInfo"
@@ -53,7 +58,7 @@
 						    <p slot="header">Doctor Information</p>
 						 
 						  	<div slot="content">
-								<img :src="modalData.image" alt="No Image">
+								<img :src="url+'patientImage/'+modalData.image" alt="No Image" style="height: 100px; width: 100px;">
 						    </div>
 						    <div slot="content">
 						    	<br>
@@ -114,7 +119,8 @@
 		      	sortOrder: [],
 		      	moreParams: {},
 		      	apiURL: '',
-		      	showModal: false
+		      	showModal: false,
+		      	url: ''
 		    }
 		  },
 		  mounted () {
@@ -217,6 +223,7 @@
 		    }
 		  },
 		  created () {
+		  	this.url = apiDomain
 		  	this.apiURL = apiDomain + 'api/getPatientInfo'
 		  	this.$http.get(apiDomain + 'api/getPatientInfo')
 		  		.then(response => {

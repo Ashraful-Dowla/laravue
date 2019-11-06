@@ -1,13 +1,17 @@
 <template>
 	<div class="page-wrapper">
 		<div class="container" style="margin-top: 25px;margin-left: 50px;">
+			<loading :active.sync="isLoading" 
+                :can-cancel="true" 
+                :is-full-page="fullPage">
+            </loading>
 			<div class="row">
 				<div class="col-md-8">
 					<h4 class="page-title">Add Your Experience</h4>
 				</div>
 
 				<div class="col-md-2 text-right m-b-30">
-					<router-link class="btn  btn-raised bg-blue-grey waves-effect" to="/doctor"><strong>Back</strong></router-link>
+					<router-link to="/doctor"><i class="arrow alternate circle left outline icon"></i>Previous</router-link>
 				</div>
 			</div>
 			<div class="row">
@@ -83,7 +87,9 @@
 					year_to: '',
 					doctor_id: '',
 					id: ''
-				}
+				},
+				isLoading: false,
+				fullPage: true
 			}
 		},
 		methods: {
@@ -102,7 +108,8 @@
 							confirmButtonText: 'Ok'
 						}).then((output) => {
 							if (output.value) {
-								self.sendData()     
+								self.sendData() 
+								self.isLoading = true    
 							}
 						});
 					}
@@ -117,10 +124,12 @@
 						if(response.status === 200){
 							console.log(response)
 							self.successModal()
+							self.isLoading = false
 						}
 					}).catch((e) => {
 						console.log(e)
 						self.failedModal()
+						self.isLoading = false
 					})
 			},
 			successModal(){
@@ -161,6 +170,6 @@
 </script>
 <style>
 	.borderBottom{
-		border-bottom: 2px solid #009EFB;
+		border-bottom: 2px solid #0392CE;
 	}
 </style>

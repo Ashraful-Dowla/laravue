@@ -1,6 +1,10 @@
 <template>
 	<div class="page-wrapper">
 		<div class="container" style="margin-top: 25px;margin-left: 50px;">
+			<loading :active.sync="isLoading" 
+                :can-cancel="true"
+                :is-full-page="fullPage">
+            </loading>
 			<div class="row">
 				<div class="col-md-7">
 					<h4 class="page-title">Leave Request</h4>
@@ -75,7 +79,9 @@
 		      fields: FieldsDef_leaves,
 		      sortOrder: [],
 		      moreParams: {},
-		      apiURL: apiDomain+'api/getLeaveRequests'
+		      apiURL: apiDomain+'api/getLeaveRequests',
+		      isLoading: false,
+		      fullPage: true
 		    }
 		  },
 		  mounted () {
@@ -108,7 +114,8 @@
 	                    confirmButtonText: 'Ok'
 	                }).then((result) => {
 	                      if (result.value) {
-	                            self.acceptRequest(data.id);     
+	                            self.acceptRequest(data.id); 
+	                            self.isLoading =true    
 	                      }
 	                });
 		      	}
@@ -123,7 +130,8 @@
 	                    confirmButtonText: 'Deny'
 	                }).then((result) => {
 	                      if (result.value) {
-	                            self.denyLeaveRequest(data.id);     
+	                            self.denyLeaveRequest(data.id); 
+	                            self.isLoading = true    
 	                      }
 	                });
 		      	}
@@ -135,11 +143,13 @@
 		    			if(response.status === 200){
 		    				console.log(response)
 		    				self.denySuccessModal()
+		    				self.isLoading = false
 		    				Vue.nextTick( () => self.$refs.vuetable.refresh() )
 		    			}
 		    		}).catch((e) => {
 		    			console.log(e)
 		    			self.failedModal()
+		    			self.isLoading = false
 		    		})
 		    },
 		    acceptRequest(id){
@@ -149,11 +159,13 @@
 		    			if (response.status === 200) {
 		    				console.log(response)
 		    				self.successModal()
+		    				self.isLoading = false
 		    				Vue.nextTick( () => self.$refs.vuetable.refresh() )
 		    			}
 		    		}).catch((e) => {
 		    			console.log(e)
 		    			self.failedModal()
+		    			self.isLoading = false
 		    		})
 		    },
 		    denySuccessModal(){

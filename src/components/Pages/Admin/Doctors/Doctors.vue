@@ -1,7 +1,12 @@
 <template>
 	<div id="doctor-main">
+
 		<div class="page-wrapper">
 			<div class="container" style="margin-top: 25px;margin-left: 50px;">
+				<loading :active.sync="isLoading" 
+                    :can-cancel="true" 
+                    :is-full-page="fullPage">
+                </loading>
 				<div class="row">
 					<div class="col-md-8">
 						<h4 class="page-title">Doctors</h4>
@@ -36,6 +41,11 @@
 									<router-link to=""><i class="trash alternate icon" @click="onAction('delete-items',props.rowData, props.rowIndex)"></i></router-link>
 								</div>
 							</template>
+							<template slot="doctor_name" slot-scope="props">
+								<div>
+									{{props.rowData.first_name+' '+props.rowData.last_name}}
+								</div>
+							</template>
 							</vuetable>
 							<div class="vuetable-pagination ui basic segment grid">
 								<vuetable-pagination-info ref="paginationInfo"
@@ -53,7 +63,7 @@
 						    <p slot="header">Doctor Information</p>
 						 
 						  	<div slot="content">
-								<img :src="modalData.image" alt="No Image">
+								<img :src="url+'doctorImage/'+modalData.image" alt="No Image" style="height: 100px; width: 100px;">
 						    </div>
 						    <div slot="content">
 						    	<br>
@@ -89,6 +99,8 @@
 	import { apiDomain } from '@/components/Pages/Authentication/config'
 	import modal from 'vue-semantic-modal'
 	import Swal from 'sweetalert2'
+	// import Loading from 'vue-loading-overlay'
+	// import 'vue-loading-overlay/dist/vue-loading.css'
 
 	Vue.use(VueEvents)
 	Vue.component('filter-bar', FilterBar)
@@ -118,8 +130,10 @@
 		      moreParams: {},
 		      apiURL: '',
 		      showModal: false,
-		      profileImage: null
-
+		      profileImage: null,
+		      isLoading: false,
+		      fullPage: true,
+		      url: ''
 		    }
 		  },
 		  mounted () {
@@ -166,7 +180,8 @@
                     confirmButtonText: 'Ok'
                 }).then((result) => {
                       if (result.value) {
-                            self.deleteDoctor(data.id);     
+                            self.deleteDoctor(data.id);  
+                            self.isLoading = true   
                       }
                 });
 		      }
@@ -177,11 +192,13 @@
 		    		.then(response => {
 		    			if(response.status === 200){
 		    				self.successModal()
+		    				self.isLoading = false
 		    				Vue.nextTick( () => self.$refs.vuetable.refresh() )
 		    			}
 		    		}).catch((e) => {
 		    			self.failedModal();
 		    			console.log(e)
+		    			self.isLoading = false
 		    		})
 		    },
 		    successModal(){
@@ -209,6 +226,7 @@
 		  },
 		  created () {
 		  	var self = this
+		  	this.url = apiDomain
 		  	this.apiURL = apiDomain + 'api/getDoctorsList'
 		  	console.log(this.apiURL)
 		  	this.$http.get(apiDomain + 'api/getDoctorsList')

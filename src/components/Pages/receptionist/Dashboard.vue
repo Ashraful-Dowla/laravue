@@ -1,6 +1,10 @@
 <template>
 	<div class="page-wrapper">
 		<div class="container" style="margin-top: 25px;margin-left: 50px;">
+			<loading :active.sync="isLoading" 
+                :can-cancel="true" 
+                :is-full-page="fullPage">
+            </loading>
 			<div class="row">
 				<div class="col-md-8">
 					<h4 class="page-title">My Profile</h4>
@@ -114,7 +118,9 @@
 					email: '',
 					address: '',
 					rowID: ''
-				}
+				},
+				isLoading: false,
+				fullPage: true
 			}
 		},
 		created(){
@@ -153,15 +159,18 @@
 					confirmButtonText: 'Ok'
 				}).then((output) => {
 					if (output.value) {
+						self.isLoading = true
 						self.$http.post(apiDomain + 'api/updateReceptionistGeneralInfo', self.generalInfo)
 							.then(response => {
 								if(response.status === 200){
 									console.log(response)
 									self.successModal()
+									self.isLoading = false
 								}
 							}).catch((e) => {
 								console.log(e)
 								self.failedModal()
+								self.isLoading = false
 							})    
 					}
 				});
