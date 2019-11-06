@@ -12,15 +12,15 @@
 				<ul class="nav user-menu float-right">   
 					<li class="nav-item dropdown has-arrow">
 						<a href="javascript:void(0);" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
-							<span class="user-img">
-								<img class="rounded-circle" src="static/assets_admin/img/pic.JPG" width="24" alt="Admin">
+							<!-- <span class="user-img">
+								<img class="rounded-circle" :src="url+'adminImage/'+image" width="24" alt="Admin">
 								<span class="status online"></span>
-							</span>
+							</span> -->
 							<span>Admin</span>
 						</a>
 						<div class="dropdown-menu">
-							<a class="dropdown-item"><router-link to="/admin/admin_profile"><span>My Profile</span></router-link></a>
-							<a class="dropdown-item" href="#">Logout</a>
+							<a class="dropdown-item"><router-link to="/admin"><span>Dashboard</span></router-link></a>
+							<a class="dropdown-item" href="" @click="logOut()">Logout</a>
 						</div>
 					</li>
 				</ul>
@@ -88,3 +88,13 @@
 		</div>
 	</div>
 </template>
+<script>
+	export default{
+		methods:{
+			logOut(){
+				window.localStorage.removeItem('authUser')
+				this.$router.push({path: 'login'})
+			}
+		}
+	}
+</script>

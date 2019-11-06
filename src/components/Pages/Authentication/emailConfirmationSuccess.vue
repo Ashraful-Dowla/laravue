@@ -1,6 +1,10 @@
 <template>
 	<div class="page-wrapper">
 		<div class="container" style="margin-top: 25px;margin-left: 50px;">
+			<loading :active.sync="isLoading" 
+                :can-cancel="true"
+                :is-full-page="fullPage">
+            </loading>
 			<div class="row">
 				<div v-if="seen1" class="col-md-8">
 					<h3>Congratulation! Your Registration is successfull!</h3>
@@ -28,7 +32,9 @@
 				passedToken: this.$route.params.token,
 				seen1: false,
 				seen2: false,
-				message: ''
+				message: '',
+				isLoading: false,
+				fullPage: true
 			}
 		},
 		methods: {
@@ -37,6 +43,7 @@
 			}
 		},
 		created () {
+			this.isLoading = true
 			const postData = {
 				token: this.passedToken,
 				email: this.passedEmail
@@ -47,14 +54,17 @@
 					if(response.status === 200){
 						if(response.body.crosscheck === 'true'){
 							this.seen1 = true;
+							this.isLoading = false
 						}
 						else if(response.body.crosscheck === 'verified'){
 							this.message = 'EMAIL ALREADY VERIFIED!'
 							this.seen2 = true;
+							this.isLoading = false
 						}
 						else if(response.body.crosscheck === 'invalid'){
 							this.message = 'SEEMS YOU ARE NO THE RIGHT USER! REGISTER FIRST.'
 							this.seen2 = true;
+							this.isLoading = false
 						}
 					}
 				})
