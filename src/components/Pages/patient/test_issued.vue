@@ -76,10 +76,15 @@ export default {
       moreParams: {},
       data: [],
       apiUrl: '',
-      id: '1',
+      id: '',
     }
   },
   created(){
+     const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+     this.id = tokenData.id
+
+     //console.log(this.id)
+
      this.apiUrl = apiDomain + 'api/getPatientTestIssuedData/' + this.id
   },
   mounted () {

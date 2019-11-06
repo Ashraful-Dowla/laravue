@@ -52,10 +52,15 @@
 				user_id: '',
 				recharge_amount: '',
 				id: '2',
-                isLoading: false,
-                fullPage: true
+        isLoading: false,
+        fullPage: true
 			};
 		},
+        created(){
+          var self = this
+          const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+          this.id = tokenData.id
+        },
 		methods:{
             func(){
             	var self = this

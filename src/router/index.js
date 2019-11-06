@@ -306,7 +306,7 @@ export default new Router({
         // },
         children: [
             {
-                path: '',
+                path: 'dashboard',
                 name: 'DashboardPatient',
                 component: DashboardPatient,
                 meta: { requiresAuth: true }
@@ -379,7 +379,7 @@ export default new Router({
         // },
         children: [
             {
-                path:'',
+                path:'dashboard',
                 name:'DashboardReceptionist',
                 component: DashboardReceptionist,
                 meta: {requiresAuth: true}

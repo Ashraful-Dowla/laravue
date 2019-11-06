@@ -89,15 +89,19 @@ export default {
         }
       ],
       moreParams: {},
-      id: '2',
+      id: '',
       apiURL: '',
       data:[],
       dt: '#'
     }
   },
   created(){
+      const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+      this.id = tokenData.id
+
       this.apiURL = apiDomain + 'api/getReport/' + this.id
       //console.log(apiDomain)
+
   },  
   mounted () {
     this.$events.$on('filter-set', eventData => this.onFilterSet(eventData))

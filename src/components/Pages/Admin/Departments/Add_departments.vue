@@ -84,8 +84,13 @@
 				isLoading: false,
 				suc: false,
 				id: '2'
-
 			};
+		},
+		created(){
+			 var self = this
+		     const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+		     this.id = tokenData.id
+		     //console.log(this.id)
 		},
 		methods:{
 			createDepartment(){
@@ -157,10 +162,6 @@
 			'status': function(value){
 				return Validator.value(value).required();
 			}
-		},
-		created(){
-			const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
-    		this.id = tokenData.id
 		}
 	}
 </script>

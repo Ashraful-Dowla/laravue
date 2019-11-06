@@ -52,6 +52,11 @@
 				fullPage: true
 			}
 		},
+		created(){
+			const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+		    this.id = tokenData.id
+		    console.log(this.id)
+		},
 		methods:{
 			sendData(){
 				var self = this
@@ -89,6 +94,8 @@
 					console.log(response)
 					self.successModal()
 					self.isLoading = false
+					self.patient_id = ''
+					self.editor_text = ''
 				}).catch((e)=>{
 					console.log(e)
 					self.failedModal()
