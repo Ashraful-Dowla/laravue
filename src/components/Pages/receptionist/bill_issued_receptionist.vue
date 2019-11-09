@@ -166,7 +166,7 @@ export default {
       Swal.fire({
         type: 'error',
         title: 'Oops...',
-        text: 'Something went wrong!'
+        text: 'Internal server error. Try again'
       })
     },
     onFilterSet (filterText) {

@@ -83,7 +83,8 @@
 				status: '1',
 				isLoading: false,
 				suc: false,
-				id: '2'
+				id: '2',
+				errorMessage: 'Internal server error. Try again'
 			};
 		},
 		created(){
@@ -98,20 +99,8 @@
 				this.$validate()
 					.then((response)=>{
 						if(response){
-				    		Swal.fire({
-					              title: 'Are you sure?',
-					              text: "You won't be able to revert this!",
-					              type: 'warning',
-					              showCancelButton: true,
-					              confirmButtonColor: '#3085d6',
-					              cancelButtonColor: '#d33',
-					              confirmButtonText: 'Are you sure?'
-					            }).then((result) => {
-					              if (result.value) {
-					                self.sendData()	
-					                self.isLoading = true
-					              }
-					         });
+				    		self.sendData()	
+					        self.isLoading = true
                         }
 					})
 				
@@ -132,9 +121,16 @@
 					this.successModal()
 					this.$router.push({ name: 'departments'})
 				}).catch((e)=>{
-					console.log(e)
-					this.failedModal()
-					self.loading = false
+					if(e.status === 401){
+						self.errorMessage = "A department with this name already exist"
+						self.isLoading = false
+						self.failedModal()
+					}
+					else {
+						console.log(e)
+						this.failedModal()
+						self.loading = false
+					}
 				})
 			},
 			successModal(){
@@ -148,7 +144,7 @@
 				Swal.fire({
 				  type: 'error',
 				  title: 'Oops...',
-				  text: 'Something went wrong!'
+				  text: this.errorMessage
 				})
 			}
 		},

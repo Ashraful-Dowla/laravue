@@ -123,7 +123,8 @@
 					time_to: '',
 					number_of_days: '',
 					leave_reason: '',
-				}
+				},
+				errorMessage: 'Internal server error. Try again.'
 			}
 		},
 		created(){
@@ -149,20 +150,8 @@
 		methods:{
 			addLeaveManually(){
 				var self = this
-		    		Swal.fire({
-	                    title: 'Are you sure?',
-	                    text: "You won't be able to revert this!",
-	                    type: 'warning',
-	                    showCancelButton: true,
-	                    confirmButtonColor: '#3085d6',
-	                    cancelButtonColor: '#d33',
-	                    confirmButtonText: 'Ok'
-	                }).then((result) => {
-	                      if (result.value) {
-	                            self.sendAddLeaveManuallyData(); 
-	                            self.isLoading = true    
-	                      }
-	                });
+		    		self.sendAddLeaveManuallyData(); 
+	                self.isLoading = true  
 	        },
 	        sendAddLeaveManuallyData(){
 	        	var self = this
@@ -175,8 +164,15 @@
 	        			}
 	        		}).catch((e) => {
 	        			console.log(e)
-	        			self.failedModal()
-	        			self.isLoading = false
+	        			if(e.status === 401){
+	        				self.errorMessage = "You already have a leave request"
+	        				self.isLoading = false
+	        				self.failedModal()
+	        			}
+	        			else{
+	        				self.failedModal()
+	        				self.isLoading = false
+	        			}
 	        		})
 	        },
 	        dateSelected(){
@@ -199,7 +195,7 @@
 	            Swal.fire({
 	                  type: 'error',
 	                  title: 'Oops...',
-	                  text: 'Something went wrong! '
+	                  text: this.errorMessage
 	            })
 	        },
 		}

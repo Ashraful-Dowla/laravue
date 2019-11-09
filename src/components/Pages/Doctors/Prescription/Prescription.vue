@@ -69,20 +69,8 @@
 			},
 			chk(){
 				var self = this
-				Swal.fire({
-                          title: 'Are you sure?',
-                          text: "You won't be able to revert this!",
-                          type: 'warning',
-                          showCancelButton: true,
-                          confirmButtonColor: '#3085d6',
-                          cancelButtonColor: '#d33',
-                          confirmButtonText: 'Are you sure?'
-                        }).then((result) => {
-                          if (result.value) {
-                              self.send()
-                              self.isLoading = true
-                          }
-                    }) 
+				self.send()
+                self.isLoading = true
 			},
 			send(){
 				var self = this
@@ -113,7 +101,7 @@
                 Swal.fire({
                   type: 'error',
                   title: 'Oops...',
-                  text: 'Something went wrong!'
+                  text: 'Internal server error. Try again'
                 })
             }
 		},
