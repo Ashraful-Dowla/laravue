@@ -12,7 +12,7 @@
 						<h4 class="page-title">Departments</h4>
 					</div>
 					<div class="col-md-4 text-right m-b-30">
-						<router-link class="ui button positive" to="/admin/departments/add_departments"><i class="plus icon"></i><strong>Add Department</strong></router-link>
+						<router-link class="ui button positive" to="/admin/departments/add_departments"><strong>Add Department</strong></router-link>
 					</div>
 				</div>
 				<div class="row">
@@ -47,10 +47,11 @@
 					    </div>
 					  </template>
 					</vuetable>
-					<div class="content">
+					<div class="card">
 						<div class="header">
 							<modal v-model="showModal">
 							    <p slot="header">Update Department Details</p>
+							 
 							  	<div slot="content">
 									 <div class="form-group" :class="{error: validation.hasError('modalForm.updated_department_name')}">
 										<p><b>Department Name</b></p>
@@ -87,7 +88,7 @@
 							        </div>
 							    </template>
 							</modal>
-					</div>
+						</div>
 					</div>
 					<div class="vuetable-pagination ui basic segment grid">
 					  <vuetable-pagination-info ref="paginationInfo"
@@ -101,18 +102,6 @@
 				</div>
 			</div>
 		</div>
-		<div id="delete_department" class="modal fade delete-modal" role="dialog">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="modal-body text-center">
-						<img src="assets/img/sent.png" alt="" width="50" height="46">
-						<h3>Are you sure want to delete this Department?</h3>
-						<div class="m-t-20"> <a href="#" class="btn btn-white" data-dismiss="modal">Close</a>
-							<button type="submit" class="btn btn-danger">Delete</button>
-						</div>
-					</div>
-				</div>
-			</div>
 		</div>
 		</div>
 	</div>
@@ -169,11 +158,17 @@
 		      },
 		    }
 		  },
+		  created(){
+		  	 var self = this
+		     const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+		     this.modalForm.updated_by = tokenData.id
+		     //console.log(this.modalForm.updated_by)
+		  },
 		  methods: {
 		  	statusCall(value){
 		  		return value === '1'
 		  						  ? '<span class="ui green label">Active</span>'
-		  						  : '<span class="ui red label">Inactive</span>'
+		  						  : '<span class="ui red label">Not Active</span>'
 		  	},
 		    onPaginationData (paginationData) {
 		      this.$refs.pagination.setPaginationData(paginationData)
@@ -243,6 +238,7 @@
 			    	}).then((response)=>{
 
 			    		this.successUpdatedModal()
+			    		//console.log('x'+self.modalForm.updated_by)
 			    		this.showModal = false
 			    		self.isLoading = false
 			    		Vue.nextTick( () => this.$refs.vuetable.refresh() )

@@ -4,7 +4,7 @@
 			<loading :active.sync="isLoading" 
 	            :can-cancel="true" 
 	            :is-full-page="fullPage">
-	        </loading>
+	    </loading>
 			<div class="row">
 				<div v-if="seen1" class="col-md-8">
 					<h3>Congratulation! Your Registration is successfull!</h3>
