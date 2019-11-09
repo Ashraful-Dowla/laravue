@@ -78,32 +78,6 @@
 				</div>
 			</div>
 			<br>
-			<!-- <div class="row">
-				<div class="col-md-10">
-					<div class="card-box profile-header">
-						<div class="row">
-							<div class="col-md-5">
-								<div class="profile-view">
-									<span style="color: green;"><strong>Your Current Balance: </strong></span>
-									<small>{{acnt_summary[0].amount}}</small><br>
-									<span style="color: green;"><strong>Last Refill Date: </strong></span>
-									<small>{{acnt_summary[0].refill_date}}</small><br>
-									<span style="color: green;"><strong>Receipt No: </strong></span>
-									<small>{{acnt_summary[0].receipt_no}}</small>
-								</div>
-							</div>
-							<div class="col-md-2">
-								<p style="height: 40px; width: 2px; color: black; background-color: gray;"></p>
-							</div>
-							<div class="col-md-5">
-								<div class="profile-view">
-									<h3>Walet Section will grow here</h3>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div> -->
 		</div>
 	</div>
 </template>
@@ -190,7 +164,7 @@
 				Swal.fire({
 					type: 'error',
 					title: 'Oops...',
-					text: 'Something went wrong! '
+					text: 'Internal server error. Try again'
 				})
 			}
 		}

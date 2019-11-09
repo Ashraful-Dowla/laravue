@@ -143,20 +143,8 @@ export default{
         showModal(){
             var self = this
            
-            Swal.fire({
-              title: 'Are you sure?',
-              text: "You won't be able to revert this!",
-              type: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Are you sure?'
-            }).then((result) => {
-              if (result.value) {
-                self.sendData()
-                self.isLoading = true
-              }
-            })
+            self.sendData()
+            self.isLoading = true
         },
         sendData(){
             var self = this
@@ -173,8 +161,15 @@ export default{
                 self.$router.push('/admin/payments')
             }).catch((e)=>{
                 console.log(e)
-                self.failedModal()
-                self.isLoading = false
+                if(e.status === 401){
+                    self.errorMessage = "Due is less than payable"
+                    self.isLoading = false
+                    self.failedModal()
+                }
+                else{
+                    self.failedModal()
+                    self.isLoading = false
+                }
             })
         },
         successModal(){

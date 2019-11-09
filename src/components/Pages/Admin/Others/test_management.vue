@@ -165,7 +165,8 @@
 		      filterText: '',
 		      filtered: [],
 		      isLoading: false,
-		      fullPage: true
+		      fullPage: true,
+		      errorMessage: 'Internal server error. Try again'
 		    }
 		  },
 		  created(){
@@ -225,20 +226,8 @@
 		    	this.$validate()
 		    		.then((success)=>{
 		    			if(success){
-				    		Swal.fire({
-					              title: 'Are you sure?',
-					              text: "You won't be able to revert this!",
-					              type: 'warning',
-					              showCancelButton: true,
-					              confirmButtonColor: '#3085d6',
-					              cancelButtonColor: '#d33',
-					              confirmButtonText: 'Are you sure?'
-					            }).then((result) => {
-					              if (result.value) {
-					                self.sendData()
-					                self.isLoading = true	
-					              }
-					         });
+				    		self.sendData()
+					        self.isLoading = true	
                         }
 		    		})
 		    },
@@ -258,7 +247,11 @@
 			           	 Vue.nextTick( () => this.$refs.vuetable.refresh() )
 
 			             }).catch((e)=>{
-
+			             	if(e.status === 401){
+			             		self.errorMessage = "A test with this name already exist"
+			             		self.isLoading = false
+			             		self.failedModal()
+			             	}
 			             	console.log(e)
 			             	this.failedModal()
 			             	self.isLoading = false
@@ -276,7 +269,7 @@
 		    	Swal.fire({
 				  type: 'error',
 				  title: 'Oops...',
-				  text: 'Something went wrong!'
+				  text: this.errorMessage
 				})
 		    },
 		    deleteData(deleteId){
@@ -303,21 +296,9 @@
 		    },
 		    updateData(){
 		    		var self = this;
-			    	Swal.fire({
-				              title: 'Are you sure?',
-				              text: "You won't be able to revert this!",
-				              type: 'warning',
-				              showCancelButton: true,
-				              confirmButtonColor: '#3085d6',
-				              cancelButtonColor: '#d33',
-				              confirmButtonText: 'Are you sure?'
-				            }).then((result) => {
-				              if (result.value) {
-				              	console.log('xxxx')
-				                self.sendUpdateData()
-				                self.isLoading = true	
-				              }
-				         });
+			    	console.log('xxxx')
+				    self.sendUpdateData()
+				    self.isLoading = true	;
 		    },
 		    sendUpdateData(){
 			        var self = this

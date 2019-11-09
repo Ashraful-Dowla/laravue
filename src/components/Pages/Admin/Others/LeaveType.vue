@@ -96,7 +96,8 @@
 		      apiURL: apiDomain + 'api/getLeaveTypeInfo',
 		      AD_id: '',
 		      isLoading: false,
-		      fullPage: true
+		      fullPage: true,
+		      errorMessage: 'Internal server error. Try again.'
 		    }
 		  },
 		  mounted () {
@@ -106,20 +107,8 @@
 		  methods: {
 		  	saveLeaveType(){
 		  		var self = this
-		  		Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Ok'
-                }).then((result) => {
-                      if (result.value) {
-                            self.addLeaveType(); 
-                            self.isLoading = true    
-                      }
-                });
+		  		self.addLeaveType(); 
+                self.isLoading = true  
 		  	},
 		  	addLeaveType(){
 		  		var self = this
@@ -136,8 +125,15 @@
 		  				}
 		  			}).catch((e) => {
 		  				console.log(e)
-		  				self.failedModal();
-		  				self.isLoading = false
+		  				if(e.status === 401){
+		  					self.errorMessage = "Leave type already exist"
+		  					self.isLoading = false
+		  					self.failedModal()
+		  				}
+		  				else {
+		  					self.failedModal();
+		  					self.isLoading = false
+		  				}
 		  			})
 		  	},
 		    onPaginationData (paginationData) {
@@ -193,7 +189,7 @@
 	            Swal.fire({
 	                  type: 'error',
 	                  title: 'Oops...',
-	                  text: 'Something went wrong! '
+	                  text: this.errorMessage
 	            })
 	        },
 		    deleteLeaveModal(){

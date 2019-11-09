@@ -148,21 +148,9 @@ export default {
             this.$validate()
               .then( function(success) {
                 if (success) {
-                        Swal.fire({
-                            title: 'Are you sure?',
-                            text: "You won't be able to revert this!",
-                            type: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Ok'
-                        }).then((result) => {
-                              if (result.value) {
-                                    self.sendData()
-                                    self.isLoading = true     
-                              }
-                        });
-                  }
+                  self.sendData()
+                  self.isLoading = true  
+                }
             }).catch((e)=>{
               console.log(e)
             })
@@ -193,7 +181,7 @@ export default {
             Swal.fire({
                   type: 'error',
                   title: 'Oops...',
-                  text: 'Something went wrong! '
+                  text: 'Internal server error. Try again.'
             })
         },
         departmentChanged(){

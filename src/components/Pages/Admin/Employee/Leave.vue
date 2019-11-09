@@ -104,20 +104,8 @@
 		    onAction (action, data, index) {
 		    	var self = this
 		      	if(action === 'accept-request'){
-			      	Swal.fire({
-	                    title: 'Are you sure?',
-	                    text: "You won't be able to revert this!",
-	                    type: 'warning',
-	                    showCancelButton: true,
-	                    confirmButtonColor: '#3085d6',
-	                    cancelButtonColor: '#d33',
-	                    confirmButtonText: 'Ok'
-	                }).then((result) => {
-	                      if (result.value) {
-	                            self.acceptRequest(data.id); 
-	                            self.isLoading =true    
-	                      }
-	                });
+			      	self.acceptRequest(data.id); 
+	                self.isLoading =true   
 		      	}
 		      	else if(action === 'delete-request'){
 		      		Swal.fire({
@@ -171,7 +159,7 @@
 		    denySuccessModal(){
 	            Swal.fire(
 	                  'Success!',
-	                  'Successfully Accepted!',
+	                  'Request Denied!!',
 	                  'success'
 	            )
 	        },
@@ -186,7 +174,7 @@
 	            Swal.fire({
 	                  type: 'error',
 	                  title: 'Oops...',
-	                  text: 'Something went wrong! '
+	                  text: 'Internal server error. Try again.'
 	            })
 	        },
 		    onFilterSet (filterText) {

@@ -451,7 +451,8 @@ export default {
             submitted: false,
             depatrments: [],
             isLoading: false,
-            fullPage: true
+            fullPage: true,
+            errorMessage: 'Internal server error. Try Again'
         }
     },
     methods: {
@@ -475,22 +476,9 @@ export default {
             this.$validate()
               .then( function(success) {
                 if (success) {
-                        Swal.fire({
-                            title: 'Are you sure?',
-                            text: "You won't be able to revert this!",
-                            type: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Ok'
-                        }).then((result) => {
-                              if (result.value) {
-                                
-                                self.isLoading = true
-                                self.sendData()     
-                              }
-                        });
-                  }
+                    self.isLoading = true
+                    self.sendData()   
+                }
             }).catch((e)=>{
               console.log(e)
             })
@@ -506,9 +494,16 @@ export default {
                         self.isLoading = false
                     }
                 }).catch((e) => {
-                    console.log(e)
-                    self.failedModal()
-                    self.isLoading = false
+                    if(e.status === 401){
+                        self.errorMessage = "Email or NID no already taken"
+                        self.isLoading = false
+                        self.failedModal()
+                    }
+                    else {
+                        console.log(e)
+                        self.failedModal()
+                        self.isLoading = false
+                    }
                 });
         },
         successModal(){
@@ -522,7 +517,7 @@ export default {
             Swal.fire({
                   type: 'error',
                   title: 'Oops...',
-                  text: 'Something went wrong! '
+                  text: this.errorMessage
             })
         }
     },

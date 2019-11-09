@@ -149,31 +149,19 @@
 			},
 			updateEditGeneralData(){
 				var self =this
-				Swal.fire({
-					title: 'Are you sure?',
-					text: "You won't be able to revert this!",
-					type: 'warning',
-					showCancelButton: true,
-					confirmButtonColor: '#3085d6',
-					cancelButtonColor: '#d33',
-					confirmButtonText: 'Ok'
-				}).then((output) => {
-					if (output.value) {
-						self.isLoading = true
-						self.$http.post(apiDomain + 'api/updateReceptionistGeneralInfo', self.generalInfo)
-							.then(response => {
-								if(response.status === 200){
-									console.log(response)
-									self.successModal()
-									self.isLoading = false
-								}
-							}).catch((e) => {
-								console.log(e)
-								self.failedModal()
-								self.isLoading = false
-							})    
-					}
-				});
+				self.isLoading = true
+				self.$http.post(apiDomain + 'api/updateReceptionistGeneralInfo', self.generalInfo)
+					.then(response => {
+						if(response.status === 200){
+							console.log(response)
+							self.successModal()
+							self.isLoading = false
+						}
+					}).catch((e) => {
+						console.log(e)
+						self.failedModal()
+						self.isLoading = false
+					})  
 			},
 			successModal(){
 				Swal.fire(
@@ -186,7 +174,7 @@
 				Swal.fire({
 					type: 'error',
 					title: 'Oops...',
-					text: 'Something went wrong! '
+					text: 'Internal server error. Try again'
 				})
 			}
 		}
