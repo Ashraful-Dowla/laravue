@@ -104,13 +104,12 @@ import EmailConfirmation from '@/components/Pages/Authentication/emailConfirmati
 
 import Swal from 'sweetalert2';
 Vue.use(Router)
-// const authUser = JSON.parse(window.localStorage.getItem('authUser'))
-// var roleshash = {
-//                     1: 'admin',
-//                     2: 'doctor',
-//                     3: 'receptionist',
-//                     4: 'patient'
-//                 }
+var roleshash = {
+                    1: 'admin',
+                    2: 'doctor',
+                    3: 'receptionist',
+                    4: 'patient'
+                }
 
 export default new Router({
   routes: [
@@ -137,19 +136,20 @@ export default new Router({
     {
     	path: '/admin', //sidebar
     	component: Sidebar,
-        // beforeEnter: (to, from, next) => {
-        //     if (authUser.role === 1) {
-        //       next();
-        //     }
-        //     else {
-        //         Swal.fire({
-        //             type: 'error',
-        //             title: 'Access Denied!',
-        //             text: 'Unauthorized access occured'
-        //         })
-        //         next({ path: '/' + roleshash[authUser.role] })
-        //     }
-        // },
+        beforeEnter: (to, from, next) => {
+            const authUser = JSON.parse(window.localStorage.getItem('authUser'))
+            if (authUser.role === 1) {
+              next();
+            }
+            else {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Access Denied!',
+                    text: 'Unauthorized access occured'
+                })
+                next({ path: '/' + roleshash[authUser.role] })
+            }
+        },
     	children: [
 
     		{
@@ -236,21 +236,22 @@ export default new Router({
     {
         path: '/doctor',
         component: Doctor,
-        // beforeEnter: (to, from, next) => {
-        //     if (authUser.role === 2)
-        //     {
-        //       next();
-        //     }
-        //     else
-        //     {
-        //         Swal.fire({
-        //             type: 'error',
-        //             title: 'Access Denied!',
-        //             text: 'Unauthorized access occured'
-        //         })
-        //         next({ path: '/' + roleshash[authUser.role] })
-        //     }
-        // },
+        beforeEnter: (to, from, next) => {
+            const authUser = JSON.parse(window.localStorage.getItem('authUser'))
+            if (authUser.role === 2)
+            {
+              next();
+            }
+            else
+            {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Access Denied!',
+                    text: 'Unauthorized access occured'
+                })
+                next({ path: '/' + roleshash[authUser.role] })
+            }
+        },
         children: [
             {path: '', component: DashboardDoctor,name: 'dashboardDoctor',meta: {requiresAuth: true}},
 
@@ -290,20 +291,21 @@ export default new Router({
     {
         path: '/patient',
         component: Dash,
-        // beforeEnter: (to, from, next) => {
-        //     if (authUser.role === 4)
-        //     {
-        //       next();
-        //     }
-        //     else {
-        //         Swal.fire({
-        //             type: 'error',
-        //             title: 'Access Denied!',
-        //             text: 'Unauthorized access occured'
-        //         })
-        //         next({ path: '/' + roleshash[authUser.role] })
-        //     }
-        // },
+        beforeEnter: (to, from, next) => {
+            const authUser = JSON.parse(window.localStorage.getItem('authUser'))
+            if (authUser.role === 4)
+            {
+              next();
+            }
+            else {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Access Denied!',
+                    text: 'Unauthorized access occured'
+                })
+                next({ path: '/' + roleshash[authUser.role] })
+            }
+        },
         children: [
             {
                 path: '',
@@ -365,18 +367,19 @@ export default new Router({
         path:'/receptionist',
         component: DashReceptionist,
         meta: {requiresAuth: true},
-        // beforeEnter: (to, from, next) => {
-        //     if (authUser.role === 3) {
-        //       next();
-        //     } else {
-        //         Swal.fire({
-        //             type: 'error',
-        //             title: 'Access Denied!',
-        //             text: 'Unauthorized access occured'
-        //         })
-        //         next({ path: '/' + roleshash[authUser.role] })
-        //     }
-        // },
+        beforeEnter: (to, from, next) => {
+            const authUser = JSON.parse(window.localStorage.getItem('authUser'))
+            if (authUser.role === 3) {
+              next();
+            } else {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Access Denied!',
+                    text: 'Unauthorized access occured'
+                })
+                next({ path: '/' + roleshash[authUser.role] })
+            }
+        },
         children: [
             {
                 path:'',
