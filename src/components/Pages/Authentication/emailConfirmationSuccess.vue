@@ -2,9 +2,9 @@
 	<div class="page-wrapper">
 		<div class="container" style="margin-top: 25px;margin-left: 50px;">
 			<loading :active.sync="isLoading" 
-                :can-cancel="true"
-                :is-full-page="fullPage">
-            </loading>
+	            :can-cancel="true" 
+	            :is-full-page="fullPage">
+	    </loading>
 			<div class="row">
 				<div v-if="seen1" class="col-md-8">
 					<h3>Congratulation! Your Registration is successfull!</h3>

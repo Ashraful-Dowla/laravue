@@ -76,7 +76,6 @@
                         .then(response => {
                             if(response.status === 200){
                                     // console.log('Oauth Token',response)
-
                                     authUser.access_token = response.data.access_token
                                     authUser.refresh_token = response.data.refresh_token
                                     window.localStorage.setItem('authUser', JSON.stringify(authUser))
