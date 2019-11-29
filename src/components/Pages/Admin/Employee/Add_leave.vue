@@ -45,7 +45,7 @@
 								<div class="form-group">
 									<p><b>Put Doctor ID</b></p>
 				                    <div class="borderBottom">
-				                    	<input type="text" class="form-control"  placeholder="Doctor ID: DR-XXXXXXXXXX" v-model="manualLeave.doctor_id"/>
+				                    	<input type="text" class="form-control"  placeholder="Doctor ID" v-model="manualLeave.doctor_id"/>
 				                    </div>
 				                </div>
 				            </div>

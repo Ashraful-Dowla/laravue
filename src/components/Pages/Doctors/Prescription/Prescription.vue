@@ -16,7 +16,7 @@
                     <div class="form-group" :class="{error: validation.hasError('patient_id')}">
                     	<p><b>Patient ID</b></p>
                         <div class="borderBottom">
-                            <input type="text" v-model="patient_id" class="form-control" placeholder="PT-XXXXXXXX" />
+                            <input type="text" v-model="patient_id" class="form-control" placeholder="Patient ID" />
                         </div>
                         <div class="message" style="color: red;">{{ validation.firstError('patient_id') }}</div>
                     </div>

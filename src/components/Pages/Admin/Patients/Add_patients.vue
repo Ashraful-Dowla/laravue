@@ -412,21 +412,21 @@
         data() {
             return {
                 patient: {
-                    firstName: 'MD',
-                    lastName: 'Maicara',
-                    email: 'maicara@gmail.com',
-                    userName: 'maicara',
-                    password: '123456',
+                    firstName: '',
+                    lastName: '',
+                    email: '',
+                    userName: '',
+                    password: '',
                     admissionDate: '',
                     birthday: '',
-                    gender: 'male',
-                    address: 'ksgdsdvcb syfdshfg',
-                    country: 'Bangladesh',
-                    state: 'Chittagong',
-                    city: 'Sitakund',
-                    postalCode: '4000',
-                    phoneNumber: '01245999654',
-                    nid_no: '01247000214',
+                    gender: '',
+                    address: '',
+                    country: '',
+                    state: '',
+                    city: '',
+                    postalCode: '',
+                    phoneNumber: '',
+                    nid_no: '',
                     nid_image: null,
                     status: '1',
                     id: null
@@ -550,7 +550,7 @@
             return Validator.value(value).required().digit();
           },
           'patient.phoneNumber': function (value) {
-            return Validator.value(value).required().digit();
+            return Validator.value(value).required().digit().maxLength(15).regex('(88|0088)?(01){1}[3-9]{1}[0-9]{8}');
           },
           'patient.nid_no': function (value) {
             return Validator.value(value).required().digit();

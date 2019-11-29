@@ -101,6 +101,7 @@ import ReportUpload from '@/components/Pages/receptionist/report_upload'
 import Login from '@/components/Pages/Authentication/Login'
 import Register from '@/components/Pages/Authentication/Register'
 import EmailConfirmation from '@/components/Pages/Authentication/emailConfirmationSuccess'
+import ResetPassword from '@/components/Pages/Authentication/passwordReset'
 
 import Swal from 'sweetalert2';
 Vue.use(Router)
@@ -132,6 +133,11 @@ export default new Router({
         path: '/emailConfirmation/:email/:token',
         component: EmailConfirmation,
         name: 'emailConfirmation'
+    },
+    {
+        path: '/resetPassword/:email',
+        component: ResetPassword,
+        name: 'resetPassworde'
     },
     {
     	path: '/admin', //sidebar

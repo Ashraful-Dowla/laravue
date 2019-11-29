@@ -543,7 +543,7 @@
             return Validator.value(value).required().digit();
           },
           'patient.phoneNumber': function (value) {
-            return Validator.value(value).required().digit();
+            return Validator.value(value).required().digit().maxLength(15).regex('(88|0088)?(01){1}[3-9]{1}[0-9]{8}');
           },
           'patient.nid_no': function (value) {
             return Validator.value(value).required().digit();

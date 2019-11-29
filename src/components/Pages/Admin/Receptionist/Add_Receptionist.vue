@@ -433,6 +433,7 @@ export default {
             submitted: false,
             depatrments: [],
             isLoading: false,
+            fullPage: true,
             errorMessage: 'Internal server error. Try again.'
         }
     },
@@ -535,7 +536,7 @@ export default {
             return Validator.value(value).required();
         },
         'receptionistInfo.nid_no': function (value) {
-            return Validator.value(value).required();
+            return Validator.value(value).required().digit();
         },
         'receptionistInfo.nidImage': function (value) {
             return Validator.value(value).required();
@@ -556,10 +557,10 @@ export default {
             return Validator.value(value).required();
         },
         'receptionistInfo.postalCode': function (value) {
-            return Validator.value(value).required();
+            return Validator.value(value).required().digit();
         },
         'receptionistInfo.phoneNo': function (value) {
-            return Validator.value(value).required();
+            return Validator.value(value).required().digit().maxLength(15).regex('(88|0088)?(01){1}[3-9]{1}[0-9]{8}');
         },
         'receptionistInfo.image': function (value) {
             return Validator.value(value).required();

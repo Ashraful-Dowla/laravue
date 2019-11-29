@@ -30,7 +30,7 @@
 				                </div>
 			            	</div>
 						</div>
-						<div class="row">
+						<div class="row" hidden>
 							<div class="col-md-5">
 								<div class="form-group">
 				                    <div class="borderBottom">

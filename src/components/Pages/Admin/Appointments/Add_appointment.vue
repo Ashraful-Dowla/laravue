@@ -24,7 +24,7 @@
 						<div class="form-group">
 							<p><b>Patient ID</b></p>
 		                    <div class="borderBottom" :class="{error: validation.hasError('appointment.patient_id')}">
-			                    <input type="text" class="form-control" placeholder="PT-XXXXXXXXX" v-model="appointment.patient_id"/>
+			                    <input type="text" class="form-control" placeholder="Patient ID" v-model="appointment.patient_id"/>
 			                </div>
 			                <div class="message" style="color: red;">{{ validation.firstError('appointment.patient_id') }}</div>
 		                </div>
@@ -103,9 +103,11 @@
                                 <div class="col-md-2">
                                     <button  type="button" class="btn btn-raised btn-primary m-t-15 waves-effect fa fa-send-o" @click="sunbmitAppointment()">Submit</button>
                                 </div>
-                                <!-- <div class="col-md-2">
-                                    <button type="button" class="btn btn-raised btn-danger m-t-15 waves-effect fa fa-money" @click="showModalMyWallet">Wallet Pay</button>
-                                </div> -->
+                            </div><br>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <span><strong style="color: red;">{{apptErrorMessage}}</strong></span>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -147,7 +149,8 @@ export default {
             loading: false,
             isLoading: false,
             fullPage: true,
-            errorMessage: 'Internal server error. Try again.'
+            errorMessage: 'Internal server error. Try again.',
+            apptErrorMessage: ''
         }
     },
     components: {
@@ -181,8 +184,9 @@ export default {
             }).catch((e) => {
               if(e.status === 401){
                 self.errorMessage = "An appointment with this patient in this date has already been scheduled."
+                self.apptErrorMessage = "An appointment with this patient in this date has already been scheduled."
                 self.isLoading = false
-                self.failedModal()
+                // self.failedModal()
               }
               else {
                 self.failedModal();

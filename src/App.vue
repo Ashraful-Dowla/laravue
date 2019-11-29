@@ -13,8 +13,8 @@
               </button>
             </div>
             <div class="collapse navbar-collapse navbar-right" id="myNavbar" style="margin-top: 15px;">
-                <a href=""><router-link style="color: white;" to="/login">Sign In</router-link></a>
-                <a href=""><router-link style="color: white;" to="/register"> | Sign Up</router-link></a>
+              <router-link style="color: white;" to="/login">Sign In</router-link>
+              <router-link style="color: white;" to="/register"> | Sign Up</router-link>
             </div>
           </div>
         </div>

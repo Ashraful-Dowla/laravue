@@ -8,6 +8,28 @@
         <div id="description">
           <h1>Login</h1>
           <p>By logging in you agree to the ridiculously long terms that you didn't bother to read.</p>
+          <div class="card">
+            <div class="header">
+                <modal v-model="showModal">
+                    <p slot="header">Enter Your Email</p>
+                    <div slot="content">
+                       <div class="form-group">
+                            <div class="borderBottom">
+                                <input v-model="passwordResetEmail" class="form-control" placeholder="Enter email"></input>
+                            </div>
+                        </div>
+                    </div>
+                    <template slot="actions">
+                        <div class="ui button positive" @click="sendPassResetLink()">
+                          Update
+                        </div>
+                          <div class="ui button red" @click="showModal=false">
+                              Cancel
+                          </div>
+                    </template>
+                </modal>
+            </div>
+            </div>
         </div>
         <div id="form">
           <form @submit.prevent="signin">
@@ -22,18 +44,22 @@
             <br>
             <br>
             <router-link to="/register">Sign Up </router-link>
-            <router-link to=""> | Forgot password?</router-link>
+            <a href="#" @click="setEmail()"> | Forgot password?</a>
           </form>
         </div>
-      </div>
+    </div>
 </template>
 <script>    
-    import { loginUrl, getHeader, userUrl } from './config';
+    import { loginUrl, getHeader, userUrl , apiDomain} from './config';
     import { clientId, clientSecret } from './env';
     import SimpleVueValidation from 'simple-vue-validator';
     import Swal from 'sweetalert2';
+    import modal from 'vue-semantic-modal'
     const Validator = SimpleVueValidation.Validator; 
 	export default{
+        components: {
+            modal
+        },
         data(){
             return{
                 hidePassword: true,
@@ -43,7 +69,10 @@
                     password: ''
                 },
                 isLoading: false,
-                fullPage: true
+                fullPage: true,
+                passwordResetEmail: '',
+                showModal: false
+
             }
         },
         computed: {
@@ -55,6 +84,26 @@
           }
         },
 		methods: {
+            setEmail(){
+                this.showModal = true
+            },
+            sendPassResetLink(){
+                var self = this
+                this.showModal = false
+                this.isLoading = true
+                this.$http.post(apiDomain + 'api/sendPasswordResetLink',{email: this.passwordResetEmail})
+                    .then(response => {
+                        if(response.status === 200){
+                            console.log(response)
+                            self.resetPasswordSuccess()
+                            this.isLoading = false
+                        }
+                    }).catch((e)=>{
+                        console.log(e)
+                        self.failedModal()
+                        this.isLoading = false
+                    })
+            },
 			signin(){
                 var self = this;
                 this.$validate()
@@ -152,6 +201,13 @@
                   type: 'error',
                   title: 'Unauthorized!',
                   text: 'Please,confirm your email.'
+              })
+            },
+            resetPasswordSuccess(){
+                Swal.fire({
+                  type: 'success',
+                  title: 'success!',
+                  text: 'Your reset password link has sent. Check email'
               })
             }
 		},
