@@ -121,6 +121,7 @@
 							console.log(response)
 							self.successModal()
 							self.isLoading = false
+							self.$router.push({path: 'doctor'})
 						}
 					}).catch((e) => {
 						console.log(e)

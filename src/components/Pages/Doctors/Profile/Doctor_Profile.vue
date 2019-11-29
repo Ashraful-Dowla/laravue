@@ -460,12 +460,13 @@
 					})
 			},
 			saveData(){
+				this.showModal = false
 				var self = this
 				this.$validate()
 				.then( function(success) {
 					if (success) {
 						self.sendData()
-						self.isLoading = true  
+						self.isLoading = true
 					}
 				}).catch((e)=>{
 					console.log(e)
