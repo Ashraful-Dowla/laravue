@@ -14,7 +14,7 @@
 			<div class="row">
 				<div class="col-sm-3">
                     <div class="form-group">
-                    	<P><b>Enter a digit</b></P>
+                    	<P><b>Enter Number of Days</b></P>
                         <div class="borderBottom" :class="{error: validation.hasError('number_of_days')}">
                             <input type="text" class="form-control" placeholder="Enter a Number" v-model="number_of_days" v-on:keyup="extentionSelected()" />
                         </div>
@@ -23,7 +23,7 @@
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
-                    	<P><b>Select extention</b></P>
+                    	<P><b>Select Days</b></P>
                     	<div class="borderBottom" :class="{error: validation.hasError('extention')}">
 		                    <select class="form-control show-tick" v-model="extention" @change="extentionSelected()">
 		                        <option>Select</option>

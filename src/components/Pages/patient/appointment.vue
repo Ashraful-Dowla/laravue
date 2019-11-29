@@ -100,6 +100,11 @@
                                         <img src="/static/assets_admin/img/Spinner-small.gif">
                                     </div>
                                 </div> -->
+                            </div><br>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <span><strong style="color: red;">{{apptErrorMessage}}</strong></span>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -141,7 +146,8 @@ export default {
             wallet_loading: false,
             isLoading: false,
             fullPage: true,
-            errorMessage: 'Internal server error. Try again'
+            errorMessage: 'Internal server error. Try again',
+            apptErrorMessage: ''
         }
     },
     components: {
@@ -176,8 +182,9 @@ export default {
                 console.log(e)
                 if(e.status === 401){
                     self.errorMessage = "An appointment with this doctor in this date has already been scheduled"
+                    self.apptErrorMessage = "An appointment with this doctor in this date has already been scheduled"
                     self.isLoading = false
-                    self.failedModal()
+                    // self.failedModal()
                 }
                 else{
                     self.failedModal();

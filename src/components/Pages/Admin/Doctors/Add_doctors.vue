@@ -552,7 +552,7 @@ export default {
             return Validator.value(value).required();
         },
         'doctorInfo.nid_no': function (value) {
-            return Validator.value(value).required();
+            return Validator.value(value).required().digit();
         },
         'doctorInfo.nidImage': function (value) {
             return Validator.value(value).required();
@@ -573,10 +573,10 @@ export default {
             return Validator.value(value).required();
         },
         'doctorInfo.postalCode': function (value) {
-            return Validator.value(value).required();
+            return Validator.value(value).required().digit();
         },
         'doctorInfo.phoneNo': function (value) {
-            return Validator.value(value).required();
+            return Validator.value(value).required().digit().maxLength(15).regex('(88|0088)?(01){1}[3-9]{1}[0-9]{8}');
         },
         'doctorInfo.image': function (value) {
             return Validator.value(value).required();

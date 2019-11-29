@@ -72,9 +72,9 @@
 							<li class="submenu">
 								<a href="#"><i class="fa fa-user"></i> <span> Leave Management </span> <span class="menu-arrow"></span></a>
 								<ul style="display: none;">
-									<li><router-link to="/admin/employees/leaves">Leave Requests</router-link></li>
-									<li><router-link to="/admin/add_leave">Add Leave manually</router-link></li>
 									<li><router-link to="/admin/Leave_type">Add Leave Type</router-link></li>
+									<li><router-link to="/admin/add_leave">Add Leave manually</router-link></li>
+									<li><router-link to="/admin/employees/leaves">Leave Requests</router-link></li>
 								</ul>
 							</li>
 							<li>

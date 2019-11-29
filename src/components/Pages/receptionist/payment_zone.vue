@@ -151,7 +151,6 @@ export default{
                             self.$http.get(apiDomain + 'api/getProceedToPaymentData/' + self.bill_id)
                             .then((response)=>{
                                 self.net_payable = response.data[0]["due"]
-
                             }).catch((e)=>{
                                 //console.log(e)
                             })

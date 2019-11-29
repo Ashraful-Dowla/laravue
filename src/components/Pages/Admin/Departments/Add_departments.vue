@@ -26,6 +26,7 @@
 							<input type="text" v-model="department_name" class="form-control" placeholder="Department Name" />
 						</div>
 						<div class="message" style="color: red;">{{ validation.firstError('department_name') }}</div>
+						<span><strong style="color: red;">{{deptErrorMessage}}</strong></span>
 					</div>
 				</div>
 			</div>
@@ -82,9 +83,11 @@
 				description: '',
 				status: '1',
 				isLoading: false,
+				fullPage: true,
 				suc: false,
 				id: '2',
-				errorMessage: 'Internal server error. Try again'
+				errorMessage: 'Internal server error. Try again',
+				deptErrorMessage: ''
 			};
 		},
 		created(){
@@ -123,8 +126,9 @@
 				}).catch((e)=>{
 					if(e.status === 401){
 						self.errorMessage = "A department with this name already exist"
+						self.deptErrorMessage = "A department with this name already exist"
 						self.isLoading = false
-						self.failedModal()
+						// self.failedModal()
 					}
 					else {
 						console.log(e)

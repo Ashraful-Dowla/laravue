@@ -57,6 +57,7 @@
 							</select>
 						</div>
 						<div class="message" style="color: red;">{{ validation.firstError('schedule.day') }}</div>
+						<span><strong style="color: red;">{{scheErrorMessage}}</strong></span>
 					</div>
 				</div>
 			</div>
@@ -135,8 +136,8 @@ export default {
 				department: '',
 				doctor: '',
 				day: '',
-				time_from: null,
-				time_to: null,
+				time_from: '',
+				time_to: '',
 				status: '',
 				AD_id: null
 			},
@@ -144,7 +145,8 @@ export default {
 			doctors: [],
 			isLoading: false,
 			fullPage: true,
-			errorMessage: 'Internal server error. Try again.'
+			errorMessage: 'Internal server error. Try again.',
+			scheErrorMessage: ''
 		}
 	},
 	methods: {
@@ -182,8 +184,9 @@ export default {
 					console.log(e)
 					if(e.status == 401){
 						self.errorMessage = "Schedule with this date already taken."
+						self.scheErrorMessage = "Schedule with this date already taken."
 						self.isLoading = false
-						self.failedModal()
+						// self.failedModal()
 					}
 					else{
 						self.failedModal()
