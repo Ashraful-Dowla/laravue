@@ -364,7 +364,9 @@
     <div class="form-group">
         <div class="borderBottom" :class="{error: validation.hasError('doctorInfo.phoneNo')}">
             <input type="text" class="form-control" placeholder="PHONE NUMBER" v-model="doctorInfo.phoneNo" />
-        </div>
+            <span></span>
+        </div><br>
+        <span>Ex: 018xxxxxx,88014xxxxxx,0088013xxxxxx,+88018xxxxxx</span>
         <div class="message" style="color: red;">{{ validation.firstError('doctorInfo.phoneNo') }}</div>
     </div>
 </div>
@@ -576,7 +578,7 @@ export default {
             return Validator.value(value).required().digit();
         },
         'doctorInfo.phoneNo': function (value) {
-            return Validator.value(value).required().digit().maxLength(15).regex('(88|0088)?(01){1}[3-9]{1}[0-9]{8}');
+            return Validator.value(value).required().maxLength(15).regex('([+]{1}[8]{2}|88|0088)?(01){1}[3-9]{1}[0-9]{8}');
         },
         'doctorInfo.image': function (value) {
             return Validator.value(value).required();

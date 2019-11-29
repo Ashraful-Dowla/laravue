@@ -347,7 +347,8 @@
                     <div class="form-group">
                         <div class="borderBottom" :class="{error: validation.hasError('patient.phoneNumber')}">
                             <input type="text" class="form-control" placeholder="PHONE NUMBER" v-model="patient.phoneNumber"/>
-                        </div>
+                        </div><br>
+                        <span>Ex: 018xxxxxx,88014xxxxxx,0088013xxxxxx,+88018xxxxxx</span>
                         <div class="message" style="color: red;">{{ validation.firstError('patient.phoneNumber') }}</div>
                     </div>
                 </div>
@@ -406,21 +407,21 @@
         data() {
             return {
                 patient: {
-                    firstName: 'MD',
-                    lastName: 'Obailullah',
-                    email: 'obaid@gmail.com',
-                    userName: 'maicara',
+                    firstName: '',
+                    lastName: '',
+                    email: '',
+                    userName: '',
                     password: '123456',
                     admissionDate: '',
                     birthday: '',
-                    gender: 'male',
-                    address: 'ksgdsdvcb syfdshfg',
-                    country: 'Bangladesh',
-                    state: 'Chittagong',
-                    city: 'Sitakund',
-                    postalCode: '4000',
-                    phoneNumber: '018566666475',
-                    nid_no: '012470002100',
+                    gender: '',
+                    address: '',
+                    country: '',
+                    state: '',
+                    city: '',
+                    postalCode: '',
+                    phoneNumber: '',
+                    nid_no: '',
                     nid_image: null,
                     status: '1',
                     id: null
@@ -543,7 +544,7 @@
             return Validator.value(value).required().digit();
           },
           'patient.phoneNumber': function (value) {
-            return Validator.value(value).required().digit().maxLength(15).regex('(88|0088)?(01){1}[3-9]{1}[0-9]{8}');
+            return Validator.value(value).required().maxLength(15).regex('([+]{1}[8]{2}|88|0088)?(01){1}[3-9]{1}[0-9]{8}');
           },
           'patient.nid_no': function (value) {
             return Validator.value(value).required().digit();
