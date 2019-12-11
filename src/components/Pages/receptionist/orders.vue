@@ -17,7 +17,7 @@
                     <div class="message" style="color: red;">{{ validation.firstError('bill_id') }}</div>
                 </div>
             </form>
-            <button class="ui button blue" style="float: right;" @click="searchFunction">Search</button>
+            <button class="ui button blue" @click="searchFunction">Search</button>
             <br><br><br><br>
             <div id="printTable" v-if="showDataTable">
 	        	<table class="table">
@@ -85,7 +85,7 @@
 	                </tbody>
 	            </table>
             </div>
-	         <button class="ui button yellow" style="float: right;" @click="printFunction" v-if="showDataTable" >Print</button>
+	         <button class="ui button yellow" @click="printFunction" v-if="showDataTable" >Print</button>
 	         <loading
      			:show="show"
      			:label="label">

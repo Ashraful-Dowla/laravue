@@ -30,7 +30,12 @@
                     <button class="ui button positive"
                       @click="onAction('view-item', props.rowData, props.rowIndex)">
                       <i class="zoom icon"></i>
-                    </button>
+                    View</button>
+                    <!-- <button class="ui button positive"
+                      @click="onAction('view-item', props.rowData, props.rowIndex)">
+                      <i class="address book outline icon"></i>
+                    Prescribe</button> -->
+                    <button class="ui button positive"><router-link :to="{name: 'todays_patient_prescription', params: { date: props.rowData.appointment_date, patient_id: props.rowData.patient_id, doctor_id: doctor_id}}"><i class="address book outline icon"></i></router-link>Prescribe</button>
             </div>
           </template>
         </vuetable>
@@ -120,8 +125,8 @@ export default {
     },
     statusCall(value){
       return value === 'online'
-                    ? '<span class="ui green label">Active</span>'
-                    : '<span class="ui red label">Inactive</span>'
+                    ? '<span class="ui green label">Online</span>'
+                    : '<span class="ui red label">Manual</span>'
     },
     onPaginationData (paginationData) {
       this.$refs.pagination.setPaginationData(paginationData)

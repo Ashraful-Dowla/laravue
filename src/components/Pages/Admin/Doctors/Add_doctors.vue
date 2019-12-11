@@ -371,11 +371,18 @@
     </div>
 </div>
 <div class="col-md-6">
-    <div :class="{error: validation.hasError('doctorInfo.image')}">
-        <label>Doctor Image</label>
-        <input type="file" accept="image/*" @change="doctorImageSelected">
+    <div class="row">
+        <div class="col-md-3">
+            <div :class="{error: validation.hasError('doctorInfo.image')}">
+                <label>Doctor Image</label>
+                <input type="file" accept="image/*" @change="doctorImageSelected">
+            </div>
+            <div class="message" style="color: red;">{{ validation.firstError('doctorInfo.image') }}</div>
+        </div>
+        <div class="col-md-3" style="margin-left: 150px;">
+            <img v-if="preview" :src="doctorInfo.image" style="width: 110px; height: 110px;">
+        </div>
     </div>
-    <div class="message" style="color: red;">{{ validation.firstError('doctorInfo.image') }}</div>
 </div>
 </div>
 <div class="form-group" :class="{error: validation.hasError('doctorInfo.shortBiography')}">
@@ -399,9 +406,11 @@
 </div>
 <div class="row">
     <div class="col-md-10">
-        <div class="m-t-20 text-center">
+        <span><strong style="color: red;">{{errMsg}}</strong></span><br>
+        <div class="m-t-20">
             <button type="button" class="ui button positive" @click="registerDoctor()">Register</button>
         </div>
+        
     </div>
 </div>
 <div class="row">
@@ -426,35 +435,37 @@ export default {
     data () {
         return {
             doctorInfo: {
-                firstName: '',
-                lastName: '',
-                username: '',
+                firstName: 'Miftah',
+                lastName: 'Musfique',
+                username: 'miftah',
                 email: '',
-                password: '123456',
+                password: '',
                 department: 'Select Department',
                 joiningDate: '',
                 birthday: '',
-                nid_no: '',
+                nid_no: '14000302400875',
                 nidImage: '',
-                gender: '',
-                address: '',
+                gender: 'male',
+                address: 'Fozila Monjil, Shah Gorib Ullah,GEC,Chittagong',
                 country: 'Select Country',
-                state: '',
-                city: '',
-                postalCode: '',
+                state: 'Chittagong',
+                city: 'Chittagong',
+                postalCode: '4000',
                 phoneNo: '',
                 image: '',
-                shortBiography: '',
-                status: '',
-                AD_id: ''
+                shortBiography: 'Some short biography',
+                status: 1,
+                AD_id: '',
             },
             pass: this.password,
-            confirmPassword: '123456',
+            confirmPassword: '',
             submitted: false,
             depatrments: [],
             isLoading: false,
             fullPage: true,
-            errorMessage: 'Internal server error. Try Again'
+            errorMessage: 'Internal server error. Try Again',
+            errMsg: '',
+            preview: false
         }
     },
     methods: {
@@ -471,6 +482,7 @@ export default {
             reader.onload = (event) => {
                 this.doctorInfo.image = event.target.result
             }
+            this.preview = true
         },
         registerDoctor () {
             var self = this
@@ -494,12 +506,14 @@ export default {
                         console.log(response)
                         self.successModal()
                         self.isLoading = false
+                        self.$router.push({name: 'doctors'})
                     }
                 }).catch((e) => {
-                    if(e.status === 401){
-                        self.errorMessage = "Email or NID no already taken"
+                    if(e.status === 422){
+                        self.errMsg = "Email or NID no already taken"
                         self.isLoading = false
-                        self.failedModal()
+                        console.log(e)
+                        // self.failedModal()
                     }
                     else {
                         console.log(e)
@@ -518,7 +532,6 @@ export default {
         failedModal(){
             Swal.fire({
                   type: 'error',
-                  title: 'Oops...',
                   text: this.errorMessage
             })
         }

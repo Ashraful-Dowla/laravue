@@ -384,11 +384,9 @@
             </div>
             <div class="row">
                 <div class="col-md-10">
-                    <div class="m-t-20 text-center">
+                    <span><strong style="color: red;">{{errMsg}}</strong></span><br>
+                    <div class="m-t-20">
                         <button type="button" class="ui button positive" @click="signUp">Register Patient</button>
-                        <div v-if="loading">
-                            <img src="/static/assets_admin/img/Spinner.gif">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -413,21 +411,21 @@
         data() {
             return {
                 patient: {
-                    firstName: '',
-                    lastName: '',
+                    firstName: 'Parvez',
+                    lastName: 'Robin',
                     email: '',
-                    userName: '',
+                    userName: 'robin',
                     password: '',
                     admissionDate: '',
                     birthday: '',
-                    gender: '',
-                    address: '',
-                    country: '',
-                    state: '',
-                    city: '',
-                    postalCode: '',
+                    gender: 'male',
+                    address: 'Fozila Monjil, Shah Gorib Ullah,GEC,Chittagong',
+                    country: 'Bangladesh',
+                    state: 'Chittagong',
+                    city: 'Chittagong',
+                    postalCode: '4000',
                     phoneNumber: '',
-                    nid_no: '',
+                    nid_no: '1000340001400',
                     nid_image: null,
                     status: '1',
                     id: null
@@ -438,7 +436,8 @@
                 loading: false,
                 isLoading: false,
                 fullPage: true,
-                errorMessage: 'Internal server error. Try again'
+                errorMessage: 'Internal server error. Try again',
+                errMsg: ''
             }
         },
         methods: {
@@ -471,13 +470,14 @@
                                     console.log(response)
                                     self.successModal()
                                     self.isLoading = false
+                                    self.$router.push({name: 'patients'})
                               }
                         }).catch((e)=>{
                           console.log(e)
                           if(e.status === 401){
-                            self.errorMessage = "Email or NID no already taken."
+                            self.errMsg = "Email or NID no already taken."
                             self.isLoading = false
-                            self.failedModal()
+                            // self.failedModal()
                           }
                           else{
                             self.failedModal()

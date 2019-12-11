@@ -48,7 +48,7 @@
 							>
 							<template slot="actions" slot-scope="props">
 								<div class="custom-actions">
-									<router-link :to="{name: 'editdoctor', params: { id: props.rowData.id }}"><i class="edit icon"></i></router-link>
+									<!-- <router-link :to="{name: 'editdoctor', params: { id: props.rowData.id }}"><i class="edit icon"></i></router-link> -->
 									<router-link to=""><i class="trash alternate icon" @click="onAction('delete-items',props.rowData, props.rowIndex)"></i></router-link>
 								</div>
 							</template>

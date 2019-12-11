@@ -32,7 +32,7 @@
 		                </div>
 		                <!-- <iframe :src="reportUrl"></iframe> -->
 		            </form>
-		            <button class="ui button blue" style="float: right;" @click="sendData">Submit</button>
+		            <button class="ui button blue" @click="sendData">Submit</button>
 	        	</div>
 	    	</div>
 		</div>

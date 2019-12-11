@@ -195,7 +195,7 @@ export default {
         successModal(){
             Swal.fire(
                   'Success!',
-                  'Successfully Registered!',
+                  'Successfully booked an appointment!',
                   'success'
             )
         },

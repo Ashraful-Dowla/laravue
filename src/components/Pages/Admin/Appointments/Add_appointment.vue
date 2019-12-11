@@ -178,8 +178,13 @@ export default {
             .then(response => {
                 console.log(response)
                 if(response.status === 200){
-                    self.successModal()
+                    // self.successModal()
+                    this.$izitoast.success({
+                        title: 'OK',
+                        message: 'An appointment succesfully booked!',
+                    });
                     self.isLoading = false
+                    self.$router.push({name: 'appointments'})
                 }
             }).catch((e) => {
               if(e.status === 401){

@@ -158,7 +158,8 @@ textarea.form-control {
 	float: left;
 }
 .form-group {
-	margin-bottom: 20px;
+	margin-bottom: 2px;
+	margin-top: 2px;
 }
 .display-block {
 	display: block;
@@ -1137,7 +1138,8 @@ textarea.form-control {
 	text-align: center;
 }
 .account-box .form-group {
-	margin-bottom: 20px;
+	margin-bottom: 2px;
+
 }
 .account-box a {
 	color: #333;
@@ -4044,7 +4046,7 @@ blockquote p {
 	box-shadow: inherit;
 }
 .new-comment .form-group {
-	margin-bottom: 20px;
+	margin-bottom: 2px;
 }
 .comment-submit .btn {
 	background-color: #009efb;

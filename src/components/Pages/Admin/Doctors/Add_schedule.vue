@@ -43,7 +43,7 @@
 				</div>
 				<div class="col-sm-3">
 					<div class="form-group">
-						<p><b>Select Date</b></p>
+						<p><b>Select Day</b></p>
 						<div class="borderBottom" :class="{error: validation.hasError('schedule.day')}">
 							<select class="form-control show-tick" v-model="schedule.day">
 								<option>Select Days</option>
@@ -71,7 +71,7 @@
 					<div class="form-group">
 						<div :class="{error: validation.hasError('schedule.time_from')}">
 							<label><strong>Start Time</strong></label>
-							<vue-timepicker format="HH:mm" v-model="schedule.time_from"></vue-timepicker>
+							<vue-timepicker format="hh:mm A" v-model="schedule.time_from"></vue-timepicker>
 						</div>
 						<div class="message" style="color: red;">{{ validation.firstError('schedule.time_from') }}</div>
 					</div>
@@ -80,7 +80,7 @@
 					<div class="form-group">
 						<div :class="{error: validation.hasError('schedule.time_to')}">
 							<label><strong>End Time</strong></label>
-							<vue-timepicker format="HH:mm" v-model="schedule.time_to"></vue-timepicker>
+							<vue-timepicker format="hh:mm A" v-model="schedule.time_to"></vue-timepicker>
 						</div>
 						<div class="message" style="color: red;">{{ validation.firstError('schedule.time_to') }}</div>
 					</div>
@@ -105,7 +105,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-10">
-					<div class="m-t-20 text-center">
+					<div class="m-t-20">
 						<button type="button" class="btn  btn-raised btn-success waves-effect" @click="createSchedule()">Create Schedule</button>
 					</div>
 				</div>

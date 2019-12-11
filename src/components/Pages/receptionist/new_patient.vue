@@ -381,7 +381,8 @@
             </div>
             <div class="row">
                 <div class="col-md-10">
-                    <div class="m-t-20 text-center">
+                    <span><strong style="color: red;">{{errMsg}}</strong></span><br>
+                    <div class="m-t-20">
                         <button type="button" class="ui button positive" @click="signUp">Register Patient</button>
                     </div>
                 </div>
@@ -407,21 +408,21 @@
         data() {
             return {
                 patient: {
-                    firstName: '',
-                    lastName: '',
+                    firstName: 'Ripon',
+                    lastName: 'Sushil',
                     email: '',
-                    userName: '',
-                    password: '123456',
+                    userName: 'ripon',
+                    password: '',
                     admissionDate: '',
                     birthday: '',
-                    gender: '',
-                    address: '',
-                    country: '',
-                    state: '',
-                    city: '',
-                    postalCode: '',
+                    gender: 'male',
+                    address: 'Fozila Monjil, Shah Gorib Ullah,GEC,Chittagong',
+                    country: 'Bangladesh',
+                    state: 'Chittagong',
+                    city: 'Chittagong',
+                    postalCode: '4000',
                     phoneNumber: '',
-                    nid_no: '',
+                    nid_no: '10455870014',
                     nid_image: null,
                     status: '1',
                     id: null
@@ -431,7 +432,8 @@
                 submitted: false,
                 isLoading: false,
                 fullPage: true,
-                errorMessage: 'Internal server error. Try again'
+                errorMessage: 'Internal server error. Try again',
+                errMsg: ''
             }
         },
         methods: {
@@ -462,13 +464,18 @@
                        .then(response => {
                               if(response.status === 200){
                                     console.log(response)
-                                    self.successModal()
+                                    // self.successModal()
+                                    this.$izitoast.success({
+                                        title: 'OK',
+                                        message: 'Successfully Registered!',
+                                    });
                                     self.isLoading = false
+                                    self.$router.push({name: 'PatientList'})
                               }
                         }).catch((e)=>{
                           console.log(e)
                           if(e.status === 401){
-                            self.errorMessage = "Email or NID no already taken"
+                            self.errMsg = "Email or NID no already taken"
                             self.isLoading = false
                             self.failedModal()
                           }
