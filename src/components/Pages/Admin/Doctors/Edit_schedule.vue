@@ -49,7 +49,7 @@
 						<h5>Present start time: {{presentStartingTime}}</h5>
 						<div :class="{error: validation.hasError('timeFrom')}">
 							<label><strong>Start Time</strong></label>
-							<vue-timepicker format="HH:mm" v-model="timeFrom"></vue-timepicker>
+							<vue-timepicker format="hh:mm A" v-model="timeFrom"></vue-timepicker>
 						</div>
 						<div class="message" style="color: red;">{{ validation.firstError('timeFrom') }}</div>
 					</div>
@@ -59,7 +59,7 @@
 						<h5>Present end time: {{presentEndingTime}}</h5>
 						<div :class="{error: validation.hasError('timeTo')}">
 							<label><strong>End Time</strong></label>
-							<vue-timepicker format="HH:mm" v-model="timeTo"></vue-timepicker>
+							<vue-timepicker format="hh:mm A" v-model="timeTo"></vue-timepicker>
 						</div>
 						<div class="message" style="color: red;">{{ validation.firstError('timeTo') }}</div>
 					</div>

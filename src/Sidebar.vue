@@ -30,43 +30,42 @@
 					<div id="sidebar-menu" class="sidebar-menu">
 						<ul style="padding-top: 10px;">
 							<li class="active">
-								<a class="fa fa-dashboard"><router-link to="/admin"><span>Dashboard</span></router-link></a>
+								<router-link class="fa fa-dashboard" to="/admin"><span>Dashboard</span></router-link>
 							</li>
 							<li>
-								<a class="fa fa-hospital-o"><router-link to="/admin/departments"><span>Departments</span></router-link></a>
+								<router-link class="fa fa-hospital-o" to="/admin/departments"><span>Departments</span></router-link>
 							</li>
 							<li>
-								<a class="fa fa-user-md"><router-link to="/admin/doctors"><span>Doctors</span></router-link></a>
+								<router-link class="fa fa-user-md" to="/admin/doctors"><span>Doctors</span></router-link>
 							</li>
 							<li>
-								<a class="fa fa-calendar-check-o"><router-link to="/admin/doctors_schedule"><span>Doctor Schedule</span></router-link></a>
+								<router-link class="fa fa-calendar-check-o" to="/admin/doctors_schedule"><span>Doctor Schedule</span></router-link>
 							</li>
 							<li>
-								<a class="fa fa-wheelchair"><router-link to="/admin/receptionist"><span>Receptionist</span></router-link></a>
+								<router-link class="fa fa-wheelchair" to="/admin/receptionist"><span>Receptionist</span></router-link>
 							</li>
 							<li>
-								<a class="fa fa-wheelchair"><router-link to="/admin/patients"><span>Patients</span></router-link></a>
+								<router-link class="fa fa-wheelchair" to="/admin/patients"><span>Patients</span></router-link>
 							</li>
 							<li>
-								<a class="fa fa-calendar"><router-link to="/admin/appointments"><span>Appointments</span></router-link></a>
+								<router-link class="fa fa-calendar" to="/admin/appointments"><span>Appointments</span></router-link>
 							</li>
 							<li>
-								<a class="fa fa-hospital-o"><router-link to="/admin/see_prascriptions"><span>Prescriptions</span></router-link></a>
+								<router-link class="fa fa-hospital-o" to="/admin/see_prascriptions"><span>Prescriptions</span></router-link>
 							</li>
 							<li>
-								<a class="fa fa-hospital-o"><router-link to="/admin/see_reports"><span>Reports</span></router-link></a>
+								<router-link class="fa fa-hospital-o" to="/admin/see_reports"><span>Reports</span></router-link>
 							</li>
 							<li>
-								<a class="fa fa-hospital-o"><router-link to="/admin/payments"><span>Bill Issued</span></router-link></a>
+								<router-link class="fa fa-hospital-o" to="/admin/payments"><span>Bill Issued</span></router-link>
 							</li>
 							<li>
-								<a class="fa fa-list"><router-link to="/admin/report_upload"><span>Report Upload</span></router-link></a>
+								<router-link class="fa fa-list" to="/admin/report_upload"><span>Report Upload</span></router-link>
 							</li>
 							<li class="submenu">
 								<a href="#"><i class="fa fa-user"></i> <span> Ptn's Acnt Summary </span> <span class="menu-arrow"></span></a>
 								<ul style="display: none;">
 									<li><router-link to="/admin/refill_account">Refill Account</router-link></li>
-									<li><router-link to="/admin/expenditure_details">Expenditure History</router-link></li>
 								</ul>
 							</li>
 							<li class="submenu">
@@ -78,7 +77,7 @@
 								</ul>
 							</li>
 							<li>
-								<a class="fa fa-hospital-o"><router-link to="/admin/test_management"><span>Test Management</span></router-link></a>
+								<router-link class="fa fa-hospital-o" to="/admin/test_management"><span>Test Management</span></router-link>
 							</li>
 						</ul>
 					</div>

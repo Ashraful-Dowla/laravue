@@ -16,7 +16,7 @@
                     <div class="form-group" :class="{error: validation.hasError('patient_id')}">
                     	<p><b>Patient ID</b></p>
                         <div class="borderBottom">
-                            <input type="text" v-model="patient_id" class="form-control" placeholder="Patient ID" />
+                            <input type="text" v-model="patient_id" class="form-control" placeholder="Patient ID" disabled/>
                         </div>
                         <div class="message" style="color: red;">{{ validation.firstError('patient_id') }}</div>
                     </div>
@@ -36,68 +36,41 @@
 </template>
 <script>
 	import { apiDomain } from '@/components/Pages/Authentication/config'
-	
-	import SimpleVueValidation from 'simple-vue-validator'
-	const Validator = SimpleVueValidation.Validator
-
-	import Swal from 'sweetalert2'	
-	
-	export default {
-		data () {
-			return {
-				editor_text: '',
+	import SimpleVueValidation from 'simple-vue-validator';
+	const Validator = SimpleVueValidation.Validator;
+	import Swal from 'sweetalert2'
+	export default{
+		data(){
+			return{
 				patient_id: '',
-				id: '2',
+				doctor_id: '',
+				editor_text: '',
+				date: '',
 				isLoading: false,
 				fullPage: true
 			}
 		},
-		created(){
-			const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
-		    this.id = tokenData.id
-		    console.log(this.id)
-		},
 		methods:{
 			sendData(){
+				this.isLoading = true
 				var self = this
-	        	this.$validate()
-	        		.then((response)=>{
-	        			if(response){
-							this.chk()     				
-	        			}
-	        		})
+				this.$http.post(apiDomain + 'api/saveAppointmentInfo',{pt_id: self.patient_id, dr_id: self.doctor_id, pres: self.editor_text})
+					.then(response => {
+						if(response.status == 200){
+							console.log(response)
+							this.$izitoast.success({
+							    title: 'OK',
+							    message: 'Prescription successfully added!',
+							});
+							self.isLoading = false
+						}
+					}).catch((e)=> {
+						console.log(e)
+						self.failedModal()
+						self.isLoading = false
+					})
 			},
-			chk(){
-				var self = this
-				self.send()
-                self.isLoading = true
-			},
-			send(){
-				var self = this
-				this.$http.post(apiDomain + 'api/addPrescription',{
-					patient_id: self.patient_id,
-					editor_text: self.editor_text,
-					id: self.id,
-				}).then((response)=>{
-					console.log(response)
-					self.successModal()
-					self.isLoading = false
-					self.patient_id = ''
-					self.editor_text = ''
-				}).catch((e)=>{
-					console.log(e)
-					self.failedModal()
-					self.isLoading = false
-				})
-			},
-            successModal(){
-                Swal.fire(
-                    'Inserted!',
-                    'Successfully Inserted!',
-                    'success'
-                )
-            },
-            failedModal(){
+			failedModal(){
                 Swal.fire({
                   type: 'error',
                   title: 'Oops...',
@@ -105,7 +78,28 @@
                 })
             }
 		},
-        validators: {
+		created(){
+			this.patient_id = this.$route.params.patient_id
+			this.doctor_id = this.$route.params.doctor_id
+			this.date = this.$route.params.date
+			// console.log(this.patient_id)
+			// console.log(this.date)
+			// console.log(this.doctor_id)
+			var self = this
+			this.$http.post(apiDomain + 'api/getPrescriptionInfo',{pt_id: self.patient_id, dr_id: self.doctor_id})
+				.then(response => {
+					if(response.status == 200){
+						console.log(response)
+						if(response.body.prescription.prescription == null){
+							self.editor_text = ''
+						}
+						else{
+							self.editor_text = response.body.prescription.prescription
+						}
+					}
+				})
+		},
+		validators: {
         	'patient_id': function(value){
         		return Validator.value(value).required();
         	},
@@ -115,8 +109,3 @@
         }
 	}
 </script>
-<style scoped>
-	.borderBottom{
-		border-bottom: 2px solid #0392CE;
-	}
-</style>

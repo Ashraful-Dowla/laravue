@@ -71,7 +71,8 @@
                 isLoading: false,
                 fullPage: true,
                 passwordResetEmail: '',
-                showModal: false
+                showModal: false,
+                error_msg: 'Intrnal Server Error'
 
             }
         },
@@ -181,8 +182,11 @@
                                 }
                             }).catch((e)=>{
                                 console.log(e)
-                                self.failedModal()
-                                self.isLoading = false
+                                if(e.status == 401){
+                                    self.error_msg = "Invalid email or password"
+                                    self.failedModal()
+                                    self.isLoading = false
+                                }
                             })
                         }
                     }).catch((e)=>{
@@ -191,9 +195,7 @@
                 },
             failedModal(){
                 Swal.fire({
-                  type: 'error',
-                  title: 'Oops...',
-                  text: 'Something went wrong! '
+                  text: this.error_msg
               })
             },
             confirmYourEmail(){

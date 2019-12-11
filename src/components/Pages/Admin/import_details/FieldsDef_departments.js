@@ -1,5 +1,10 @@
 export const FieldsDef_departments = [
 		{
+			name:'id',
+			title: 'Department ID',
+			sortField: 'id'
+		},
+		{
 			name:'department_name',
 			title: 'Department Name',
 			sortField: 'department_name'

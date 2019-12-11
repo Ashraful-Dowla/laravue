@@ -6,7 +6,7 @@
             			<h4 class="page-title">Patients</h4>
             		</div>
             		<div class="col-md-5 text-right m-b-20">
-            			<router-link class="ui button positive" to="/admin/patients/add_patients"><i class="plus icon"></i><strong>Add Patient</strong></router-link>
+            			<router-link class="ui button positive" to="/receptionist/patient_listt"><i class="plus icon"></i><strong>Add Patient</strong></router-link>
             		</div>
             	</div>
             	<div class="row">
@@ -192,7 +192,11 @@
 		    	this.$http.post(apiDomain + 'api/deletePatient',{rowID: id})
 		    		.then(response => {
 		    			console.log(response)
-		    			self.successModal()
+		    			// self.successModal()
+		    			this.$izitoast.success({
+                            title: 'OK',
+                            message: 'Successfully Deleted a Patient!',
+                        });
 		    			Vue.nextTick( () => self.$refs.vuetable.refresh() )
 		    		}).catch((e)=>{
 		    			self.failedModal()

@@ -55,7 +55,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-10">
-					<div class="m-t-20 text-center">
+					<div class="m-t-20">
 						<button type="button" class="ui button positive" @click="createDepartment()">Create Department</button>
 					</div>
 				</div>
@@ -121,7 +121,11 @@
 					self.loading = false
 					console.log(response)
 					self.isLoading = false
-					this.successModal()
+					// this.successModal()
+					this.$izitoast.success({
+					    title: 'OK',
+					    message: 'Department successfully added!',
+					});
 					this.$router.push({ name: 'departments'})
 				}).catch((e)=>{
 					if(e.status === 401){

@@ -353,7 +353,7 @@
 </div>
 <div class="row">
     <div class="col-md-10">
-        <div class="m-t-20 text-center">
+        <div class="m-t-20">
             <button type="button" class="ui button positive" @click="editDoctor()">Save Changes</button>
         </div>
     </div>

@@ -106,7 +106,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-10">
-					<div class="m-t-20 text-center">
+					<div class="m-t-20">
 						<button type="button" class="btn  btn-raised btn-success waves-effect">Save Changes</button>
 					</div>
 				</div>

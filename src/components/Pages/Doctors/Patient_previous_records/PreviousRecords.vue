@@ -10,8 +10,8 @@
                         </div>
                          <div class="message" style="color: red;">{{ validation.firstError('patient_id') }}</div>
                         <br>
-						<button style="float: right;" type="button" class="ui button blue waves-effect" v-if="!show" @click="search"><strong>VIEW RECORD</strong></button>
-						<button style="float: right;" type="button" class="ui button red waves-effect" v-if="show" @click="search"><strong>Cancel</strong></button>
+						<button type="button" class="ui button blue waves-effect" v-if="!show" @click="search"><strong>VIEW RECORD</strong></button>
+						<button type="button" class="ui button red waves-effect" v-if="show" @click="search"><strong>Cancel</strong></button>
                     </div>
                 </div>
                 <div class="col-sm-5">

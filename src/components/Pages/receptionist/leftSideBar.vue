@@ -40,8 +40,11 @@
 								<a class="fa fa-money"><router-link to="/receptionist/payment_zone"><span>Payment Zone</span></router-link></a>
 							</li>
 							<li>
-								<a class="fa fa-ambulance"><router-link to="/receptionist/new_patient"><span>Admit New Patient</span></router-link></a>
+								<a class="fa fa-ambulance"><router-link to="/receptionist/patient_list"><span>Patient List</span></router-link></a>
 							</li>
+							<!-- <li>
+								<a class="fa fa-ambulance"><router-link to="/receptionist/new_patient"><span>Admit New Patient</span></router-link></a>
+							</li> -->
 							<li>
 								<a class="fa fa-first-order"><router-link to="/receptionist/orders"><span>Orders</span></router-link></a>
 							</li>

@@ -120,8 +120,8 @@ export default {
     },
     statusCall(value){
       return value === 'online'
-                    ? '<span class="ui green label">Active</span>'
-                    : '<span class="ui red label">Inactive</span>'
+                    ? '<span class="ui green label">Online</span>'
+                    : '<span class="ui red label">Manual</span>'
     },
     onPaginationData (paginationData) {
       this.$refs.pagination.setPaginationData(paginationData)

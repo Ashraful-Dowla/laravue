@@ -26,7 +26,7 @@
                                         </div>
                                         <div class="message" style="color: red;">{{ validation.firstError('recharge_amount') }}</div>
                                     </div>
-                                    <button type="button" @click="func" class="ui button blue waves-effect" style="float: right;">Recharge</button>
+                                    <button type="button" @click="func" class="ui button blue waves-effect">Recharge</button>
                                     </form>
                                 </div>
                             </div>

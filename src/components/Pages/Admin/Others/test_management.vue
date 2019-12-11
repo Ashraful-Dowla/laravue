@@ -298,7 +298,8 @@
 		    		var self = this;
 			    	console.log('xxxx')
 				    self.sendUpdateData()
-				    self.isLoading = true	;
+				    self.isLoading = true;
+				    self.showModal = false
 		    },
 		    sendUpdateData(){
 			        var self = this

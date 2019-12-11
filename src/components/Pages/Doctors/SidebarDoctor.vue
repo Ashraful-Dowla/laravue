@@ -45,7 +45,7 @@
 								<a class="fa fa-hospital-o"><router-link to="/doctor/prescription"><span>Prescription</span></router-link></a>
 							</li>
 							<li>
-								<a class="fa fa-wheelchair"><router-link to="/doctor/patient_previous_records"><span>Patient's Previous Record</span></router-link></a>
+								<a class="fa fa-wheelchair"><router-link to="/doctor/patient_previous_records"><span>Patient Prev Record</span></router-link></a>
 							</li>
 							<li>
 								<a class="fa fa-hospital-o"><router-link to="/doctor/next_appointment"><span>Next Appointment</span></router-link></a>

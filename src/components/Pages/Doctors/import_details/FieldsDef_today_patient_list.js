@@ -1,5 +1,10 @@
 export const FieldsDef_today_patient_list = [
 		{
+			name:'id',
+			title:'Appointment ID',
+			sortField: 'id'
+		},
+		{
 			name:'patient_id',
 			title:'Patient ID',
 			sortField: 'patient_id'

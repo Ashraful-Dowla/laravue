@@ -7,7 +7,7 @@
                         </loading>
                         <div class="row">
                             <div class="col-md-8">
-                                <h4 class="page-title">Register a New Doctor</h4>
+                                <h4 class="page-title">Register a New Receptionist</h4>
                             </div>
                             <div class="col-md-2 text-right m-b-30">
                                 <router-link to="/admin/receptionist"><i class="arrow alternate circle left outline icon"></i>Previous</router-link>
@@ -382,7 +382,8 @@
 </div>
 <div class="row">
     <div class="col-md-10">
-        <div class="m-t-20 text-center">
+        <span><strong style="color: red;">{{errMsg}}</strong></span><br>
+        <div class="m-t-20">
             <button type="button" class="ui button positive" @click="registerReceptionist()">Register</button>
         </div>
     </div>
@@ -409,24 +410,24 @@ export default {
     data () {
         return {
             receptionistInfo: {
-                firstName: '',
-                lastName: '',
-                username: '',
+                firstName: 'Amzad',
+                lastName: 'Hossain',
+                username: 'amzad',
                 email: '',
-                password: '123456',
+                password: '',
                 joiningDate: '',
                 birthday: '',
-                nid_no: '',
+                nid_no: '1000542400789544',
                 nidImage: '',
-                gender: '',
-                address: '',
-                country: '',
-                state: '',
-                city: '',
-                postalCode: '',
+                gender: 'male',
+                address: 'Fozila Monjil, Shah Gorib Ullah,GEC,Chittagong',
+                country: 'Bangladesh',
+                state: 'Chittagong',
+                city: 'Chittagong',
+                postalCode: '4000',
                 phoneNo: '',
                 image: '',
-                status: '',
+                status: '1',
                 AD_id: null
             },
             pass: this.password,
@@ -435,7 +436,8 @@ export default {
             depatrments: [],
             isLoading: false,
             fullPage: true,
-            errorMessage: 'Internal server error. Try again.'
+            errorMessage: 'Internal server error. Try again.',
+            errMsg: ''
         }
     },
     methods: {
@@ -476,13 +478,14 @@ export default {
                         console.log(response)
                         self.successModal()
                         self.isLoading = false
+                        self.$router.push({name: 'receptionist'})
                     }
                 }).catch((e) => {
                     console.log(e)
                     if(e.status === 401){
-                        self.errorMessage = "Email or NID no already taken."
+                        self.errMsg = "Email or NID no already taken."
                         self.isLoading = false
-                        self.failedModal()
+                        // self.failedModal()
                     }
                     else {
                         self.failedModal()

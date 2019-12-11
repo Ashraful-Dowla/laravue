@@ -54,6 +54,7 @@ import PatientPreviousRecords from '@/components/Pages/Doctors/Patient_previous_
 import SeeDoctorList from '@/components/Pages/Doctors/See_Doctors_List/See_Doctor_List'
 import SeeAllPatientList from '@/components/Pages/Doctors/Patient_list/See_All_Patient_List'
 import Prescription from '@/components/Pages/Doctors/Prescription/Prescription'
+import TodayPatientPrescription from '@/components/Pages/Doctors/Prescription/Todays_patient_prescription'
 import NextAppointment from '@/components/Pages/Doctors/NextAppointment/Next_Appointment'
 import DocDoctorProfile from '@/components/Pages/Doctors/Profile/Doctor_Profile'
 import EditDocDoctorProfile from '@/components/Pages/Doctors/Profile/Edit_Doctor_Profile'
@@ -88,6 +89,7 @@ import DashboardReceptionist from '@/components/Pages/receptionist/Dashboard'
 import TestIssue from '@/components/Pages/receptionist/test_issue'
 import PaymentZone from '@/components/Pages/receptionist/payment_zone'
 import OldPatient from '@/components/Pages/receptionist/old_patient'
+import PatientList from '@/components/Pages/receptionist/patient_list'
 import NewPatient from '@/components/Pages/receptionist/new_patient'
 import ProceedToPayment from '@/components/Pages/receptionist/proceed_to_payment'
 import Orders from '@/components/Pages/receptionist/orders'
@@ -279,6 +281,7 @@ export default new Router({
 
             /*=============Prescription============*/
             {path: '/doctor/prescription', component: Prescription,name: 'prescription',meta: {requiresAuth: true}},
+            {path: '/doctor/todays_patient_prescription/:date/:patient_id/:doctor_id', component: TodayPatientPrescription,name: 'todays_patient_prescription',meta: {requiresAuth: true}},
 
             /*=============Next Appointment============*/
             {path: '/doctor/next_appointment', component: NextAppointment,name: 'next_appointment',meta: {requiresAuth: true}},
@@ -409,6 +412,12 @@ export default new Router({
                 path: 'old_patient',
                 name: 'OldPatient',
                 component: OldPatient,
+                meta: {requiresAuth: true}
+            },
+            {
+                path: 'patient_list',
+                name: 'PatientList',
+                component: PatientList,
                 meta: {requiresAuth: true}
             },
             {

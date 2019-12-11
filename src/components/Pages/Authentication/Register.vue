@@ -352,7 +352,7 @@
             		<div class="form-group">
             			<div class="borderBottom" :class="{error: validation.hasError('patient.phoneNumber')}">
             				<input type="text" class="form-control" placeholder="PHONE NUMBER" v-model="patient.phoneNumber"/>
-            			</div><br>
+            			</div>              
                         <span>Ex: 018xxxxxx,88014xxxxxx,0088013xxxxxx,+88018xxxxxx</span>
             			<div class="message" style="color: red;">{{ validation.firstError('patient.phoneNumber') }}</div>
             		</div>
@@ -386,7 +386,8 @@
             </div>
             <div class="row">
             	<div class="col-md-10">
-            		<div class="m-t-20 text-center">
+                    <span><strong style="color: red;">{{errMsg}}</strong></span><br>
+            		<div class="m-t-20">
             			<button type="button" class="btn  btn-raised btn-success waves-effect" @click="signUp">Register Patient</button>
             		</div>
             	</div>
@@ -412,23 +413,23 @@ export default {
  data() {
      return {
         patient: {
-           firstName: '',
-           lastName: '',
+           firstName: 'Kamrul',
+           lastName: 'Hasan',
            email: '',
-           userName: '',
+           userName: 'kamrul',
            password: '',
            admissionDate: '',
            birthday: '',
-           gender: '',
-           address: ' ',
-           country: 'Select Country',
-           state: '',
-           city: '',
-           postalCode: '',
-           phoneNumber: '',
-           nid_no: '',
+           gender: 'male',
+           address: 'Fozila Monjil, Shah Gorib Ullah,GEC,Chittagong',
+           country: 'Bangladesh',
+           state: 'Chittagong',
+           city: 'Chittagong',
+           postalCode: '4000',
+           phoneNumber: '01856778655',
+           nid_no: '104578/60042178',
            nid_image: null,
-           status: '',
+           status: '1',
            id: null
        },
        pass: this.password,
@@ -436,7 +437,8 @@ export default {
        submitted: false,
        isLoading: false,
        fullPage: true,
-       errorMessage: 'Internal server error. Try again.'
+       errorMessage: 'Internal server error. Try again.',
+       errMsg: ''
    }
 },
 methods: {
@@ -471,13 +473,14 @@ methods: {
                 console.log(response)
                 self.successModal()
                 self.isLoading = false
+                self.$router.push({name: 'login'})
             }
         }).catch((e)=>{
           console.log(e)
           if(e.status === 401){
-            self.errorMessage = "Email or NID no already taken"
+            self.errMsg = "Email or NID no already taken"
             self.isLoading = false
-            self.failedModal()
+            // self.failedModal()
           }
           else{
             self.failedModal()

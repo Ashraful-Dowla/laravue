@@ -1,13 +1,13 @@
 <template>
 	<div id="departments">
 		<div class="page-wrapper">
+			<loading :active.sync="isLoading" 
+	                :can-cancel="true"
+	                :is-full-page="fullPage">
+	            </loading>
 			<div class="content">
 			<div class="container" align="left">
 				<div class="row">
-					<loading :active.sync="isLoading" 
-		                :can-cancel="true"
-		                :is-full-page="fullPage">
-		            </loading>
 					<div class="col-md-7">
 						<h4 class="page-title">Departments</h4>
 					</div>
@@ -156,13 +156,14 @@
 		      	 updated_by:'',
 		      	 update_id:''
 		      },
+		      err_msg: 'Internal server error. Try again'
 		    }
 		  },
 		  created(){
 		  	 var self = this
 		     const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
 		     this.modalForm.updated_by = tokenData.id
-		     //console.log(this.modalForm.updated_by)
+		     // console.log(this.modalForm.updated_by)
 		  },
 		  methods: {
 		  	statusCall(value){
@@ -208,27 +209,14 @@
 		    },
 		    updateData(){
 		    	var self = this;
-			    	Swal.fire({
-				              title: 'Are you sure?',
-				              text: "You won't be able to revert this!",
-				              type: 'warning',
-				              showCancelButton: true,
-				              confirmButtonColor: '#3085d6',
-				              cancelButtonColor: '#d33',
-				              confirmButtonText: 'Are you sure?'
-				            }).then((result) => {
-				              if (result.value) {
-				              	//console.log('xxxx')
-				                self.sendUpdateData()
-				                self.isLoading = true	
-				              }
-				         });
+		    	self.sendUpdateData()
+				self.isLoading = true
+				self.showModal = false
 		    },
 		    sendUpdateData(){
 			        var self = this
-			        this.modalForm.updated_by= this.id
+			        // this.modalForm.updated_by= this.id
 			    	this.$http.post(apiDomain+'api/updateDepartmentData',{
-
 			    		department_name: self.modalForm.updated_department_name,
 			    		description: self.modalForm.updated_description,
 			    		status: self.modalForm.updated_status,
@@ -236,9 +224,11 @@
 			    		updated_by: self.modalForm.updated_by
 
 			    	}).then((response)=>{
-
-			    		this.successUpdatedModal()
-			    		//console.log('x'+self.modalForm.updated_by)
+			    		console.log(response)
+			    		this.$izitoast.success({
+						    title: 'OK',
+						    message: 'Successfully Updated!',
+						});
 			    		this.showModal = false
 			    		self.isLoading = false
 			    		Vue.nextTick( () => this.$refs.vuetable.refresh() )
@@ -246,10 +236,26 @@
 			    	}).catch((e)=>{
 
 			    		console.log(e)
-			    		this.failedModal()
-			    		this.showModal = false
-			    		self.isLoading = false
-			    		Vue.nextTick( () => this.$refs.vuetable.refresh() )
+			    		if(e.status == 401){
+			    			self.err_msg = 'A department with this name already exist'
+			    // 			this.$izitoast.error({
+							//     title: 'error',
+							//     message: self.err_msg
+							// });
+							self.failedModal()
+			    			this.showModal = false
+				    		self.isLoading = false
+				    		Vue.nextTick( () => this.$refs.vuetable.refresh() )
+			    		}else {
+			    			this.failedModal()
+			    // 			this.$izitoast.error({
+							//     title: 'error',
+							//     message: self.err_msg
+							// });
+				    		this.showModal = false
+				    		self.isLoading = false
+				    		Vue.nextTick( () => this.$refs.vuetable.refresh() )
+			    		}
 			    	})
 		    },
 		    successUpdatedModal(){
@@ -263,7 +269,7 @@
 		    	Swal.fire({
 				  type: 'error',
 				  title: 'Oops...',
-				  text: 'Internal server error. Try again.'
+				  text: this.err_msg
 				})
 		    },
 		    deleteData(deleteId){
